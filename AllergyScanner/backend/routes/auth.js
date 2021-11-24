@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // server side validation
 const { check, validationResult } = require("express-validator");
+const User = require("../models/User");
 
 //Secret key stored on the server
 var jwtSecret = "secrettoken";
@@ -68,5 +69,19 @@ router.post("/", [
             res.status(500).send("Server error");
         }
     })
+
+// @route   GET /users/auth
+// @desc    Loading user
+// @access  Private
+router.get("/auth", async (req, res) => {
+    try {
+        // gets user by token
+        const user = await User.findById(req.user.id).select("-password");
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
 
     module.exports = router;
