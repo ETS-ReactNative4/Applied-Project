@@ -1,143 +1,95 @@
 const express = require("express");
 const router = express.Router();
+// mongoose user model
+const User = require('../models/User')
 // for hashing password
 const bcrypt = require("bcryptjs");
-// method to allow authentication
-const jwt = require("jsonwebtoken");
-// server side validation
-const { check, validationResult } = require("express-validator");
-const User = require("../models/User");
-const auth = require("../middleware/auth");
 
-//Secret key stored on the server
-var jwtSecret = "secrettoken";
-
-// @route   POST /users
-// @desc    Registering user
-// @access  Public
-router.post("/", [
-    // Validations of what user enters
-    check("name", "Name is required").not().isEmpty(),
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Please enter password with 6 or more characters").isLength({ min: 6 }),
-],
-    async (req, res) => {
-        //Validate request
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            // displays errors
-            return res.status(400).json({ errors: errors.array() });
-          
-        }
-
-        const { name, email, password } = req.body;
-
-        try {
-            // Check if user exists
-            let user = await User.findOne({ email });
-
-            if (user) {
-                res.status(400).json({ errors: [{ msg: "User already exists" }] });
-               
+// Sign Up
+router.post('/signup', (req,res) => {
+    let { name, email, password } = req.body;
+    
+    // removes whitespace
+    name = name.trim();
+    email = email.trim();
+    password = password.trim();
+    
+    // checks to see if variables are empty
+    if(name == "" || email == "" || password == ""){
+        // returns a json object
+        res.json({
+            status: "FAILED",
+            message: "Empty input fields!"
+        });
+        // check the format of name using regular expression
+    } else if (!/^[a-zA-Z]*$/.test(name)){
+        res.json({
+            status: "FAILED",
+            message: "Invalid name entered"
+        });
+        // check the format of email using regular expression
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
+        res.json({
+            status: "FAILED",
+            message: "Invalid email entered"
+        });
+       // checks the length of password 
+    } else if (password.length < 7){
+        res.json({
+            status: "FAILED",
+            message: "Password is too short!"
+        });
+    } else {
+        // checks if user already exists 
+        User.find({email}).then(result => {
+            if(result.length){
+                // a user already exists
+                res.json({
+                    status: "FAILED",
+                    message: "User with the provided email already exists!"
+                });
+            } else {
+                // try to create new user 
+                // password handling
+                const saltRounds = 10;
+                // returns a promise with hashed password
+                bcrypt.hash(password, saltRounds).then(hashedPassword => {
+                    // create new user
+                    const newUser = new User({
+                        name, email, password: hashedPassword
+                    });
+                    // saves the user
+                    newUser.save().then(result => {
+                        // returns a successful message
+                        res.json({
+                            status: "SUCCESS",
+                            message: "Sign Up successful!",
+                            data: result,
+                        });
+                    }).catch(err => {
+                        res.json({
+                            status: "FAILED",
+                            message: "An error occurred while saving user"
+                        });
+                    })
+                }).catch(err => {
+                    res.json({
+                        status: "FAILED",
+                        message: "An error occured while hashing password"
+                    });
+                })
             }
-            // create new user
-            user = new User({
-                name,
-                email,
-                password,
+        }).catch(err => {
+            console.log(err);
+            res.json({
+                status: "FAILED",
+                message: "An error occurred while checking for existing user!"
             });
-
-            //Encrypt Password
-            const salt = await bcrypt.genSalt(10);
-
-            user.password = await bcrypt.hash(password, salt);
-
-            await user.save();
-
-            //Return jsonwebtoken
-            const payload = {
-                user: {
-                    id: user.id,
-                },
-            };
-
-            jwt.sign(payload, jwtSecret, { expiresIn: 360000 }, (err, token) => {
-                if (err) throw err;
-                res.json({ token });
-            });
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send("Server error");
-        }
-    })
-
-// @route   GET /users/auth
-// @desc    Loading user
-// @access  Private
-router.get("/auth", auth,async (req, res) => {
-    try {
-        // gets user by token
-        const user = await User.findById(req.user.id).select("-password");
-        res.json(user);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Error");
+        })
     }
-});
 
-// @route   POST /users/auth
-// @desc    Authentication user and Login user
-// @access  Public
-router.post(
-	"/auth",
-	[
-        // validations for logging in
-		check("email", "Please include a valid email").isEmail(),
-		check("password", "Password is required").exists(),
-	],
-	async (req, res) => {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-            //displays errors
-			return res.status(400).json({ errors: errors.array() });
-		}
+})
 
-		const { email, password } = req.body;
 
-		try {
-			// See if user exists
-			let user = await User.findOne({ email });
-            // if no user
-			if (!user) {
-				return res
-					.status(400)
-					.json({ errors: [{ msg: "Invalid Credentials" }] });
-			}
-            // compares passwords 
-			const isMatch = await bcrypt.compare(password, user.password);
-            // if passwords don't match
-			if (!isMatch) {
-				return res
-					.status(400)
-					.json({ errors: [{ msg: "Invalid Credentials" }] });
-			}
 
-			//Return jsonwebtoken
-			const payload = {
-				user: {
-					id: user.id,
-				},
-			};
-
-			jwt.sign(payload, jwtSecret, { expiresIn: "5 days" }, (err, token) => {
-				if (err) throw err;
-				res.json({ token });
-			});
-		} catch (err) {
-			console.error(err.message);
-			res.status(500).send("Server error");
-		}
-	}
-);
-
-    module.exports = router;
+module.exports = router;
