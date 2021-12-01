@@ -11,9 +11,9 @@ const Login = () => {
     <StyledContainer>
         <StatusBar style="dark"/>
         <InnerContainer>
-            <PageLogo resizeMode="cover" source={require('../../assets/allergens.jpg')}/ >
+            <PageLogo resizeMode="cover" source={require('../../assets/allergens.jpg')}/>
             <PageTitle>Allergy Scanner </PageTitle>
-            <PageLogo2 resizeMode="cover" source={require('../../assets/scan.png')}/ >
+            <PageLogo2 resizeMode="cover" source={require('../../assets/scan.png')}/>
             <SubTitle>{"\n"}Account Login</SubTitle>
             <Formik
             // Provide email and password values
@@ -26,7 +26,7 @@ const Login = () => {
             {({handleChange, handleBlur, handleSubmit, values}) => (<StyledFormArea>
                 <MyTextInput
                       label="Email Address"
-                      placeholder="email"
+                      placeholder="Email"
                       onChangeText={handleChange('email')}
                       onBlur={handleBlur('email')}
                       value={values.email}
@@ -75,6 +75,7 @@ const MyTextInput = ({label,...props}) => {
     )
 }
 
-
 export default Login;
+
+
 
