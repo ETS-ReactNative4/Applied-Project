@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
-    StyledTextInput, StyledInputLabel, StyledButton, ButtonText} from '../components/Styles';
+    StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
+ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2} from '../components/Styles';
 import {StatusBar} from 'expo-status-bar';
 import {Formik} from 'formik'
 import {View} from 'react-native'
@@ -10,9 +11,10 @@ const Login = () => {
     <StyledContainer>
         <StatusBar style="dark"/>
         <InnerContainer>
-            <PageLogo resizeMode="cover" source={require('../../assets/allergens.jpg')}/>
-            <PageTitle>Allergy Scanner</PageTitle>
-            <SubTitle>Account Login</SubTitle>
+            <PageLogo resizeMode="cover" source={require('../../assets/allergens.jpg')}/ >
+            <PageTitle>Allergy Scanner </PageTitle>
+            <PageLogo2 resizeMode="cover" source={require('../../assets/scan.png')}/ >
+            <SubTitle>{"\n"}Account Login</SubTitle>
             <Formik
             // Provide email and password values
             initialValues={{email: '', password: ''}}
@@ -39,11 +41,22 @@ const Login = () => {
                       value={values.password}
                       secureTextEntry={true}
                       />
+                      <MessageBox>...</MessageBox>
                      <StyledButton onPress={handleSubmit}>
                          <ButtonText>
                              Login
                          </ButtonText>
                      </StyledButton>
+                     <ExtraView>
+                          <ExtraText>
+                              Don't Have an account?...
+                          </ExtraText>
+                          <TextLink>
+                              <TextLinkContent>
+                                  Sign Up
+                              </TextLinkContent>
+                          </TextLink>
+                      </ExtraView>
             </StyledFormArea>)}
             </Formik>
         </InnerContainer>
@@ -52,7 +65,6 @@ const Login = () => {
     );
 }
 
-// create input field component
 const MyTextInput = ({label,...props}) => {
     return(
         <View>
