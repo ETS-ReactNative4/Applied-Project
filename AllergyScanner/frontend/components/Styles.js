@@ -41,8 +41,8 @@ width: 90%;
 `
 
 export const StyledTextInput = styled.TextInput`
-
-
+background-color: #E5E7EB;
+padding-left: 30px;
 border-radius: 5px;
 font-size: 16px;
 height: 60px;
@@ -53,4 +53,19 @@ margin-bottom: 10px;
 export const StyledInputLabel = styled.Text`
 font-size: 13px;
 text-align: left;
+`
+
+export const StyledButton = styled.TouchableOpacity`
+padding: 15px;
+background-color: #2B65EC;
+justify-content: center;
+align-items: center;
+border-radius: 5px;
+margin-vertical: 5px;
+height: 60px;
+`
+
+export const ButtonText= styled.Text`
+color: #ffffff;
+font-size: 16px;
 `

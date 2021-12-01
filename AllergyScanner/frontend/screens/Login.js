@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
-    StyledTextInput, StyledInputLabel} from '../components/Styles';
+    StyledTextInput, StyledInputLabel, StyledButton, ButtonText} from '../components/Styles';
 import {StatusBar} from 'expo-status-bar';
 import {Formik} from 'formik'
 import {View} from 'react-native'
@@ -37,9 +37,13 @@ const Login = () => {
                       onChangeText={handleChange('password')}
                       onBlur={handleBlur('password')}
                       value={values.password}
-                      
+                      secureTextEntry={true}
                       />
-
+                     <StyledButton onPress={handleSubmit}>
+                         <ButtonText>
+                             Login
+                         </ButtonText>
+                     </StyledButton>
             </StyledFormArea>)}
             </Formik>
         </InnerContainer>
