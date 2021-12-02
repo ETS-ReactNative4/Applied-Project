@@ -1,4 +1,4 @@
-import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants'
 import styled from 'styled-components/native';
 
@@ -11,10 +11,34 @@ padding-top: ${StatusBarHeight + 10}px;
 background-color: #C9DFEC
 `
 
+
+export const Avatar = styled.Image`
+height: 100px;
+width: 100px;
+margin: auto;
+border-radius: 50px;
+border-width: 2px;
+border-color: #E5E7EB;
+margin-bottom: 10px;
+margin-top: 10px;
+`
+
+export const DashboardImage = styled.Image`
+height: 50%
+min-width: 100%;
+`
+
 export const InnerContainer = styled.View`
 flex: 1;
 width: 100%;
 align-items: center;
+`
+
+export const DashboardContainer = styled(InnerContainer)`
+padding: 25px;
+padding-top: 10px;
+justify-content: center;
+background-color: #C9DFEC;
 `
 
 export const PageLogo = styled.Image`
@@ -32,6 +56,11 @@ font-size: 40px;
 text-align: center;
 font-weight: bold;
 padding: 10px;
+
+${(props) =>
+        props.welcome && `
+    font-size: 35px;
+`}
 `
 
 export const SubTitle = styled.Text`
@@ -39,6 +68,12 @@ font-size: 18px;
 margin-bottom: 20px;
 font-weight: bold;
 letter-spacing: 1px;
+
+${(props) =>
+        props.welcome && `
+    margin-bottom: 5px;
+    font-weight: normal
+`}
 `
 
 export const StyledFormArea = styled.View`
@@ -68,12 +103,12 @@ borderRadius: 10px;
 alignItems: center;
 `
 
-export const ButtonText= styled.Text`
+export const ButtonText = styled.Text`
 color: #ffffff;
 font-size: 16px;
 `
 
-export const MessageBox= styled.Text`
+export const MessageBox = styled.Text`
 text-align: center;
 font-size: 13px;
 `
