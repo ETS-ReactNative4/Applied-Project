@@ -1,12 +1,9 @@
 import React from 'react';
-
-//screens
-import Login from './frontend/screens/Login'
-import SignUp from './frontend/screens/SignUp'
-import Dashboard from './frontend/screens/Dashboard'
+// navigation
+import RootStack from './frontend/navigators/RootStack';
 
 export default function App() {
-  return <Login />
+  return <RootStack />
 }
 
 
