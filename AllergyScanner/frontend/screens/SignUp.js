@@ -7,9 +7,11 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
 import { View } from 'react-native'
+import KeyboardWrapper from '../components/KeyboardWrapper';
 
 const SignUp = () => {
   return (
+    <KeyboardWrapper>
     <StyledContainer>
       <StatusBar style="dark" />
       <InnerContainer>
@@ -80,7 +82,7 @@ const SignUp = () => {
         </Formik>
       </InnerContainer>
     </StyledContainer>
-
+    </KeyboardWrapper>
   );
 }
 

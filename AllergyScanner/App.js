@@ -6,7 +6,7 @@ import SignUp from './frontend/screens/SignUp'
 import Dashboard from './frontend/screens/Dashboard'
 
 export default function App() {
-  return <Dashboard />
+  return <Login />
 }
 
 

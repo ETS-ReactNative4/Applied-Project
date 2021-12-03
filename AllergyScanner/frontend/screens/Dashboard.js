@@ -4,7 +4,6 @@ import {
     StyledButton, ButtonText, Avatar, Line
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native'
 
 const Dashboard = () => {
     return (
