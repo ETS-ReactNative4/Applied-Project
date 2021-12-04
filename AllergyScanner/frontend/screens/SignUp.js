@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
   StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
@@ -6,10 +6,45 @@ import {
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
-import { View } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
+import axios from 'axios';
 
 const SignUp = ({navigation}) => {
+
+   // using a state variable to store the message 
+   const[message, setMessage] = useState();
+   // state to monitor type of message 
+   const[messageType, setMessageType] = useState();
+
+   // method to handle login
+   const handleSignup = (credentials, setSubmitting) => {
+       handleMessage(null);
+       const url = 'http://192.168.0.30:5000/users/signup';
+
+       axios.post(url, credentials).then((response) => {
+           const result = response.data;
+           const { message, status, data} = result;
+
+           if(status != 'SUCCESS'){
+               handleMessage(message, status);
+           } else {
+               navigation.navigate('Dashboard', {...data})
+           }
+           setSubmitting(false);
+       })
+       .catch(error => {
+           console.log(error.JSON());
+           setSubmitting(false);
+           handleMessage("An error occurred. Check your network and try again.")
+       })
+   }
+
+   const handleMessage = (message, type = 'FAILED') => {
+       setMessage(message);
+       setMessageType(type)
+   };
+
   return (
     <KeyboardWrapper>
     <StyledContainer>
@@ -22,12 +57,20 @@ const SignUp = ({navigation}) => {
           // Provide email and password values
           initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
           // on submit property that takes in values parameter
-          onSubmit={(values) => {
-            console.log(values);
-            navigation.navigate("Dashboard");
+          onSubmit={(values, {setSubmitting}) => {
+            if(values.name == '' || values.email == '' || values.password == '' || values.confirmPassword == ''){
+              handleMessage('Please fill all the fields');
+              setSubmitting(false);
+
+          }  else if (values.password !== values.confirmPassword) {
+            handleMessage('Passwords do not match!');
+            setSubmitting(false);
+        } else {
+              handleSignup(values, setSubmitting);
+          }
           }}
         >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
+          {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (<StyledFormArea>
             <MyTextInput
               label="Name"
               placeholder="Name"
@@ -63,12 +106,15 @@ const SignUp = ({navigation}) => {
               value={values.confirmPassword}
               secureTextEntry={true}
             />
-            <MessageBox>...</MessageBox>
-            <StyledButton onPress={handleSubmit}>
-              <ButtonText>
-                Sign Up
-                         </ButtonText>
-            </StyledButton>
+             <MessageBox type={messageType}>{message}</MessageBox>
+             {!isSubmitting && 
+                      <StyledButton onPress={handleSubmit}>
+                          <ButtonText>Login</ButtonText>
+                      </StyledButton>}
+                      {isSubmitting && 
+                      <StyledButton disabled={true}>
+                          <ActivityIndicator size="large" color='#ffffff'/>
+                      </StyledButton>}
             <ExtraView>
               <ExtraText>
                 Already Have an account?...
