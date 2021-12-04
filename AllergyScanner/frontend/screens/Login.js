@@ -17,7 +17,8 @@ const Login = ({navigation}) => {
     const[messageType, setMessageType] = useState();
 
     // method to handle login
-    const handleLogin = (credentials) => {
+    const handleLogin = (credentials, setSubmitting) => {
+        handleMessage(null);
         const url = 'http://192.168.0.30:5000/users/signin';
 
         axios.post(url, credentials).then((response) => {
@@ -29,10 +30,11 @@ const Login = ({navigation}) => {
             } else {
                 navigation.navigate('Dashboard', {...data[0]})
             }
-            
+            setSubmitting(false);
         })
         .catch(error => {
             console.log(error.JSON());
+            setSubmitting(false);
             handleMessage("An error occurred. Check your network and try again.")
         })
     }
@@ -54,9 +56,14 @@ const Login = ({navigation}) => {
                     // Provide email and password values
                     initialValues={{ email: '', password: '' }}
                     // on submit property that takes in values parameter
-                    onSubmit={(values) => {
-                       console.log(values);
-                       navigation.navigate('Dashboard');
+                    onSubmit={(values, {setSubmitting}) => {
+                        if(values.email == '' || values.password == ''){
+                            handleMessage('Please fill all the fields');
+                            setSubmitting(false);
+    
+                        } else {
+                            handleLogin(values, setSubmitting);
+                        }
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (<StyledFormArea>
@@ -78,10 +85,14 @@ const Login = ({navigation}) => {
                             secureTextEntry={true}
                         />
                         <MessageBox type={messageType}>{message}</MessageBox>
-                     
+                        {!isSubmitting && 
                       <StyledButton onPress={handleSubmit}>
                           <ButtonText>Login</ButtonText>
-                      </StyledButton>
+                      </StyledButton>}
+                      {isSubmitting && 
+                      <StyledButton disabled={true}>
+                          <ActivityIndicator size="large" color='#ffffff'/>
+                      </StyledButton>}
                      
                         <ExtraView>
                             <ExtraText>
