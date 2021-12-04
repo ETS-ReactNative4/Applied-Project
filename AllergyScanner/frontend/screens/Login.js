@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
     StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
     StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
@@ -6,10 +6,41 @@ import {
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
-import { View } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
+import axios from "axios";
 
 const Login = ({navigation}) => {
+    // using a state variable to store the message 
+    const[message, setMessage] = useState();
+    // state to monitor type of message 
+    const[messageType, setMessageType] = useState();
+
+    // method to handle login
+    const handleLogin = (credentials) => {
+        const url = 'http://192.168.0.30:5000/users/signin';
+
+        axios.post(url, credentials).then((response) => {
+            const result = response.data;
+            const { message, status, data} = result;
+
+            if(status != 'SUCCESS'){
+                handleMessage(message, status);
+            } else {
+                navigation.navigate('Dashboard', {...data[0]})
+            }
+            
+        })
+        .catch(error => {
+            console.log(error.JSON());
+            handleMessage("An error occurred. Check your network and try again.")
+        })
+    }
+
+    const handleMessage = (message, type = 'FAILED') => {
+        setMessage(message);
+        setMessageType(type)
+    };
     return (
         <KeyboardWrapper>
         <StyledContainer>
@@ -24,11 +55,11 @@ const Login = ({navigation}) => {
                     initialValues={{ email: '', password: '' }}
                     // on submit property that takes in values parameter
                     onSubmit={(values) => {
-                        console.log(values);
-                        navigation.navigate("Dashboard");
+                       console.log(values);
+                       navigation.navigate('Dashboard');
                     }}
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
+                    {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (<StyledFormArea>
                         <MyTextInput
                             label="Email Address"
                             placeholder="Email"
@@ -46,12 +77,12 @@ const Login = ({navigation}) => {
                             value={values.password}
                             secureTextEntry={true}
                         />
-                        <MessageBox>...</MessageBox>
-                        <StyledButton onPress={handleSubmit}>
-                            <ButtonText>
-                                Login
-                         </ButtonText>
-                        </StyledButton>
+                        <MessageBox type={messageType}>{message}</MessageBox>
+                     
+                      <StyledButton onPress={handleSubmit}>
+                          <ButtonText>Login</ButtonText>
+                      </StyledButton>
+                     
                         <ExtraView>
                             <ExtraText>
                                 Don't Have an account?...

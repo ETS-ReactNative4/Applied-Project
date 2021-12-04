@@ -111,6 +111,7 @@ font-size: 16px;
 export const MessageBox = styled.Text`
 text-align: center;
 font-size: 13px;
+color: ${props => props.type == 'SUCCESS' ? '#10B981' : '#EF4444'};
 `
 
 export const Line = styled.View`
