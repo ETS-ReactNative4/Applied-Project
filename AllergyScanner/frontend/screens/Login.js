@@ -9,7 +9,7 @@ import { Formik } from 'formik'
 import { View } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
 
-const Login = () => {
+const Login = ({navigation}) => {
     return (
         <KeyboardWrapper>
         <StyledContainer>
@@ -25,6 +25,7 @@ const Login = () => {
                     // on submit property that takes in values parameter
                     onSubmit={(values) => {
                         console.log(values);
+                        navigation.navigate("Dashboard");
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
@@ -55,7 +56,7 @@ const Login = () => {
                             <ExtraText>
                                 Don't Have an account?...
                           </ExtraText>
-                            <TextLink>
+                            <TextLink onPress={() => navigation.navigate("SignUp")}>
                                 <TextLinkContent>
                                     Sign Up
                               </TextLinkContent>

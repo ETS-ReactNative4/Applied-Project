@@ -5,7 +5,7 @@ import {
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
     return (
         <>
             <StatusBar style="dark" />
@@ -16,7 +16,7 @@ const Dashboard = () => {
                     <StyledFormArea>
                         <Avatar resizeMode="cover" source={require('../../assets/allergens.jpg')} />
                         <Line />
-                        <StyledButton onPress={() => { }}>
+                        <StyledButton onPress={() => navigation.navigate("Login")}>
                             <ButtonText>
                                 Logout
                          </ButtonText>
