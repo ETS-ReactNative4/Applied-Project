@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
     DashboardImage, DashboardContainer, InnerContainer, PageTitle, SubTitle, StyledFormArea,
     StyledButton, ButtonText, Avatar, Line
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
+// async-storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// credentials context
+import {CredentialsContext} from '../components/CredentialsContext';
 
-const Dashboard = ({navigation, route}) => {
-    const {name,email} = route.params;
+const Dashboard = () => {
+     // context
+     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+     const {name,email} = storedCredentials;
+
+     const clearLogin = () => {
+        AsyncStorage.removeItem('credentials')
+        .then(() => {
+            // sets  the credentials to empty string
+         setStoredCredentials("");
+        }).catch(error => console.log(error))
+    }
     return (
         <>
             <StatusBar style="dark" />
@@ -18,7 +32,7 @@ const Dashboard = ({navigation, route}) => {
                     <StyledFormArea>
                         <Avatar resizeMode="cover" source={require('../../assets/allergens.jpg')} />
                         <Line />
-                        <StyledButton onPress={() => navigation.navigate("Login")}>
+                        <StyledButton onPress={clearLogin}>
                             <ButtonText>
                                 Logout
                          </ButtonText>

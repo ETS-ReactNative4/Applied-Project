@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useContext} from 'react';
 import {
   StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
   StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
@@ -9,6 +9,10 @@ import { Formik } from 'formik'
 import { View, ActivityIndicator } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
 import axios from 'axios';
+// async-storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// credentials context
+import {CredentialsContext} from '../components/CredentialsContext';
 
 const SignUp = ({navigation}) => {
 
@@ -16,6 +20,8 @@ const SignUp = ({navigation}) => {
    const[message, setMessage] = useState();
    // state to monitor type of message 
    const[messageType, setMessageType] = useState();
+    // context
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
 
    // method to handle login
    const handleSignup = (credentials, setSubmitting) => {
@@ -29,7 +35,7 @@ const SignUp = ({navigation}) => {
            if(status != 'SUCCESS'){
                handleMessage(message, status);
            } else {
-               navigation.navigate('Dashboard', {...data})
+            persistLogin({...data}, message, status);
            }
            setSubmitting(false);
        })
@@ -44,6 +50,18 @@ const SignUp = ({navigation}) => {
        setMessage(message);
        setMessageType(type)
    };
+
+   const persistLogin = (credentials, message, status) => {
+    AsyncStorage.setItem('credentials', JSON.stringify(credentials))
+    .then(() => {
+      handleMessage(message,status);
+      setStoredCredentials(credentials);
+    })
+    .catch((error) => {
+        console.log(error);
+        handleMessage('Persisting login failed');
+    })
+}
 
   return (
     <KeyboardWrapper>
