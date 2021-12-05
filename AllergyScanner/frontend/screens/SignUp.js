@@ -109,7 +109,7 @@ const SignUp = ({navigation}) => {
              <MessageBox type={messageType}>{message}</MessageBox>
              {!isSubmitting && 
                       <StyledButton onPress={handleSubmit}>
-                          <ButtonText>Login</ButtonText>
+                          <ButtonText>Sign Up</ButtonText>
                       </StyledButton>}
                       {isSubmitting && 
                       <StyledButton disabled={true}>
