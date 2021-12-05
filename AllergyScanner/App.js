@@ -4,7 +4,9 @@ import RootStack from './frontend/navigators/RootStack';
 // app loading
 import AppLoading from 'expo-app-loading';
 // async-storage
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// credentials context
+import {CredentialsContext} from './frontend/components/CredentialsContext';
 
 export default function App() {
   // State 
@@ -33,7 +35,10 @@ export default function App() {
     )
   }
     
-  return <RootStack />
+  return (<CredentialsContext.Provider value={{storedCredentials, setStoredCredentials}}>
+    <RootStack/>
+  </CredentialsContext.Provider>
+  )
 }
 
 
