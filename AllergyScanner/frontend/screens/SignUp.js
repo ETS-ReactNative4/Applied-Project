@@ -68,9 +68,10 @@ const SignUp = ({navigation}) => {
     <StyledContainer>
       <StatusBar style="dark" />
       <InnerContainer>
-        <PageTitle>Allergy Scanner{"\n"}</PageTitle>
+     
+        <PageTitle>Allergy Scanner</PageTitle>
         <PageLogo2 resizeMode="cover" source={require('../../assets/scan.png')} />
-        <SubTitle>{"\n"}Account Signup{"\n"}</SubTitle>
+        <SubTitle>{"\n"}Account Signup</SubTitle>
         <Formik
           // Provide email and password values
           initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}

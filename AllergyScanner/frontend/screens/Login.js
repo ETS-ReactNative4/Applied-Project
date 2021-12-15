@@ -68,8 +68,8 @@ const Login = ({navigation}) => {
             <InnerContainer>
                 <PageLogo resizeMode="cover" source={require('../../assets/allergens.jpg')} />
                 <PageTitle>Allergy Scanner </PageTitle>
-                <PageLogo2 resizeMode="cover" source={require('../../assets/scan.png')} />
-                <SubTitle>{"\n"}Account Login</SubTitle>
+                
+                <SubTitle>Account Login</SubTitle>
                 <Formik
                     // Provide email and password values
                     initialValues={{ email: '', password: '' }}

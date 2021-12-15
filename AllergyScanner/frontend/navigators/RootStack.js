@@ -7,7 +7,6 @@ import {CredentialsContext} from '../components/CredentialsContext';
 import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
 import Dashboard from '../screens/Dashboard'
-import PickAllergens from '../screens/PickAllergens'
 
 const Stack = createNativeStackNavigator();
 
@@ -29,12 +28,12 @@ const RootStack = () => {
                         paddingLeft: 20
                     }
                     }}
-                    initialRouteName="PickAllergens">
+                    initialRouteName="Login">
                {storedCredentials ? (
                       <Stack.Screen name="Dashboard" component={Dashboard}/>
                      ) : (
                          <>
-                           <Stack.Screen name="PickAllergens" component={PickAllergens}/>
+                           
                  <Stack.Screen name="Login" component={Login}/>
                  <Stack.Screen name="SignUp" component={SignUp}/>
                 </>
@@ -49,3 +48,6 @@ const RootStack = () => {
 }
 
 export default RootStack;
+
+
+
