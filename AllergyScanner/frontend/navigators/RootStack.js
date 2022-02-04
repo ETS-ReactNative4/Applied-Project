@@ -1,14 +1,21 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, TabActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import {CredentialsContext} from '../components/CredentialsContext';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {View} from 'react-native'
+import { Icon } from 'react-native-elements';
 
 //screens
 import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
 import Dashboard from '../screens/Dashboard'
+import ClearLogin from '../screens/Dashboard'
+import Scan from '../screens/Scan'
+import Favourite from '../screens/Favourite'
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const RootStack = () => {
     return(
@@ -30,7 +37,8 @@ const RootStack = () => {
                     }}
                     initialRouteName="Login">
                {storedCredentials ? (
-                      <Stack.Screen name="Dashboard" component={Dashboard}/>
+                  //<Stack.Screen name="Dashboard" component={Dashboard}/>
+                  <Stack.Screen name="App" component={BottomTab}/>
                      ) : (
                          <>
                            
@@ -44,6 +52,45 @@ const RootStack = () => {
             
         
         </CredentialsContext.Consumer>
+    )
+
+}
+
+const BottomTab = () => {
+    return (
+        <View style={{ flex:1, backgroundColor: 'blue' }}>
+        <Tab.Navigator screenOptions={{headerStyle:
+            {
+               
+                 backgroundColor: '#C9DFEC' 
+            },
+            }}
+            labeled={false} barStyle={{ backgroundColor: 'black' }} 
+           >
+            <Tab.Screen name="Dashboard" 
+            options={{
+                
+              tabBarLabel: 'Home',
+              tabBarIcon: () => <Icon name="home" type="material" />
+            }}  component={Dashboard}/>
+            <Tab.Screen name="Favourite"
+            options={{
+              tabBarLabel: 'Favourite',
+              tabBarIcon: () => <Icon name="favorite" type="material" />
+            }}  component={Favourite}/>
+            <Tab.Screen  name="Scan"
+            options={{
+              tabBarLabel: 'Scanner',
+              tabBarIcon: () => <Icon name="barcode-scan" type="material-community" />
+            }} component={Scan}/>
+            <Tab.Screen name="Logout" 
+            options={{
+                
+              tabBarLabel: 'Logout',
+              tabBarIcon: () => <Icon name="logout" type="material" />
+            }}  component={Dashboard} />
+        </Tab.Navigator>
+        </View>
     )
 }
 

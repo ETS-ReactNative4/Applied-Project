@@ -27,6 +27,7 @@ const SignUp = ({navigation}) => {
    const handleSignup = (credentials, setSubmitting) => {
        handleMessage(null);
        const url = 'http://192.168.0.30:5000/users/signup';
+      
 
        axios.post(url, credentials).then((response) => {
            const result = response.data;
