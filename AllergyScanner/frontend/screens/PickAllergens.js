@@ -125,9 +125,14 @@ const allergens = () => {
 
 const [allergens, setAllergens] = useState(initialAllergens);
 
+// clear all todos
+const handleClearAllergens = () => {
+        setAllergens([]);
+  };
+
     return (
         <Container>
-        <Header/>
+        <Header handleClearAllergens={handleClearAllergens}/>
         <ListAllAllergenItems allergens={allergens} setAllergens={setAllergens}/>
         </Container>
     )

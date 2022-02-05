@@ -11,11 +11,11 @@ import {
 // Icons
 import { Entypo } from "@expo/vector-icons";
 
-const Header = () => {
+const Header = ({handleClearAllergens}) => {
   return (
     <HeaderView>
       <HeaderTitle>Allergens</HeaderTitle>
-      <HeaderButton>
+      <HeaderButton onPress={handleClearAllergens}>
         <Entypo name="trash" size={25}  />
       </HeaderButton>
     </HeaderView>
