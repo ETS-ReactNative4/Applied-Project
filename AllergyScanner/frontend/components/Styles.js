@@ -10,6 +10,7 @@ export const colors = {
     secondary: "#4D3636",
     tertiary: "#E6E6E6",
     alternative: "#999999",
+   
   };
   
 
@@ -181,4 +182,46 @@ export const HeaderTitle = styled.Text`
 export const HeaderButton = styled.TouchableOpacity`
   font-weight: bold;
   color: ${colors.tertiary};
+`;
+
+export const ListView = styled.TouchableHighlight`
+  background-color: ${colors.alternative};
+  min-height: 85px;
+  width: 100%;
+  padding: 15px;
+  justify-content: space-around;
+  margin-bottom: 15px;
+  border-radius: 10px;
+`;
+
+export const ListViewHidden = styled.View`
+  background-color: ${colors.tertiary};
+  min-height: 85px;
+  width: 100%;
+  padding: 15px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  border-radius: 11px;
+`;
+
+export const HiddenButton = styled.TouchableOpacity`
+  width: 55px;
+  align-items: center;
+`;
+
+export const TodoText = styled.Text`
+  font-size: 16px;
+  padding-horizontal: 10px;
+  letter-spacing: 1px;
+  color: ${colors.tertiary};
+  text-align: center;
+`;
+
+
+// Text for swiped todo row
+export const SwipedTodoText = styled(TodoText)`
+  color: ${colors.alternative};
+  font-style: italic;
+ 
 `;

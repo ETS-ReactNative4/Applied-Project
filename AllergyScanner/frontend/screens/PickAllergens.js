@@ -97,18 +97,38 @@ export default PickAllergens;
 */
 
 import Header from '../components/Header'
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Container, DashboardContainer, InnerContainer, PageTitle, SubTitle, StyledFormArea,
     StyledButton, ButtonText, Avatar, Line, AllergyButtons, StyledContainer
 } from '../components/Styles';
 
 import {Text} from 'react-native'
+import ListAllAllergenItems from '../components/ListAllergenItems'
 
 const allergens = () => {
+    
+
+    const initialAllergens = [{
+        title: "Eggs",
+        key: "1"
+    },
+    {
+        title: "Nuts",
+        key: "2"
+    },
+    {
+        title: "Fish",
+        key: "3"
+    }
+]
+
+const [allergens, setAllergens] = useState(initialAllergens);
+
     return (
         <Container>
         <Header/>
+        <ListAllAllergenItems allergens={allergens} setAllergens={setAllergens}/>
         </Container>
     )
 }
