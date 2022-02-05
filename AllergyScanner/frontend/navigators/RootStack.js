@@ -10,9 +10,10 @@ import { Icon } from 'react-native-elements';
 import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
 import Dashboard from '../screens/Dashboard'
-import ClearLogin from '../screens/Dashboard'
+import PickAllergens from '../screens/PickAllergens'
 import Scan from '../screens/Scan'
 import Favourite from '../screens/Favourite'
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -64,15 +65,17 @@ const BottomTab = () => {
                
                  backgroundColor: '#C9DFEC' 
             },
+            tabBarStyle:{backgroundColor: 'lightblue'}
             }}
-            labeled={false} barStyle={{ backgroundColor: 'black' }} 
+           
            >
             <Tab.Screen name="Dashboard" 
             options={{
                 
               tabBarLabel: 'Home',
+             
               tabBarIcon: () => <Icon name="home" type="material" />
-            }}  component={Dashboard}/>
+            }}  component={PickAllergens}/>
             <Tab.Screen name="Favourite"
             options={{
               tabBarLabel: 'Favourite',

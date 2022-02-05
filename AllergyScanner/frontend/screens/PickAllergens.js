@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, StatusBar } from 'react-native';
 
 const PickAllergens = () => {
@@ -93,3 +93,24 @@ const styles = StyleSheet.create({
 })
 
 export default PickAllergens;
+
+*/
+
+import Header from '../components/Header'
+import React from 'react';
+import {
+    Container, DashboardContainer, InnerContainer, PageTitle, SubTitle, StyledFormArea,
+    StyledButton, ButtonText, Avatar, Line, AllergyButtons, StyledContainer
+} from '../components/Styles';
+
+import {Text} from 'react-native'
+
+const allergens = () => {
+    return (
+        <Container>
+        <Header/>
+        </Container>
+    )
+}
+
+export default allergens;

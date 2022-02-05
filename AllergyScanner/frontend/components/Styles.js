@@ -4,10 +4,26 @@ import styled from 'styled-components/native';
 
 const StatusBarHeight = Constants.statusBarHeight;
 
+// Colors
+export const colors = {
+    primary: "#332424",
+    secondary: "#4D3636",
+    tertiary: "#E6E6E6",
+    alternative: "#999999",
+  };
+  
+
 export const StyledContainer = styled.View`
 flex: 1;
 padding: 25px;
 padding-top: ${StatusBarHeight + 30}px;
+background-color: #C9DFEC
+`
+
+export const Container = styled.View`
+flex: 1;
+padding: 25px;
+
 background-color: #C9DFEC
 `
 
@@ -143,3 +159,26 @@ export const TextLinkContent = styled.Text`
 font-size: 15px;
 color: #2B65EC;
 `
+
+
+export const HeaderView = styled.View`
+  padding-vertical: 10px;
+  padding-horizontal: 10px;
+  margin-bottom: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+`;
+
+export const HeaderTitle = styled.Text`
+  font-size: 35px;
+  font-weight: bold;
+  
+  letter-spacing: 2px;
+  font-style: italic;
+`;
+export const HeaderButton = styled.TouchableOpacity`
+  font-weight: bold;
+  color: ${colors.tertiary};
+`;
