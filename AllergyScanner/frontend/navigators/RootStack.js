@@ -69,7 +69,7 @@ const BottomTab = () => {
             }}
            
            >
-            <Tab.Screen name="Dashboard" 
+            <Tab.Screen name="Home" 
             options={{
                 
               tabBarLabel: 'Home',

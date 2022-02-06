@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import {CredentialsContext} from './frontend/components/CredentialsContext';
 
+
 export default function App() {
   // State 
   const [appReady, setAppReady] = useState(false);
