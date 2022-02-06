@@ -105,9 +105,12 @@ import {
 
 import {Text} from 'react-native'
 import ListAllAllergenItems from '../components/ListAllergenItems'
+import InputModal from "../components/InputModal";
 
 const allergens = () => {
-    
+     // Modal visibility & input value
+  const [modalVisible, setModalVisible] = useState(false);
+  const [allergenInputValue, setAllergenInputValue] = useState();
 
     const initialAllergens = [{
         title: "Eggs",
@@ -134,6 +137,10 @@ const handleClearAllergens = () => {
         <Container>
         <Header handleClearAllergens={handleClearAllergens}/>
         <ListAllAllergenItems allergens={allergens} setAllergens={setAllergens}/>
+        <InputModal allergenInputValue={allergenInputValue}
+        setAllergenInputValue={setAllergenInputValue}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}/>
         </Container>
     )
 }

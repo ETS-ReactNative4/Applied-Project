@@ -225,3 +225,40 @@ export const SwipedTodoText = styled(TodoText)`
   font-style: italic;
  
 `;
+
+export const ModalButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  background-color: ${colors.tertiary};
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  position: absolute;
+  right: 85px;
+  top: 40px;
+`;
+
+export const ModalContainer = styled.View`
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: ${colors.primary};
+`;
+
+export const StyledInput = styled.TextInput`
+  width: 300px;
+  height: 50px;
+  background-color: ${colors.tertiary};
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  color: ${colors.secondary};
+  letter-spacing: 1px;
+`;
+
+export const ModalIcon = styled.View`
+  align-items: center;
+  margin-bottom: 30px;
+`;
