@@ -262,3 +262,26 @@ export const ModalIcon = styled.View`
   align-items: center;
   margin-bottom: 30px;
 `;
+
+export const ModalActionGroup = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 30px;
+`;
+
+export const ModalAction = styled.TouchableOpacity`
+  width: 60px;
+  height: 60px;
+  background-color: ${(props) => props.color};
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+`;
+
+export const ModalView = styled.View`
+  background-color: ${colors.secondary};
+  border-radius: 20px;
+  padding: 35px;
+  bottom: 60px;
+`;

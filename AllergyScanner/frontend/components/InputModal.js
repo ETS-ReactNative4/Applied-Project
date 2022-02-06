@@ -13,6 +13,7 @@ import {
 } from "./Styles";
 
 import { AntDesign } from "@expo/vector-icons";
+import KeyboardWrapper from './KeyboardWrapper';
 
 
 const InputModal = ({modalVisible,
@@ -23,11 +24,12 @@ const InputModal = ({modalVisible,
           };
 
           const handleSubmit = () => {
-
+alert("Submitted!")
           }
         
     return(
         <>
+       
         <ModalButton onPress={() => setModalVisible(true)}>
         <AntDesign name="plus" size={30} color={colors.secondary} />
         </ModalButton>
@@ -38,11 +40,11 @@ const InputModal = ({modalVisible,
         visible={modalVisible}
         onRequestClose={handleCloseModal}
       >
-
+ 
       <ModalContainer>
+          <ModalView>
             <ModalIcon>
-             
-              <AntDesign name="edit" size={30} color={colors.tertiary} />
+            <HeaderTitle>Allergens</HeaderTitle>
             </ModalIcon>
 
             <StyledInput
@@ -53,8 +55,19 @@ const InputModal = ({modalVisible,
              value={allergenInputValue}
              autoFocus={true}
              onSubmitEditing={handleSubmit}/>
+
+              <ModalActionGroup>
+              <ModalAction onPress={handleCloseModal} color={colors.primary}>
+                <AntDesign name="close" size={28} color={colors.tertiary} />
+              </ModalAction>
+              <ModalAction onPress={handleSubmit} color={colors.tertiary}>
+                <AntDesign name="check" size={28} color={colors.secondary} />
+              </ModalAction>
+            </ModalActionGroup>
+            </ModalView>
             </ModalContainer>
             </Modal>
+           
         </>
     );
 }
