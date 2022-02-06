@@ -1,6 +1,5 @@
 /*import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, StatusBar } from 'react-native';
-
 const PickAllergens = () => {
     allergens = [
         { allergen: 'Nuts' },
@@ -13,15 +12,11 @@ const PickAllergens = () => {
         { allergen: 'Treenuts' },
         { allergen: 'Celery' },
     ]
-
     const [data, setData] = useState(allergens);
-
     useEffect(() => {
-
         allergens.map((data, index) => {
             data.isSelected = false;
             return { ...data };
-
         })
         setData(data);
         console.log('array data ==> ', data);
@@ -33,17 +28,14 @@ const PickAllergens = () => {
                 data.isSelected = !data.isSelected;
             }
             return { ...data }
-
         })
         setData(array);
         console.log("selection handler ==> ", array);
     }
-
     return (
         <View style={styles.container} >
             {
                 data.map((data, index) => {
-
                     return (
                         <View style={styles.radioView} key={index}>
                             <TouchableOpacity
@@ -60,15 +52,11 @@ const PickAllergens = () => {
                             </TouchableOpacity>
                         </View>
                     )
-
                 })
             }
-
         </View>
     )
 }
-
-
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
@@ -80,7 +68,6 @@ const styles = StyleSheet.create({
     radioView: {
         marginTop: 16,
         marginLeft: 16,
-
     },
     radioButton: {
         flexDirection: 'row',
@@ -91,9 +78,7 @@ const styles = StyleSheet.create({
         borderWidth: 1.5
     }
 })
-
 export default PickAllergens;
-
 */
 
 import Header from '../components/Header'
@@ -128,9 +113,16 @@ const allergens = () => {
 
 const [allergens, setAllergens] = useState(initialAllergens);
 
-// clear all todos
+// clear all allergens
 const handleClearAllergens = () => {
         setAllergens([]);
+  };
+
+  // function to add new allergen
+  const handleAddAllergen = (allergen) => {
+    const newAllergens = [...allergens, allergen];
+        setAllergens(newAllergens);
+        setModalVisible(false);
   };
 
     return (
@@ -140,7 +132,9 @@ const handleClearAllergens = () => {
         <InputModal allergenInputValue={allergenInputValue}
         setAllergenInputValue={setAllergenInputValue}
         modalVisible={modalVisible}
-        setModalVisible={setModalVisible}/>
+        setModalVisible={setModalVisible}
+        handleAddAllergen={handleAddAllergen}
+        allergens={allergens}/>
         </Container>
     )
 }

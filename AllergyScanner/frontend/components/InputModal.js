@@ -13,18 +13,26 @@ import {
 } from "./Styles";
 
 import { AntDesign } from "@expo/vector-icons";
-import KeyboardWrapper from './KeyboardWrapper';
 
 
 const InputModal = ({modalVisible,
-    setModalVisible, allergenInputValue,setAllergenInputValue}) => {
+    setModalVisible, allergenInputValue,setAllergenInputValue,  handleAddAllergen,
+allergens}) => {
 
         const handleCloseModal = () => {
             setModalVisible(false);
           };
 
           const handleSubmit = () => {
-alert("Submitted!")
+            handleAddAllergen({
+                title: allergenInputValue,
+                key: `${
+                  (allergens[allergens.length - 1] &&
+                    parseInt(allergens[allergens.length - 1].key) + 1) ||
+                  1
+                }`,
+              });
+              setAllergenInputValue("");
           }
         
     return(

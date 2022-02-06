@@ -210,17 +210,17 @@ export const HiddenButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const TodoText = styled.Text`
+export const AllergenText = styled.Text`
   font-size: 16px;
   padding-horizontal: 10px;
   letter-spacing: 1px;
   color: ${colors.primary};
-  
+  text-align: center;
 `;
 
 
 // Text for swiped todo row
-export const SwipedTodoText = styled(TodoText)`
+export const SwipedAllergenText = styled(AllergenText)`
   color: ${colors.alternative};
   font-style: italic;
  

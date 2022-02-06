@@ -4,10 +4,9 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import {
     ListView,
     ListViewHidden,
-    TodoText,
-    TodoDate,
+    AllergenText,
     HiddenButton,
-    SwipedTodoText,
+    SwipedAllergenText,
     colors,
   } from "./Styles";
   import { Entypo } from "@expo/vector-icons";
@@ -20,16 +19,16 @@ const ListAllergenItems = ({allergens, setAllergens}) => {
         newAllergens.splice(allergenIndex, 1);
          setAllergens(newAllergens);
       };
-    // For styling currently swiped todo row
+    // For styling currently swiped allergen row
   const [swipedRow, setSwipedRow] = useState(null);
     return(
         <>
-        {allergens.length == 0 && <TodoText>You have not selected any allergens.</TodoText>}
+        {allergens.length == 0 && <AllergenText>You have not selected any allergens.</AllergenText>}
         {allergens.length != 0 && (
 <SwipeListView
 data={allergens}
 renderItem={(data) => {
-    const RowText = data.item.key == swipedRow ? SwipedTodoText : TodoText;
+    const RowText = data.item.key == swipedRow ? SwipedAllergenText : AllergenText;
 return(
     <ListView  underlayColor={colors.primary}
     onPress={() => {
@@ -56,7 +55,7 @@ renderHiddenItem={(data, rowMap) => (
     disableLeftSwipe={true}
     showsVerticalScrollIndicator={false}
     style={{ flex: 1, paddingBottom: 30, marginBottom: 40 }}
-    // Handling swiped todo row
+    // Handling swiped allergen row
     onRowOpen={(rowKey) => {
         setSwipedRow(rowKey);
       }}
