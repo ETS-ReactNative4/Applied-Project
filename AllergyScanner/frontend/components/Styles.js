@@ -221,7 +221,7 @@ export const AllergenText = styled.Text`
 
 // Text for swiped todo row
 export const SwipedAllergenText = styled(AllergenText)`
-  color: ${colors.alternative};
+  color: ${colors.tertiary};
   font-style: italic;
  
 `;

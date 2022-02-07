@@ -15,72 +15,69 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 
 
-const InputModal = ({ modalVisible,
-  setModalVisible,
-  allergenInputValue,
-  setAllergenInputValue,
-  handleAddAllergen,
-  allergenToBeEdited,
+const InputModal = ({modalVisible,
+    setModalVisible, 
+    allergenInputValue,
+    setAllergenInputValue,  
+    handleAddAllergen,
+    allergenToBeEdited,
   setAllergenToBeEdited,
   handleEditAllergen,
-  allergens }) => {
+allergens}) => {
 
-  const handleCloseModal = () => {
-    setModalVisible(false);
-    setAllergenInputValue("");
-    setAllergenToBeEdited(null);
-  };
+        const handleCloseModal = () => {
+            setModalVisible(false);
+            setAllergenInputValue("");
+            setAllergenToBeEdited(null);
+          };
 
-  const handleSubmit = () => {
-    if (!allergenToBeEdited) {
-      handleAddAllergen({
-        title: allergenInputValue,
-        key: `${(allergens[allergens.length - 1] &&
-            parseInt(allergens[allergens.length - 1].key) + 1) ||
-          1
-          }`,
-      });
-    } else {
-      handleEditAllergen({
-        title: allergenInputValue,
-        date: allergenToBeEdited.date,
-        key: allergenToBeEdited.key,
-      });
-    }
+          const handleSubmit = () => {
+            if (!allergenToBeEdited) {
+              handleAddAllergen({
+                title: allergenInputValue,
+                key: `${
+                  (allergens[allergens.length - 1] &&
+                    parseInt(allergens[allergens.length - 1].key) + 1) ||
+                  1
+                }`,
+              });
+            } else {
+              handleEditAllergen({
+                title: allergenInputValue,
+                key: allergenToBeEdited.key,
+              });
+            }
+        
+            setAllergenInputValue("");
+          };
 
-    setAllergenInputValue("");
-  }
-
-  return (
-    <>
-
-      <ModalButton onPress={() => setModalVisible(true)}>
+    return(
+        <>
+       
+        <ModalButton onPress={() => setModalVisible(true)}>
         <AntDesign name="plus" size={30} color={colors.secondary} />
-      </ModalButton>
-
-      <Modal
+        </ModalButton>
+        <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={handleCloseModal}
       >
-
-        <ModalContainer>
+ 
+      <ModalContainer>
           <ModalView>
             <ModalIcon>
-              <HeaderTitle>Allergens</HeaderTitle>
+            <HeaderTitle>Allergens</HeaderTitle>
             </ModalIcon>
-
             <StyledInput
-              placeholder="Add allergen"
-              placeholderTextColor={colors.alternative}
-              selectionColor={colors.secondary}
-              onChangeText={(text) => setAllergenInputValue(text)}
-              value={allergenInputValue}
-              autoFocus={true}
-              onSubmitEditing={handleSubmit} />
-
-            <ModalActionGroup>
+             placeholder="Add allergen"
+             placeholderTextColor={colors.alternative}
+             selectionColor={colors.secondary}
+             onChangeText={(text) => setAllergenInputValue(text)}
+             value={allergenInputValue}
+             autoFocus={true}
+             onSubmitEditing={handleSubmit}/>
+              <ModalActionGroup>
               <ModalAction onPress={handleCloseModal} color={colors.primary}>
                 <AntDesign name="close" size={28} color={colors.tertiary} />
               </ModalAction>
@@ -88,12 +85,12 @@ const InputModal = ({ modalVisible,
                 <AntDesign name="check" size={28} color={colors.secondary} />
               </ModalAction>
             </ModalActionGroup>
-          </ModalView>
-        </ModalContainer>
-      </Modal>
-
-    </>
-  );
+            </ModalView>
+            </ModalContainer>
+            </Modal>
+           
+        </>
+    );
 }
-
 export default InputModal;
+  
