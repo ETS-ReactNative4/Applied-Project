@@ -11,33 +11,13 @@ import { CredentialsContext } from '../components/CredentialsContext';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const Dashboard = () => {
-    const allergens = [
-        { allergen: 'Nuts' },
-        { allergen: 'Milk' },
-        { allergen: 'Eggs' },
-        { allergen: 'Fish' },
-        { allergen: 'Shellfish' },
-        { allergen: 'Wheat' },
-        { allergen: 'Soybeans' },
-        { allergen: 'Treenuts' },
-        { allergen: 'Celery' },
-    ]
+    
     // context
     const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
     const { name, email } = storedCredentials;
-    const [data, setData] = useState(allergens);
+    
 
-    useEffect(() => {
-
-        allergens.map((data, index) => {
-            data.isSelected = false;
-            return { ...data };
-
-        })
-        setData(data);
-        console.log('array data ==> ', data);
-    }
-    )
+    
 
     const clearLogin = () => {
         AsyncStorage.removeItem('credentials')
@@ -47,16 +27,7 @@ const Dashboard = () => {
             }).catch(error => console.log(error))
     }
 
-    const selectionHandler = (ind) => {
-        const array = data.map((data, index) => {
-            if (ind == index) {
-                data.isSelected = !data.isSelected;
-            }
-            return { ...data }
-        })
-        setData(array);
-        console.log("selection handler ==> ", array);
-    }
+    
 
 
     return (
@@ -68,39 +39,15 @@ const Dashboard = () => {
                     <SubTitle welcome={true}>{email || 'JohnMurphy@gmail.com'}</SubTitle>
                     <StyledFormArea>
                         <Avatar resizeMode="cover" source={require('../../assets/allergens.jpg')} /><Text>{"\n"}</Text>
-                        <View style={styles.hello}><Text style={styles.hello} >Please Select your Allergens...</Text></View>
+                        
 
                     </StyledFormArea>
 
                     <View style={styles.container} >
 
-                        {
+                       
 
-                            data.map((data, index) => {
-                                return (
-
-                                    <View style={styles.radioView} key={index}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                selectionHandler(index)
-                                            }}
-                                        >
-                                            <View style={[styles.radioButton, {
-                                                backgroundColor: data.isSelected ? '#aee0a8' : 'white',
-                                                borderColor: data.isSelected ? '#15b502' : 'grey'
-                                            }]} >
-                                                <Text style={{ color: 'black' }}>{data.allergen}</Text>
-
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-
-                                )
-
-                            })
-
-                        }
-                        <Text>{"\n"}{"\n"}{"\n"}</Text>
+                       
                         <Line />
 
                         <StyledButton onPress={clearLogin}>
@@ -148,4 +95,6 @@ const styles = StyleSheet.create({
     }
 
 })
+
+
 

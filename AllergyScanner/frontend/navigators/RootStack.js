@@ -86,11 +86,16 @@ const BottomTab = () => {
               tabBarLabel: 'Scanner',
               tabBarIcon: () => <Icon name="barcode-scan" type="material-community" />
             }} component={Scan}/>
-            <Tab.Screen name="Logout" 
+            <Tab.Screen  name="History"
+            options={{
+              tabBarLabel: 'History',
+              tabBarIcon: () => <Icon name="history" type="material" />
+            }} component={Favourite}/>
+             <Tab.Screen name="Dashboard" 
             options={{
                 
-              tabBarLabel: 'Logout',
-              tabBarIcon: () => <Icon name="logout" type="material" />
+              tabBarLabel: 'Dashboard',
+              tabBarIcon: () => <Icon name="account-circle" type="material" />
             }}  component={Dashboard} />
         </Tab.Navigator>
         </View>
