@@ -13,6 +13,7 @@ export default function App() {
   // State 
   const [appReady, setAppReady] = useState(false);
   const [storedCredentials, setStoredCredentials] = useState("");
+  
   // function used to check async storage credentials that exist
   const checkLoginCredentials = () => {
     // pass a key to store the credentials in async storage
@@ -26,6 +27,9 @@ export default function App() {
       }
     }).catch(error => console.log(error))
   }
+
+  
+  
 
   if(!appReady){
     return(

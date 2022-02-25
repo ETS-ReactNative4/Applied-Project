@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import _ from 'lodash'
 
-export default function Scanner() {
+export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setLoading] = useState(true);
@@ -25,22 +25,20 @@ export default function Scanner() {
   {leading: true, trailing: false});
 
   const handleBarCodeScanned = ({ data }) => {
-    fetch(`https://world.openfoodfacts.org/api/v0/product/${data}.json`)
-        .then((response) => response.json())
-        .then((responseJson) => {
-            if (responseJson.product) {
-                setScanned(true);
-                //let product = responseJson.product
-                let ingredients =  responseJson.product.ingredients_text;
-                console.log(ingredients)
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        })
-        .finally(() => {
-            setLoading(false)
-        });
+    setScanned(true);
+      
+        fetch(`https://world.openfoodfacts.org/api/v0/product/${data}.json`)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                navigation.navigate('Results', { product: responseJson.product });
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false)
+                setScanned(false);
+            });
 };
 
   if (hasPermission === null) {
@@ -56,7 +54,7 @@ export default function Scanner() {
         onBarCodeScanned={scanned ? undefined : _debouncedHandleBarCodeRead}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {/*{scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}*/}
     </View>
   );
 }

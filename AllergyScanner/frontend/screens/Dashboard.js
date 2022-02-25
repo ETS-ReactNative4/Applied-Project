@@ -15,9 +15,6 @@ const Dashboard = () => {
     // context
     const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
     const { name, email } = storedCredentials;
-    
-
-    
 
     const clearLogin = () => {
         AsyncStorage.removeItem('credentials')
@@ -25,9 +22,9 @@ const Dashboard = () => {
                 // sets  the credentials to empty string
                 setStoredCredentials("");
             }).catch(error => console.log(error))
-    }
 
-    
+           
+    }
 
 
     return (
@@ -44,8 +41,6 @@ const Dashboard = () => {
                     </StyledFormArea>
 
                     <View style={styles.container} >
-
-                       
 
                        
                         <Line />

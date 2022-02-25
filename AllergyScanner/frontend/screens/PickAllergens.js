@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import React, {useState} from 'react';
+import React, {useState,useContext,useEffect} from 'react';
 import { Container, } from '../components/Styles';
 import {Text} from 'react-native'
 import ListAllergenItems from '../components/ListAllergenItems'
@@ -8,12 +8,15 @@ import InputModal from "../components/InputModal";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from "expo-app-loading";
 
+
+
 const PickAllergens = () => {
      // Modal visibility & input value
   const [modalVisible, setModalVisible] = useState(false);
   const [allergenInputValue, setAllergenInputValue] = useState();
   const [ready, setReady] = useState(false);
 
+  
 const initialAllergens = []
 
 const [allergens, setAllergens] = useState(initialAllergens);
@@ -26,10 +29,12 @@ const handleClearAllergens = () => {
     AsyncStorage.setItem("storedAllergens", JSON.stringify([]))
       .then(() => {
         setAllergens([]);
+        
       })
       .catch((error) => console.log(error));
   };
 
+ 
 
   // function to add new allergen
   const handleAddAllergen = (allergen) => {
@@ -39,6 +44,7 @@ const handleClearAllergens = () => {
     AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
       .then(() => {
         setAllergens(newAllergens);
+        
         setModalVisible(false);
       })
       .catch((error) => console.log(error));
@@ -65,6 +71,9 @@ const handleClearAllergens = () => {
       .catch((error) => console.log(error));
   };
 
+  
+
+
   const loadAllergens = () => {
     AsyncStorage.getItem("storedAllergens")
       .then((data) => {
@@ -86,6 +95,8 @@ const handleClearAllergens = () => {
   }
 
     return (
+     
+           
         <Container>
         <Header handleClearAllergens={handleClearAllergens}/>
         <ListAllergenItems allergens={allergens}
@@ -102,6 +113,10 @@ const handleClearAllergens = () => {
         setAllergenToBeEdited={setAllergenToBeEdited}
         handleEditAllergen={handleEditAllergen}/>
         </Container>
+           
+            
+        
+        
     )
 }
 export default PickAllergens;
