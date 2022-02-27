@@ -4,12 +4,14 @@ import {
     StyledContainer
 } from '../components/Styles';
 
-export default function Favourite(){
+const NotFound = () => {
     return(
         <StyledContainer>
         <View>
-            <Text>This is the favourite screen</Text>
+            <Text>Sorry this barcode does not exist</Text>
         </View>
         </StyledContainer>
     )
 }
+
+export default NotFound; 

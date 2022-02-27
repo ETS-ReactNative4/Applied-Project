@@ -37,6 +37,7 @@ data={allergens}
 renderItem={(data) => {
     const RowText = data.item.key == swipedRow ? SwipedAllergenText : AllergenText;
 return(
+  
     <ListView  underlayColor={colors.primary}
     onPress={() => {
       handleTriggerEdit(data.item);

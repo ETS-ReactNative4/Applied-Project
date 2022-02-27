@@ -7,7 +7,7 @@ import InputModal from "../components/InputModal";
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from "expo-app-loading";
-
+import {CredentialsContext} from '../components/CredentialsContext';
 
 
 const PickAllergens = () => {
@@ -15,7 +15,8 @@ const PickAllergens = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [allergenInputValue, setAllergenInputValue] = useState();
   const [ready, setReady] = useState(false);
-
+  
+ 
   
 const initialAllergens = []
 
@@ -71,16 +72,15 @@ const handleClearAllergens = () => {
       .catch((error) => console.log(error));
   };
 
-  
-
 
   const loadAllergens = () => {
+   
     AsyncStorage.getItem("storedAllergens")
       .then((data) => {
         if (data !== null) {
           setAllergens(JSON.parse(data));
         }
-      })
+      }) 
       .catch((error) => console.log(error));
   };
 
@@ -115,7 +115,8 @@ const handleClearAllergens = () => {
         </Container>
            
             
-        
+      
+  
         
     )
 }

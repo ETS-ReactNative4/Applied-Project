@@ -1,8 +1,21 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import {
+     StyledContainer
+} from '../components/Styles';
+import NotFound from '../components/NotFound'
 
 const Results = ({ route }) => {
+    if (route.params.product === undefined) {
+        return (
+            <NotFound />
+          )
+       } else 
     return (
+       
+        <StyledContainer>
+        
+        
         <View style={styles.container}>
             <View style={styles.body} >
                 
@@ -12,6 +25,8 @@ const Results = ({ route }) => {
             </View>
             <View/>
         </View>
+            
+        </StyledContainer>
     )
 };
 
@@ -33,3 +48,6 @@ const styles = StyleSheet.create({
   });
 
 export default Results; 
+
+
+
