@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import _ from 'lodash'
+import loadAllergens from './PickAllergens'
 
 export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setLoading] = useState(true);
+
 
   useEffect(() => {
     (async () => {
@@ -15,11 +17,6 @@ export default function Scanner({navigation}) {
     })();
   }, []);
 
-  /*const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    console.log(data);
-  };*/
 
   _debouncedHandleBarCodeRead = _.debounce((data) =>{ handleBarCodeScanned(data) }, 3000, 
   {leading: true, trailing: false});

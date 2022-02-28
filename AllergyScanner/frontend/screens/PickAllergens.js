@@ -7,8 +7,8 @@ import InputModal from "../components/InputModal";
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from "expo-app-loading";
-import {CredentialsContext} from '../components/CredentialsContext';
-
+//import {CredentialsContext} from '../components/CredentialsContext';
+import  {useAllergens} from '../components/AllergenContext';
 
 const PickAllergens = () => {
      // Modal visibility & input value
@@ -16,11 +16,13 @@ const PickAllergens = () => {
   const [allergenInputValue, setAllergenInputValue] = useState();
   const [ready, setReady] = useState(false);
   
- 
+  const { allergens, setAllergens, loadAllergens } = useAllergens();
   
-const initialAllergens = []
+  //const initialAllergens = []
 
-const [allergens, setAllergens] = useState(initialAllergens);
+  //const [allergens, setAllergens] = useState(initialAllergens);
+
+
 // edit existing todo item
 const [allergenToBeEdited, setAllergenToBeEdited] = useState(null);
 
@@ -73,18 +75,24 @@ const handleClearAllergens = () => {
   };
 
 
-  const loadAllergens = () => {
+  /*const loadAllergens = () => {
    
     AsyncStorage.getItem("storedAllergens")
       .then((data) => {
         if (data !== null) {
           setAllergens(JSON.parse(data));
+          
+          
         }
       }) 
       .catch((error) => console.log(error));
-  };
+  };*/
 
-  if (!ready) {
+  
+
+
+
+  /*if (!ready) {
     return (
       <AppLoading
         startAsync={loadAllergens}
@@ -92,7 +100,7 @@ const handleClearAllergens = () => {
         onError={console.warn}
       />
     );
-  }
+  }*/
 
     return (
      
