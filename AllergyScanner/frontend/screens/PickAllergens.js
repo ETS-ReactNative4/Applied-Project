@@ -1,28 +1,19 @@
 import Header from '../components/Header'
 import React, {useState,useContext,useEffect} from 'react';
 import { Container, } from '../components/Styles';
-import {Text} from 'react-native'
 import ListAllergenItems from '../components/ListAllergenItems'
 import InputModal from "../components/InputModal";
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppLoading from "expo-app-loading";
-//import {CredentialsContext} from '../components/CredentialsContext';
-import  {useAllergens} from '../components/AllergenContext';
+import  {useAllergens} from '../components/Context/AllergenContext';
 
 const PickAllergens = () => {
      // Modal visibility & input value
   const [modalVisible, setModalVisible] = useState(false);
   const [allergenInputValue, setAllergenInputValue] = useState();
-  const [ready, setReady] = useState(false);
   
   const { allergens, setAllergens, loadAllergens } = useAllergens();
   
-  //const initialAllergens = []
-
-  //const [allergens, setAllergens] = useState(initialAllergens);
-
-
 // edit existing todo item
 const [allergenToBeEdited, setAllergenToBeEdited] = useState(null);
 
@@ -35,9 +26,8 @@ const handleClearAllergens = () => {
         
       })
       .catch((error) => console.log(error));
+      loadAllergens();
   };
-
- 
 
   // function to add new allergen
   const handleAddAllergen = (allergen) => {
@@ -51,6 +41,7 @@ const handleClearAllergens = () => {
         setModalVisible(false);
       })
       .catch((error) => console.log(error));
+      loadAllergens();
   };
 
   const handleTriggerEdit = (item) => {
@@ -72,43 +63,15 @@ const handleClearAllergens = () => {
         setModalVisible(false);
       })
       .catch((error) => console.log(error));
+      loadAllergens();
   };
 
-
-  /*const loadAllergens = () => {
-   
-    AsyncStorage.getItem("storedAllergens")
-      .then((data) => {
-        if (data !== null) {
-          setAllergens(JSON.parse(data));
-          
-          
-        }
-      }) 
-      .catch((error) => console.log(error));
-  };*/
-
-  
-
-
-
-  /*if (!ready) {
-    return (
-      <AppLoading
-        startAsync={loadAllergens}
-        onFinish={() => setReady(true)}
-        onError={console.warn}
-      />
-    );
-  }*/
-
-    return (
-     
-           
+    return (   
         <Container>
         <Header handleClearAllergens={handleClearAllergens}/>
         <ListAllergenItems allergens={allergens}
          setAllergens={setAllergens}
+         loadAllergens={loadAllergens}
          handleTriggerEdit={handleTriggerEdit}/>
 
         <InputModal allergenInputValue={allergenInputValue}

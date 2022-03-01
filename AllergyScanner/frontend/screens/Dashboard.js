@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
-import { CredentialsContext } from '../components/CredentialsContext';
+import { CredentialsContext } from '../components/Context/CredentialsContext';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const Dashboard = () => {

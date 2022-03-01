@@ -1,7 +1,7 @@
 import { NavigationContainer, TabActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import {CredentialsContext} from '../components/CredentialsContext';
+import {CredentialsContext} from '../components/Context/CredentialsContext';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {View} from 'react-native'
 import { Icon } from 'react-native-elements';

@@ -12,7 +12,7 @@ import axios from 'axios';
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
-import {CredentialsContext} from '../components/CredentialsContext';
+import {CredentialsContext} from '../components/Context/CredentialsContext';
 
 const SignUp = ({navigation}) => {
 

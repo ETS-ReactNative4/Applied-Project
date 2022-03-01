@@ -6,16 +6,13 @@ import AppLoading from 'expo-app-loading';
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
-import {CredentialsContext} from './frontend/components/CredentialsContext';
-import NoteProvider from './frontend/components/AllergenContext';
+import {CredentialsContext} from './frontend/components/Context/CredentialsContext';
+import AllergenProvider from './frontend/components/Context/AllergenContext';
 
 export default function App() {
   // State 
   const [appReady, setAppReady] = useState(false);
   const [storedCredentials, setStoredCredentials] = useState("");
-  
-
-  
   
   // function used to check async storage credentials that exist
   const checkLoginCredentials = () => {
@@ -31,11 +28,6 @@ export default function App() {
     }).catch(error => console.log(error))
   }
 
-  
-
-  
-  
-
   if(!appReady){
     return(
       <AppLoading
@@ -46,9 +38,9 @@ export default function App() {
   }
     
   return (<CredentialsContext.Provider value={{storedCredentials, setStoredCredentials}}>
-    <NoteProvider>
+    <AllergenProvider>
     <RootStack/>
-    </NoteProvider>
+    </AllergenProvider>
   </CredentialsContext.Provider>
   )
 }

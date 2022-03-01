@@ -13,7 +13,7 @@ import {
   // Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit}) => {
+const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit,loadAllergens}) => {
   const handleDeleteAllergen = (rowMap, rowKey) => {
     const newAllergens = [...allergens];
     const allergenIndex = allergens.findIndex((allergen) => allergen.key === rowKey);
@@ -24,6 +24,7 @@ const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit}) => {
         setAllergens(newAllergens);
       })
       .catch((error) => console.log(error));
+      loadAllergens();
   };
   
     // For styling currently swiped allergen row

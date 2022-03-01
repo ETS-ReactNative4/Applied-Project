@@ -4,7 +4,6 @@ import {
      StyledContainer
 } from '../components/Styles';
 import NotFound from '../components/NotFound'
-import {MatchAllergens} from './PickAllergens'
 
 const Results = ({ route }) => {
     if (route.params.product === undefined) {
@@ -14,9 +13,7 @@ const Results = ({ route }) => {
        } else { 
         let allergenMatches = route.params.product.ingredients_text;
         let result = allergenMatches.match(/e/g);
-        console.log("Output : " + result);
-       
-     
+        console.log("Output : " + result);    
 }
       
     return (
