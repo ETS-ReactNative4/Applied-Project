@@ -7,8 +7,8 @@ import {CredentialsContext} from '../components/Context/CredentialsContext';
 //screens
 import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
-import Results from '../screens/Results'
 import BottomTab from './TabNavigator'
+
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +34,7 @@ const RootStack = () => {
                {storedCredentials ? (
                   <>
                   <Stack.Screen name="App" component={BottomTab}/>
-                  <Stack.Screen name="Results" component={Results}/>
+                  
                 </>
                      ) : ( 
                          <>

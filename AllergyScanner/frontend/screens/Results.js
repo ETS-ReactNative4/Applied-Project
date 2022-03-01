@@ -6,31 +6,30 @@ import {
 import NotFound from '../components/NotFound'
 import {MatchAllergens} from '../components/AllergenMatch'
 import ListResultsItems from '../components/ListResultsItems'
+import {Icon} from 'react-native-elements';
 
 const Results = ({ route }) => {
     if (route.params.product === undefined) {
         return (
             <NotFound />
           )
-       } else { 
-          
+       } 
+        if (route.params.product.ingredients_text === undefined) {
+            return(
+            <View>
+                <Text>No ingredients found for {route.params.product.product_name} </Text>
+                                   
+                                </View>)}
+        else {
         let allergenMatches = MatchAllergens(global.allergenData, route.params.product.ingredients_text);   
         
-        if(!route.params.product.ingredients_n){
-            return(
-                <StyledContainer>
-                <View >
-                                    <Text>No ingredients found for {route.params.product.product_name} </Text>
-                                    
-                                </View>
-                                </StyledContainer>
-            )
-        }
-
-        else if(allergenMatches.length > 0){
+         if(allergenMatches.length > 0){
         console.log(`Allergens found: ${allergenMatches}`)
         return(
             <StyledContainer>
+                <View>
+                            <Icon name="warning" type="entypo"  size={200} color="#fff"/>
+                        </View>
             <View>
                 <Text>{route.params.product.product_name} contains the following allergens:</Text>
                 <FlatList data={allergenMatches}
@@ -46,6 +45,9 @@ const Results = ({ route }) => {
             console.log(`No allergens found`)
             return(
                 <StyledContainer>
+                    <View>
+                            <Icon name="check" type="entypo"  size={200} color="#fff"/>
+                        </View>
             <View>
                                 <Text>No allergens found for {route.params.product.product_name}</Text>
                             </View>

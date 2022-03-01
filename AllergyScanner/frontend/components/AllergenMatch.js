@@ -10,9 +10,8 @@ export function MatchAllergens(allergenData, allergenString) {
   
   function AllergensString(allergenString) {
       let allergens = [];
-      allergens = allergenString.replace('""', ' ')
-      const allergenArray = [...new Set(allergens.split(", "))]
-      return allergenArray;
+     allergens.push(allergenString);
+      return allergens;
       
   }
 

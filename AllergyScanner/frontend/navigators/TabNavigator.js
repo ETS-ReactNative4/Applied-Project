@@ -12,12 +12,15 @@ import Favourite from '../screens/Favourite'
 import History from '../screens/History'
 import Results from '../screens/Results'
 
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainStackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{headerStyle:
+    
+    <Stack.Navigator
+    screenOptions={{headerStyle:
       {
           backgroundColor: 'transparent',
           
@@ -26,17 +29,20 @@ const MainStackNavigator = () => {
       headerTransparent: true,
       headerTitle: '',
       headerLeftContainerStyle: {
-          paddingLeft: 20
+          paddingLeft: 20,
+          
       }
       }}
-      initialRouteName="Login">
+      initialRouteName="Scan">
       <Stack.Screen name="Scan" component={Scan} />
       <Stack.Screen name="Results" component={Results} options={{headerBackVisible:false }}/>
     </Stack.Navigator>
+   
   );
 }
 
 const BottomTab = () => {
+    
     return (
         <View style={{ flex:1, backgroundColor: 'blue' }}>
         <Tab.Navigator screenOptions={{headerStyle:
@@ -62,9 +68,12 @@ const BottomTab = () => {
             }}  component={Favourite}/>
             <Tab.Screen  name="Scanner"
             options={{
-              tabBarLabel: 'Scanner',
+              tabBarLabel: 'Scan',
+              unmountOnBlur: true,
               tabBarIcon: () => <Icon name="barcode-scan" type="material-community" />
-            }} component={MainStackNavigator}/>
+            }} component={MainStackNavigator}  
+            
+              />
             <Tab.Screen  name="History"
             options={{
               tabBarLabel: 'History',
