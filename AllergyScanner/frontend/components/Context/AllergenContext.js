@@ -6,7 +6,6 @@ const AllergenProvider = ({ children }) => {
     const initialAllergens = []
 
     const [allergens, setAllergens] = useState(initialAllergens);
-
     
     const getAllergens = async (key) =>{
       try {
@@ -23,10 +22,12 @@ const AllergenProvider = ({ children }) => {
           if(data === null){
             getAllergens('storedAllergens').then((data) => {
                     setAllergens(data);
+                    global.allergenData = data;
                     console.log(`${JSON.stringify(data)}`);
                     }).then()
           } else {
             setAllergens(data);
+            global.allergenData = data;
             console.log(`${JSON.stringify(data)}`);
           }
           

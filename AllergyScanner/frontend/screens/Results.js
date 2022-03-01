@@ -1,9 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, FlatList } from 'react-native';
 import {
      StyledContainer
 } from '../components/Styles';
 import NotFound from '../components/NotFound'
+import {MatchAllergens} from '../components/AllergenMatch'
+import ListResultsItems from '../components/ListResultsItems'
 
 const Results = ({ route }) => {
     if (route.params.product === undefined) {
@@ -11,28 +13,40 @@ const Results = ({ route }) => {
             <NotFound />
           )
        } else { 
-        let allergenMatches = route.params.product.ingredients_text;
-        let result = allergenMatches.match(/e/g);
-        console.log("Output : " + result);    
+          
+        let allergenMatches = MatchAllergens(global.allergenData, route.params.product.ingredients_text);   
+        
+        if(!route.params.product.ingredients_n){
+            return(
+                <View >
+                                    <Text>No ingredients found for {route.params.product.product_name} </Text>
+                                    
+                                </View>
+            )
+        }
+
+        else if(allergenMatches.length > 0){
+        console.log(`Allergens found: ${allergenMatches}`)
+        return(
+            <View>
+                <Text>{route.params.product.product_name} contains the following allergens:</Text>
+                <FlatList data={allergenMatches}
+                renderItem={({item, index}) => <ListResultsItems item={item} key={index}></ListResultsItems>}
+                keyExtractor={(item,index) => index.toString()}
+                ></FlatList>
+            </View>
+        )
+
+        }  else {
+            console.log(`No allergens found`)
+            return(
+            <View>
+                                <Text>No allergens found for {route.params.product.product_name}</Text>
+                            </View>
+            )}
 }
       
-    return (
-       
-        <StyledContainer>
-        
-        
-        <View style={styles.container}>
-            <View style={styles.body} >
-                
-                <Text >{route.params.product.product_name}</Text>
-                <Text>{route.params.product.quantity})</Text>
-                <Text>{route.params.product.ingredients_text})</Text>
-            </View>
-            <View/>
-        </View>
-            
-        </StyledContainer>
-    )
+   
 };
 
 const styles = StyleSheet.create({

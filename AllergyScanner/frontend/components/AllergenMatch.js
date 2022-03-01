@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function MatchAllergens(allergenData, allergenString) {
       let array = [];
       array = AllergensString(allergenString);
@@ -18,15 +20,11 @@ export function MatchAllergens(allergenData, allergenString) {
     let matches = [];
     
     for (const allergen in allergenData) {
-     
         if(allergenData[allergen] !== 0) {
-        
             for (var i = 0; i < array.length; i++) {
               {allergenData.map(({ title,key }) => (
-                
                 <p key={title}></p>
                 ))
-              
                 if (array[i].includes(allergenData[allergen].title.toLowerCase())) {
                     let match = allergenData[allergen].title;
                     match.replace(/^\w/, (c) => c)
