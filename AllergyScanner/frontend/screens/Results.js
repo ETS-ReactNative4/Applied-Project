@@ -18,16 +18,19 @@ const Results = ({ route }) => {
         
         if(!route.params.product.ingredients_n){
             return(
+                <StyledContainer>
                 <View >
                                     <Text>No ingredients found for {route.params.product.product_name} </Text>
                                     
                                 </View>
+                                </StyledContainer>
             )
         }
 
         else if(allergenMatches.length > 0){
         console.log(`Allergens found: ${allergenMatches}`)
         return(
+            <StyledContainer>
             <View>
                 <Text>{route.params.product.product_name} contains the following allergens:</Text>
                 <FlatList data={allergenMatches}
@@ -35,14 +38,18 @@ const Results = ({ route }) => {
                 keyExtractor={(item,index) => index.toString()}
                 ></FlatList>
             </View>
+            </StyledContainer>
         )
 
         }  else {
+            
             console.log(`No allergens found`)
             return(
+                <StyledContainer>
             <View>
                                 <Text>No allergens found for {route.params.product.product_name}</Text>
                             </View>
+                            </StyledContainer>
             )}
 }
       
