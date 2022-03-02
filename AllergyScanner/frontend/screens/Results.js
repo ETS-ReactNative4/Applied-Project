@@ -16,7 +16,9 @@ const Results = ({ route }) => {
        } 
         if (route.params.product.ingredients_text === undefined) {
             return(
+                
             <View>
+                <Icon name="question" type="antdesign"  size={200} color="#fff"/>
                 <Text>No ingredients found for {route.params.product.product_name} </Text>
                                    
                                 </View>)}

@@ -3,17 +3,19 @@ import {
     DashboardImage, DashboardContainer, InnerContainer, PageTitle, SubTitle, StyledFormArea,
     StyledButton, ButtonText, Avatar, Line, AllergyButtons, StyledContainer
 } from '../components/Styles';
-import { StatusBar } from 'expo-status-bar';
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import { CredentialsContext } from '../components/Context/CredentialsContext';
+import { useAllergens } from '../components/Context/AllergenContext';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const Dashboard = () => {
     
     // context
     const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
+    const { allergens, setAllergens } = useAllergens();
+
     const { name, email } = storedCredentials;
 
     const clearLogin = () => {
@@ -25,8 +27,6 @@ const Dashboard = () => {
 
            
     }
-
-
     return (
         <StyledContainer>
             <InnerContainer>
@@ -34,6 +34,7 @@ const Dashboard = () => {
                     <PageTitle welcome={true}>Allergy Scanner</PageTitle>
                     <SubTitle welcome={true}>{name || 'John Murphy'}</SubTitle>
                     <SubTitle welcome={true}>{email || 'JohnMurphy@gmail.com'}</SubTitle>
+                    <Text>You have {allergens.length} allergens.</Text>
                     <StyledFormArea>
                         <Avatar resizeMode="cover" source={require('../../assets/allergens.jpg')} /><Text>{"\n"}</Text>
                         
