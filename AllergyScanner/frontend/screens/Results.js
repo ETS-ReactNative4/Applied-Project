@@ -17,9 +17,9 @@ const Results = ({ route }) => {
         if (route.params.product.ingredients_text === undefined) {
             return(
                 
-            <View>
+            <View style={{flex: 1,backgroundColor: '#ffa31a'}}>
                 <Icon name="question" type="antdesign"  size={200} color="#fff"/>
-                <Text>No ingredients found for {route.params.product.product_name} </Text>
+                <Text>Sorry, no ingredients found for {route.params.product.product_name} </Text>
                                    
                                 </View>)}
         else {
@@ -28,7 +28,7 @@ const Results = ({ route }) => {
          if(allergenMatches.length > 0){
         console.log(`Allergens found: ${allergenMatches}`)
         return(
-            <StyledContainer>
+            <View style={{flex: 1,backgroundColor: '#ff3300'}}>
                 <View>
                             <Icon name="warning" type="entypo"  size={200} color="#fff"/>
                         </View>
@@ -39,21 +39,21 @@ const Results = ({ route }) => {
                 keyExtractor={(item,index) => index.toString()}
                 ></FlatList>
             </View>
-            </StyledContainer>
+            </View>
         )
 
         }  else {
             
             console.log(`No allergens found`)
             return(
-                <StyledContainer>
-                    <View>
+                <View style={{flex: 1,backgroundColor: '#008000'}}>
+                    <View >
                             <Icon name="check" type="entypo"  size={200} color="#fff"/>
                         </View>
             <View>
                                 <Text>No allergens found for {route.params.product.product_name}</Text>
                             </View>
-                            </StyledContainer>
+                            </View>
             )}
 }
       

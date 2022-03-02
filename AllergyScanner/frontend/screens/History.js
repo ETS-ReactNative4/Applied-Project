@@ -1,15 +1,17 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {
-    StyledContainer
+    Container
 } from '../components/Styles';
+import HistoryHeader from '../components/Headers/HistoryHeader'
 
 export default function History(){
     return(
-        <StyledContainer>
+        <Container>
+            <HistoryHeader/>
         <View>
             <Text>This is the history screen</Text>
         </View>
-        </StyledContainer>
+        </Container>
     )
 }

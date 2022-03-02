@@ -1,4 +1,4 @@
-import Header from '../components/Header'
+import Header from '../components/Headers/Header'
 import React, {useState,useContext,useEffect} from 'react';
 import { Container, } from '../components/Styles';
 import ListAllergenItems from '../components/ListAllergenItems'

@@ -6,7 +6,7 @@ import {
   HeaderTitle,
   HeaderButton,
   colors,
-} from "../components/Styles";
+} from "../Styles";
 
 // Icons
 import { Entypo } from "@expo/vector-icons";

@@ -1,15 +1,18 @@
 import React from 'react';
+import FavouriteHeader from '../components/Headers/FavouriteHeader'
 import {View, Text} from 'react-native';
 import {
-    StyledContainer
+    Container
 } from '../components/Styles';
 
 export default function Favourite(){
     return(
-        <StyledContainer>
+        
+        <Container>
+            <FavouriteHeader/>
         <View>
             <Text>This is the favourite screen</Text>
         </View>
-        </StyledContainer>
+        </Container>
     )
 }

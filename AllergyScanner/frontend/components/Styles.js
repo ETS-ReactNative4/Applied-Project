@@ -27,8 +27,6 @@ padding: 25px;
 
 background-color: #C9DFEC
 `
-
-
 export const Avatar = styled.Image`
 height: 100px;
 width: 100px;
