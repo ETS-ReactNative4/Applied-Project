@@ -1,16 +1,16 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, FlatList } from 'react-native';
-import {
-     StyledContainer
-} from '../components/Styles';
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity , ScrollView} from 'react-native';
+
 import NotFound from '../components/NotFound'
 import {MatchAllergens} from '../components/AllergenMatch'
 import ListResultsItems from '../components/ListResultsItems'
 import {Icon} from 'react-native-elements';
 
+
 const Results = ({ route }) => {
     if (route.params.product === undefined) {
         return (
+           
             <NotFound />
           )
        } 
@@ -19,8 +19,9 @@ const Results = ({ route }) => {
                 
             <View style={{flex: 1,backgroundColor: '#ffa31a'}}>
                 <Icon name="question" type="antdesign"  size={200} color="#fff"/>
-                <Text>Sorry, no ingredients found for {route.params.product.product_name} </Text>
-                                   
+                <View style={styles.container}>
+                <Text style={styles.text}>Sorry, no ingredients found for {route.params.product.product_name} </Text>
+                </View>         
                                 </View>)}
         else {
         let allergenMatches = MatchAllergens(global.allergenData, route.params.product.ingredients_text);   
@@ -32,13 +33,24 @@ const Results = ({ route }) => {
                 <View>
                             <Icon name="warning" type="entypo"  size={200} color="#fff"/>
                         </View>
-            <View>
-                <Text>{route.params.product.product_name} contains the following allergens:</Text>
+                        
+            <View style={styles.container}>
+               
+            <Text style={styles.text}> Product Name: {route.params.product.product_name} {'\n'} </Text>
+                
+                <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
+                
                 <FlatList data={allergenMatches}
                 renderItem={({item, index}) => <ListResultsItems item={item} key={index}></ListResultsItems>}
                 keyExtractor={(item,index) => index.toString()}
                 ></FlatList>
+                
+               
+                                <TouchableOpacity >
+                    <Icon name="favorite-border" type="material" size={40}/>
+                </TouchableOpacity>
             </View>
+            
             </View>
         )
 
@@ -50,8 +62,15 @@ const Results = ({ route }) => {
                     <View >
                             <Icon name="check" type="entypo"  size={200} color="#fff"/>
                         </View>
-            <View>
-                                <Text>No allergens found for {route.params.product.product_name}</Text>
+            <View style={styles.container}>
+            <Text style={styles.text}> Product Name: {route.params.product.product_name} {'\n'} </Text>
+            
+            <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
+            
+                                <Text style={styles.resultsText}>No allergens found</Text>
+                                <TouchableOpacity >
+                    <Icon name="favorite-border" type="material" size={40}/>
+                </TouchableOpacity>
                             </View>
                             </View>
             )}
@@ -61,20 +80,21 @@ const Results = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      
-        
-            flex: 1,
-            flexDirection: 'column',
-            padding: 10,
     
-    },
-    body: {
-        flex: 1,
-        alignItems: 'center',
-       
-        justifyContent: 'center',
-    },
+    container: {
+        width:"90%",
+        height: "60%",
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        marginLeft:'5%',
+        marginTop: '5%'
+,        padding: "10%",
+      },
+      text: {
+        marginVertical: 10,
+        fontSize: 25,
+        textAlign: 'center',
+      },
   });
 
 export default Results; 

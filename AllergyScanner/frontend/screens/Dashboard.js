@@ -34,7 +34,7 @@ const Dashboard = () => {
                     <PageTitle welcome={true}>Allergy Scanner</PageTitle>
                     <SubTitle welcome={true}>{name || 'John Murphy'}</SubTitle>
                     <SubTitle welcome={true}>{email || 'JohnMurphy@gmail.com'}</SubTitle>
-                    <Text>You have {allergens.length} allergens.</Text>
+                    <Text>Allergens: {allergens.length}</Text>
                     <StyledFormArea>
                         <Avatar resizeMode="cover" source={require('../../assets/allergens.jpg')} /><Text>{"\n"}</Text>
                         

@@ -35,7 +35,7 @@ const MainStackNavigator = () => {
       }}
       initialRouteName="Scan">
       <Stack.Screen name="Scan" component={Scan} />
-      <Stack.Screen name="Results" component={Results} options={{headerBackVisible:false }}/>
+      <Stack.Screen name="Results" component={Results}  options={{headerBackVisible:false }}/>
     </Stack.Navigator>
    
   );

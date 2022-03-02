@@ -9,7 +9,7 @@ export default function Scanner({navigation}) {
   const [scanned, setScanned] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const isFocused = useIsFocused();
-
+  
 
   useEffect(() => {
     (async () => {
