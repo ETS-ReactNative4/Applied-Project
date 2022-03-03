@@ -38,5 +38,16 @@ router.post("/addFavourites", (req, res) => {
 });
 
 
+router.post("/removeFavourites", (req, res) => {
+
+    Favourite.findOneAndDelete({ productId: req.body.productId, userFrom: req.body.userFrom })
+        .exec((err, doc) => {
+            if (err) return res.status(400).json({ success: false, err })
+            res.status(200).json({ success: true, doc })
+        })
+
+});
+
+
 
 module.exports = router;

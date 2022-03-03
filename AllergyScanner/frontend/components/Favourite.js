@@ -28,24 +28,39 @@ const Favourite = (props) => {
 
 
     const handleAddToFavourites = () => {
+        if(Favourited) {
             axios.
-        post('http://192.168.0.30:5000/favourite/addFavourites', variable)
-        .then(response=> {
-            if(response.data.success) {
-               console.log("Added to favorites")
-                setFavourited(!Favourited)
-            } else {
-                alert(' Failed to add to Favorites')
+            post('http://192.168.0.30:5000/favourite/removeFavourites', variable)
+            .then(response=> {
+                if(response.data.success) {
+                    console.log("Removed from favourites")
+                    setFavourited(!Favourited)
+                } else {
+                    alert(' Failed to remove from favourite')
+            }})
+            
             }
-        })
+            else {
+                axios.
+            post('http://192.168.0.30:5000/favourite/addFavourites', variable)
+            .then(response=> {
+                if(response.data.success) {
+                   console.log("Added to favourites")
+                    setFavourited(!Favourited)
+                } else {
+                    alert(' Failed to add to Favourites')
+                }
+            })
+        
+        }
     
     }
     
 
     return (
         <TouchableOpacity onPress={() => handleAddToFavourites()}>
-        <Icon name="favorite" type="material" />
-            </TouchableOpacity>
+            <Icon name={Favourited ? "favorite" : "favorite-border"} type="material" />
+                </TouchableOpacity>
     )
 }
 
