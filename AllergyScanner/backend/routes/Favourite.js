@@ -17,8 +17,22 @@ router.post("/favourited", (req, res) => {
         }
 
         res.status(200).json({ success: true, favourited: result});
-        console.log(req.body)
+        //console.log(req.body)
 
+    })
+
+});
+
+
+router.post("/addFavourites", (req, res) => {
+
+    // Save the information about the product or user Id  inside favorite collection 
+    const favourite = new Favourite(req.body)
+    console.log(req.body)
+    favourite.save((err, doc) => {
+        if (err) return res.json({ success: false, err })
+        return res.status(200).json({ success: true })
+       
     })
 
 });

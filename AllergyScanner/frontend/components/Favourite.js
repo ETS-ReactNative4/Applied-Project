@@ -6,15 +6,15 @@ import {  TouchableOpacity } from 'react-native';
 const Favourite = (props) => {
     const [Favourited, setFavourited] = useState(false)
 
+    const variable = {
+        userFrom: props.userFrom,
+        productId: props.productId,
+        productName: props.productName
+        
+    }
+
+
     useEffect(() => {
-
-        const variable = {
-            userFrom: props.userFrom,
-            productId: props.productId,
-            productName: props.productName
-            
-        }
-
         axios.post('http://192.168.0.30:5000/favourite/favourited', variable)
             .then(response => {
                 if (response.data.success) {
@@ -26,10 +26,26 @@ const Favourite = (props) => {
 
     }, [])
 
+
+    const handleAddToFavourites = () => {
+            axios.
+        post('http://192.168.0.30:5000/favourite/addFavourites', variable)
+        .then(response=> {
+            if(response.data.success) {
+               console.log("Added to favorites")
+                setFavourited(!Favourited)
+            } else {
+                alert(' Failed to add to Favorites')
+            }
+        })
+    
+    }
+    
+
     return (
-        <TouchableOpacity onPress={() => {}}>
-                    <Icon name={Favourited ? "favorite" : "favorite-border"} type="material" />
-                </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleAddToFavourites()}>
+        <Icon name="favorite" type="material" />
+            </TouchableOpacity>
     )
 }
 
