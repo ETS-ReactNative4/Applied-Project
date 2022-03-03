@@ -49,5 +49,17 @@ router.post("/removeFavourites", (req, res) => {
 });
 
 
+router.post("/getFavouritedProduct", (req, res) => {
+
+    Favourite.find({ 'userFrom': req.body.userFrom })
+        .exec((err, favourites) => {
+            if (err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, favourites })
+        })
+
+});
+
+
+
 
 module.exports = router;
