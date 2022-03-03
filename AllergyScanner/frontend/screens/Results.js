@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity , ScrollView} from 'react-native';
 
 import NotFound from '../components/NotFound'
@@ -6,9 +6,13 @@ import {MatchAllergens} from '../components/AllergenMatch'
 import ListResultsItems from '../components/ListResultsItems'
 import {Icon} from 'react-native-elements';
 import Favourite from '../components/Favourite';
+import {CredentialsContext} from '../components/Context/CredentialsContext';
 
 
 const Results = ({ route }) => {
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+    const productId = route.params.product._id
+    const productName = route.params.product.product_name
     if (route.params.product === undefined) {
         return (
            
@@ -47,7 +51,7 @@ const Results = ({ route }) => {
                 ></FlatList>
                 
                
-                <Favourite/>
+                <Favourite userFrom={storedCredentials} productId={productId} productName={productName}/>
             </View>
             
             </View>
@@ -67,7 +71,7 @@ const Results = ({ route }) => {
             <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
             
                                 <Text style={styles.text}>No allergens found</Text>
-                                <Favourite/>
+                                <Favourite userFrom={storedCredentials} productId={productId} productName={productName}/>
                             </View>
                             </View>
             )}

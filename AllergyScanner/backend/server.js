@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/users", require("./routes/auth"));
+app.use("/favourite", require("./routes/favourite"));
 
 const PORT = process.env.PORT || 5000
 
