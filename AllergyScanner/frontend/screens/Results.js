@@ -5,6 +5,7 @@ import NotFound from '../components/NotFound'
 import {MatchAllergens} from '../components/AllergenMatch'
 import ListResultsItems from '../components/ListResultsItems'
 import {Icon} from 'react-native-elements';
+import Favourite from '../components/Favourite';
 
 
 const Results = ({ route }) => {
@@ -46,9 +47,7 @@ const Results = ({ route }) => {
                 ></FlatList>
                 
                
-                                <TouchableOpacity >
-                    <Icon name="favorite-border" type="material" size={40}/>
-                </TouchableOpacity>
+                <Favourite/>
             </View>
             
             </View>
@@ -67,10 +66,8 @@ const Results = ({ route }) => {
             
             <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
             
-                                <Text style={styles.resultsText}>No allergens found</Text>
-                                <TouchableOpacity >
-                    <Icon name="favorite-border" type="material" size={40}/>
-                </TouchableOpacity>
+                                <Text style={styles.text}>No allergens found</Text>
+                                <Favourite/>
                             </View>
                             </View>
             )}
