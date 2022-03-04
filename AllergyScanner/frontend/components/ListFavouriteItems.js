@@ -1,14 +1,17 @@
-import { Text, View,StyleSheet } from 'react-native';
+import { Text, View,StyleSheet , TouchableOpacity} from 'react-native';
 import React from 'react';
+import {Icon} from 'react-native-elements';
 
 
-const ListResultsItem = ({item}) => {
+const ListResultsItem = ({item, onClickRemove}) => {
     return (
         <View style={styles.container}>
             
             <Text style={styles.text}>{item.productName}{'\n'}</Text>
             <Text style={styles.text}>{item.productId}{'\n'}</Text>
-           
+            <TouchableOpacity onPress={() => onClickRemove(item.productId)}>
+            <Icon name="delete" type="material" />
+                </TouchableOpacity>
         </View>
         
     )
