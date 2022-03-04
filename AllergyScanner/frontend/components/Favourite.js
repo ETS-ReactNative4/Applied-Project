@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import {Icon} from 'react-native-elements';
 import {  TouchableOpacity } from 'react-native';
+import  {useFavourites} from './Context/FavouriteContext';
 
 const Favourite = (props) => {
     const [Favourited, setFavourited] = useState(false)
+    const { fetchFavouritedProducts } = useFavourites();
 
     const variable = {
         userFrom: props.userFrom,
@@ -35,6 +37,7 @@ const Favourite = (props) => {
                 if(response.data.success) {
                     console.log("Removed from favourites")
                     setFavourited(!Favourited)
+                    fetchFavouritedProducts();
                 } else {
                     alert(' Failed to remove from favourite')
             }})
@@ -47,6 +50,7 @@ const Favourite = (props) => {
                 if(response.data.success) {
                    console.log("Added to favourites")
                     setFavourited(!Favourited)
+                    fetchFavouritedProducts();
                 } else {
                     alert(' Failed to add to Favourites')
                 }

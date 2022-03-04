@@ -1,38 +1,39 @@
 import React, {useEffect, useContext, useState} from 'react';
 import FavouriteHeader from '../components/Headers/FavouriteHeader'
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import Axios from 'axios';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import {
     Container
 } from '../components/Styles';
+import { useFavourites } from '../components/Context/FavouriteContext';
+import ListFavouriteItems from '../components/ListFavouriteItems'
 
 const Favourite = () => {
-    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
-    const [FavouritedProducts, setFavouritedProducts] = useState([])
+    const {FavouritedProducts, setFavouritedProducts, fetchFavouritedProducts} = useFavourites();
 
     useEffect(() => {
 
-        Axios.post('http://192.168.0.30:5000/favourite/getFavouritedProduct', {userFrom: storedCredentials})
-        .then(response => {
-            if (response.data.success) {
-                setFavouritedProducts(response.data.favourites)
-            } else {
-                alert('Failed to get favourited items')
-            }
-        })
+        fetchFavouritedProducts();
 
     }, [])
 
 
     return(
+        <>
+        {FavouritedProducts.length == 0 && <Text>You have no Favourites</Text>}
+        {FavouritedProducts.length != 0 && (
         
-        <Container>
-            <FavouriteHeader/>
-        <View>
-            <Text>This is the favourite screen</Text>
-        </View>
-        </Container>
+        <FlatList data={FavouritedProducts}
+        renderItem={({item, index}) => <ListFavouriteItems item={item} key={index}></ListFavouriteItems>}
+        keyExtractor={(item,index) => index.toString()}
+        
+        ></FlatList>
+        
+        )}
+           
+            </>
+       
     )
 }
 
