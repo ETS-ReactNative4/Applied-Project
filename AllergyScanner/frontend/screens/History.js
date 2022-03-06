@@ -5,7 +5,7 @@ import {
 } from '../components/Styles';
 import HistoryHeader from '../components/Headers/HistoryHeader'
 
-export default function History(){
+const History = () => {
     return(
         <Container>
             <HistoryHeader/>
@@ -15,3 +15,5 @@ export default function History(){
         </Container>
     )
 }
+
+export default History;

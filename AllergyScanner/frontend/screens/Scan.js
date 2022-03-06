@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import _ from 'lodash'
 import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
+import {CredentialsContext} from '../components/Context/CredentialsContext';
 
 export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const isFocused = useIsFocused();
+  const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
   
 
   useEffect(() => {
@@ -22,6 +25,20 @@ export default function Scanner({navigation}) {
   const _debouncedHandleBarCodeRead = _.debounce((data) =>{ handleBarCodeScanned(data) }, 3000, 
   {leading: true, trailing: false});
 
+  const saveProducts = (userFrom, productName, productId) => {
+      axios.
+      post('http://192.168.0.30:5000/products/addProducts', userFrom, productName, productId )
+      .then(response=> {
+          if(response.data.success) {
+             console.log("Product saved to database")
+          } else {
+              alert(' Failed to save product')
+          }
+      }).catch(error=>{
+          console.log(error);
+      });
+    }
+
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
       
@@ -29,6 +46,7 @@ export default function Scanner({navigation}) {
             .then((response) => response.json())
             .then((responseJson) => {
                 navigation.navigate('Results', { product: responseJson.product });
+                saveProducts({ userFrom: storedCredentials, productId : responseJson.product._id, productName: responseJson.product.product_name})
             })
             .catch((error) => {
                 console.error(error);
