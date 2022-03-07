@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CredentialsContext} from './frontend/components/Context/CredentialsContext';
 import AllergenProvider from './frontend/components/Context/AllergenContext';
 import FavouriteProvider from './frontend/components/Context/FavouriteContext'
+import ProductProvider from './frontend/components/Context/ProductContext'
 
 export default function App() {
   // State 
@@ -41,7 +42,9 @@ export default function App() {
   return (<CredentialsContext.Provider value={{storedCredentials, setStoredCredentials}}>
     <AllergenProvider>
       <FavouriteProvider>
+        <ProductProvider>
     <RootStack/>
+    </ProductProvider>
     </FavouriteProvider>
     </AllergenProvider>
   </CredentialsContext.Provider>

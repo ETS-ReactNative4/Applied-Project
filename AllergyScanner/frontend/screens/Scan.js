@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
+import { useProducts } from '../components/Context/ProductContext';
 
 export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -12,7 +13,7 @@ export default function Scanner({navigation}) {
   const [isLoading, setLoading] = useState(true);
   const isFocused = useIsFocused();
   const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
-  
+  const {fetchProducts } = useProducts();
 
   useEffect(() => {
     (async () => {
@@ -31,6 +32,7 @@ export default function Scanner({navigation}) {
       .then(response=> {
           if(response.data.success) {
              console.log("Product saved to database")
+             fetchProducts();
           } else {
               alert(' Failed to save product')
           }

@@ -8,8 +8,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import { CredentialsContext } from '../components/Context/CredentialsContext';
 import { useAllergens } from '../components/Context/AllergenContext';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useFavourites } from '../components/Context/FavouriteContext';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useProducts } from '../components/Context/ProductContext';
 
 const Dashboard = () => {
     
@@ -17,7 +18,7 @@ const Dashboard = () => {
     const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
     const { allergens } = useAllergens();
     const { FavouritedProducts } = useFavourites();
-
+    const { products } = useProducts();
     const { name, email } = storedCredentials;
 
     const clearLogin = () => {
@@ -38,6 +39,7 @@ const Dashboard = () => {
                     <SubTitle welcome={true}>{email || 'JohnMurphy@gmail.com'}</SubTitle>
                     <Text>Allergens: {allergens.length}</Text>
                     <Text>Favourites: {FavouritedProducts.length}</Text>
+                    <Text>Scanned Items: {products.length}</Text>
                     <StyledFormArea>
                         <Avatar resizeMode="cover" source={require('../../assets/allergens.jpg')} /><Text>{"\n"}</Text>
                         

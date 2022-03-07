@@ -22,4 +22,14 @@ router.post("/addProducts", (req, res) => {
 
 });
 
+router.post("/getScannedProducts", (req, res) => {
+
+    Product.find({ 'userFrom': req.body.userFrom })
+        .exec((err, products) => {
+            if (err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, products })
+        })
+
+});
+
 module.exports = router;
