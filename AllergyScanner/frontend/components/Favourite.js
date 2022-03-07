@@ -11,7 +11,8 @@ const Favourite = (props) => {
     const variable = {
         userFrom: props.userFrom,
         productId: props.productId,
-        productName: props.productName
+        productName: props.productName,
+        allergenMatches: props.allergenMatches
         
     }
 

@@ -51,7 +51,7 @@ const Results = ({ route }) => {
                 ></FlatList>
                 
                
-                <Favourite userFrom={storedCredentials} productId={productId} productName={productName}/>
+                <Favourite userFrom={storedCredentials} productId={productId} productName={productName} allergenMatches={allergenMatches}/>
             </View>
             
             </View>
@@ -71,7 +71,7 @@ const Results = ({ route }) => {
             <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
             
                                 <Text style={styles.text}>No allergens found</Text>
-                                <Favourite userFrom={storedCredentials} productId={productId} productName={productName}/>
+                                <Favourite userFrom={storedCredentials} productId={productId} productName={productName} allergenMatches={allergenMatches}/>
                             </View>
                             </View>
             )}
