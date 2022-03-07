@@ -12,6 +12,9 @@ const productSchema = mongoose.Schema({
     productName : {
         type: String
     },
+    allergenMatches : {
+        type: [String]
+    },
     date: {
 		type: Date,
 		default: Date.now,

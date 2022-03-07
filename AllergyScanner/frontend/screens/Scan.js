@@ -26,7 +26,7 @@ export default function Scanner({navigation}) {
   const _debouncedHandleBarCodeRead = _.debounce((data) =>{ handleBarCodeScanned(data) }, 3000, 
   {leading: true, trailing: false});
 
-  const saveProducts = (userFrom, productName, productId) => {
+  /*const saveProducts = (userFrom, productName, productId) => {
       axios.
       post('http://192.168.0.30:5000/products/addProducts', userFrom, productName, productId )
       .then(response=> {
@@ -39,7 +39,7 @@ export default function Scanner({navigation}) {
       }).catch(error=>{
           console.log(error);
       });
-    }
+    }*/
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
@@ -48,7 +48,7 @@ export default function Scanner({navigation}) {
             .then((response) => response.json())
             .then((responseJson) => {
                 navigation.navigate('Results', { product: responseJson.product });
-                saveProducts({ userFrom: storedCredentials, productId : responseJson.product._id, productName: responseJson.product.product_name})
+                //saveProducts({ userFrom: storedCredentials, productId : responseJson.product._id, productName: responseJson.product.product_name})
             })
             .catch((error) => {
                 console.error(error);
