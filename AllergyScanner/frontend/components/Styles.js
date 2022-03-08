@@ -242,7 +242,7 @@ export const ModalContainer = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: ${colors.primary};
+  background-color: #C9DFEC;
 `;
 
 export const StyledInput = styled.TextInput`
@@ -278,7 +278,7 @@ export const ModalAction = styled.TouchableOpacity`
 `;
 
 export const ModalView = styled.View`
-  background-color: ${colors.secondary};
+  background-color: ${colors.alternative};
   border-radius: 20px;
   padding: 35px;
   bottom: 60px;

@@ -52,15 +52,15 @@ const Results = ({ route }) => {
             });
         return(
             <View style={{flex: 1,backgroundColor: '#ff3300'}}>
-                <View>
-                            <Icon name="warning" type="entypo"  size={200} color="#fff"/>
+                <View style={styles.icon}>
+                            <Icon name="warning" type="entypo"  size={220} color="#fff"/>
                         </View>
                         
             <View style={styles.container}>
                
-            <Text style={styles.text}> Product Name: {route.params.product.product_name} {'\n'} </Text>
+            <Text style={styles.text}> Product Name: {route.params.product.product_name} </Text>
                 
-                <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
+                {/*<Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>*/}
                 
                 <FlatList data={allergenMatches}
                 renderItem={({item, index}) => <ListResultsItems item={item} key={index}></ListResultsItems>}
@@ -98,9 +98,9 @@ const Results = ({ route }) => {
             <View style={styles.container}>
             <Text style={styles.text}> Product Name: {route.params.product.product_name} {'\n'} </Text>
             
-            <Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>
+            {/*<Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>*/}
             
-                                <Text style={styles.text}>No allergens found</Text>
+                                <Text style={styles.text}>No allergens found {'\n'}</Text>
                                 <Favourite userFrom={storedCredentials} productId={productId} productName={productName} allergenMatches={allergenMatches}/>
                                 
                             </View>
@@ -115,11 +115,10 @@ const styles = StyleSheet.create({
     
     container: {
         width:"90%",
-        height: "60%",
         backgroundColor: '#fff',
         borderRadius: 20,
         marginLeft:'5%',
-        marginTop: '5%'
+        marginTop: '20%'
 ,        padding: "10%",
       },
       text: {
@@ -127,6 +126,9 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: 'center',
       },
+      icon:{
+        marginTop: '10%'
+      }
   });
 
 export default Results; 

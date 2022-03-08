@@ -6,7 +6,7 @@ const ListResultsItem = ({item}) => {
     return (
         <View style={styles.container}>
             
-            <Text style={styles.text}> Allergens Found: {item}{'\n'}</Text>
+            <Text style={styles.text}> Allergens Found:{'\n'} {item}</Text>
         </View>
         
     )
