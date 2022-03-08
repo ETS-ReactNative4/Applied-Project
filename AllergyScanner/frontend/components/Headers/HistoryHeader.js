@@ -4,14 +4,19 @@ import React from "react";
 import {
   HeaderView,
   HeaderTitle,
- 
+  HeaderButton,
+  colors,
 } from "../Styles";
 
+// Icons
 
 const HistoryHeader = () => {
   return (
     <HeaderView>
-      <HeaderTitle>Scanned Items</HeaderTitle>
+      <HeaderTitle>Scanned Products</HeaderTitle>
+      <HeaderButton >
+       
+      </HeaderButton>
     </HeaderView>
   );
 };

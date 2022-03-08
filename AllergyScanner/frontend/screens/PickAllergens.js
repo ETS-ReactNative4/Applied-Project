@@ -6,7 +6,7 @@ import InputModal from "../components/InputModal";
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  {useAllergens} from '../components/Context/AllergenContext';
-
+import {CredentialsContext} from '../components/Context/CredentialsContext';
 const PickAllergens = () => {
      // Modal visibility & input value
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,12 +67,18 @@ const handleClearAllergens = () => {
   };
 
     return (   
+      
+     
+        
+           
         <Container>
+        
         <Header handleClearAllergens={handleClearAllergens}/>
         <ListAllergenItems allergens={allergens}
          setAllergens={setAllergens}
          loadAllergens={loadAllergens}
-         handleTriggerEdit={handleTriggerEdit}/>
+         handleTriggerEdit={handleTriggerEdit}
+         />
 
         <InputModal allergenInputValue={allergenInputValue}
         setAllergenInputValue={setAllergenInputValue}
@@ -82,9 +88,11 @@ const handleClearAllergens = () => {
         allergens={allergens}
         allergenToBeEdited={allergenToBeEdited}
         setAllergenToBeEdited={setAllergenToBeEdited}
-        handleEditAllergen={handleEditAllergen}/>
+        handleEditAllergen={handleEditAllergen}
+        />
         </Container>
-           
+               
+       
             
       
   

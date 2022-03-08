@@ -13,6 +13,7 @@ import {
   // Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit,loadAllergens}) => {
   const handleDeleteAllergen = (rowMap, rowKey) => {
     const newAllergens = [...allergens];
@@ -30,7 +31,10 @@ const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit,loadAller
     // For styling currently swiped allergen row
   const [swipedRow, setSwipedRow] = useState(null);
     return(
+      
+          
         <>
+        
         {allergens.length == 0 && <AllergenText>You have not selected any allergens.</AllergenText>}
         {allergens.length != 0 && (
 <SwipeListView
@@ -49,6 +53,7 @@ return(
   </ListView>
 )
 }}
+
 renderHiddenItem={(data, rowMap) => (
     <ListViewHidden>
       <HiddenButton onPress={() => handleDeleteAllergen(rowMap, data.item.key)}
@@ -64,7 +69,7 @@ renderHiddenItem={(data, rowMap) => (
     disableLeftSwipe={true}
     showsVerticalScrollIndicator={false}
     style={{ flex: 1, paddingBottom: 30, marginBottom: 40 }}
-
+        
     // Handling swiped allergen row
     onRowOpen={(rowKey) => {
         setSwipedRow(rowKey);
@@ -75,6 +80,8 @@ renderHiddenItem={(data, rowMap) => (
 />
     )}
     </>
+                     
+    
     )
 }
 export default ListAllergenItems;

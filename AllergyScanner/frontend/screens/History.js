@@ -18,15 +18,16 @@ const History = () => {
 
     return (
         <>
-         {products.length == 0 && <Text>You have no Scanned Items</Text>}
+         {products.length == 0 &&   <Container><HistoryHeader><Text>You have no Scanned Items</Text></HistoryHeader></Container>}
          {products.length != 0 && (
-         
+         <Container>
+             <HistoryHeader/>
          <FlatList data={products}
          renderItem={({item, index}) => <ListFavouriteItems item={item} key={index}></ListFavouriteItems>}
          keyExtractor={(item,index) => index.toString()}
          
          ></FlatList>
-         
+         </Container>
          )}
             
              </>

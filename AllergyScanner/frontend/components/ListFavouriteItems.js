@@ -4,35 +4,49 @@ import {Icon} from 'react-native-elements';
 
 
 const ListResultsItem = ({item, onClickRemove}) => {
-  
+ 
   if(item.allergenMatches.length > 0)
   {
     return (
     
-        <View style={styles.container}>
-            
-            <Text style={styles.text}>{item.productName}{'\n'}</Text>
-            <Text style={styles.text}>{item.productId}{'\n'}</Text>
-            <Text style={styles.text}>{item.allergenMatches}{'\n'}</Text>
-            <TouchableOpacity onPress={() => onClickRemove(item.productId)}>
-            <Icon name="delete" type="material" />
-            <Icon name="warning" type="material"   color="#ff3333"/>
-                </TouchableOpacity>
-        </View>
         
+            <View style={styles.listItem}>
+              <View style={styles.listItemView}>
+              <Text style={styles.iconWarning}>
+            <Icon name="warning" type="material" color="#ff3300"  size={33}/>
+            </Text>
+            
+            <Text style={styles.listItemText}>{item.productName}</Text>
+           
+            <TouchableOpacity onPress={() => onClickRemove(item.productId)}>
+       <Icon name="delete" type="material" />
+           </TouchableOpacity>
+            
+           
+              
+        </View>
+        </View>
     )
      } else  {
       return (
-        <View style={styles.container}>
        
-       <Text style={styles.text}>{item.productName}{'\n'}</Text>
-       <Text style={styles.text}>{item.productId}{'\n'}</Text>
-       <Text style={styles.text}>{item.allergenMatches}{'\n'}</Text>
-       <TouchableOpacity onPress={() => onClickRemove(item.productId)}>
+       <View style={styles.listItem}>
+         <View style={styles.listItemView}>
+         <Text style={styles.iconCheck}>
+       <Icon name="check" type="entypo" color="#008000" size={33}/>
+       </Text>
+       <Text style={styles.listItemText}>{item.productName}{'\n'}</Text>
+       <TouchableOpacity styles={styles.iconDelete}onPress={() => onClickRemove(item.productId)}>
        <Icon name="delete" type="material" />
-       <Icon name="check" type="entypo"  size={200} color="#33cc33"/>
            </TouchableOpacity>
+       
+      
+       
+     
+          
+           </View>
    </View>
+   
       )
     }
 }
@@ -52,7 +66,44 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
   },
+  listItem: {
+    right: "1%",
+    padding: "7%",
+    borderBottomWidth: 1,
+    borderColor: '#eee'
+},
+listItemView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+},
+listItemText: {
+    fontSize: 18,
+    width: "80%"
+},
+
+iconWarning: {
+    right: "30%",
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+   
+},
+iconCheck: {
+    right: "30%",
+    color: 'green',
+    fontSize: 20,
+    textAlign: 'center'
+},
+iconDelete: {
+  left: "30%",
+  
+}
+
+
   });
+
+  
 
 
 export default ListResultsItem;
