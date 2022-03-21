@@ -7,6 +7,7 @@ import {CredentialsContext} from '../components/Context/CredentialsContext';
 //screens
 import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
+import Splash from '../screens/Splash'
 import BottomTab from './TabNavigator'
 
 
@@ -30,7 +31,7 @@ const RootStack = () => {
                         paddingLeft: 20
                     }
                     }}
-                    initialRouteName="Login">
+                    initialRouteName="Splash">
                {storedCredentials ? (
                   <>
                   <Stack.Screen name="App" component={BottomTab}/>
@@ -38,7 +39,7 @@ const RootStack = () => {
                 </>
                      ) : ( 
                          <>
-                           
+                 <Stack.Screen name="Splash" component={Splash}/>
                  <Stack.Screen name="Login" component={Login}/>
                  <Stack.Screen name="SignUp" component={SignUp}/>
                  
