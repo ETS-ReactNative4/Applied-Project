@@ -97,7 +97,7 @@ width: 90%;
 
 export const StyledTextInput = styled.TextInput`
 background-color: #E5E7EB;
-padding-left: 30px;
+padding-left: 55px;
 border-radius: 10px;
 font-size: 16px;
 height: 60px;
@@ -109,6 +109,13 @@ export const StyledInputLabel = styled.Text`
 font-size: 13px;
 text-align: left;
 `
+
+export const LeftIcon = styled.View`
+  left: 15px;
+  top: 34px;
+  position: absolute;
+  z-index: 1;
+`;
 
 export const StyledButton = styled.TouchableOpacity`
 backgroundColor: #0782F9;

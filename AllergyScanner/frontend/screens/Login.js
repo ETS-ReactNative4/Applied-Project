@@ -2,13 +2,14 @@ import React,{useState, useContext} from 'react';
 import {
     StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
     StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
-    ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2
+    ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2,LeftIcon
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
 import { View, ActivityIndicator } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
 import axios from "axios";
+import {Octicons, Ionicons} from '@expo/vector-icons'
 // async-storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
@@ -94,6 +95,7 @@ const Login = ({navigation}) => {
                             onBlur={handleBlur('email')}
                             value={values.email}
                             keyboardType="email-address"
+                            icon="mail"
                         />
 
                         <MyTextInput
@@ -133,9 +135,12 @@ const Login = ({navigation}) => {
     );
 }
 
-const MyTextInput = ({ label, ...props }) => {
+const MyTextInput = ({ label, icon,...props }) => {
     return (
         <View>
+            <LeftIcon>
+            <Octicons name={icon} size={30}/>
+            </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
 
