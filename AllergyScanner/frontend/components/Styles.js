@@ -117,6 +117,13 @@ export const LeftIcon = styled.View`
   z-index: 1;
 `;
 
+export const RightIcon = styled.TouchableOpacity`
+  right: 15px;
+  top: 38px;
+  position: absolute;
+  z-index: 1;
+`;
+
 export const StyledButton = styled.TouchableOpacity`
 backgroundColor: #0782F9;
 width: 100%;
