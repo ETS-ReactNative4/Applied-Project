@@ -2,7 +2,7 @@ import React,{useState, useContext} from 'react';
 import {
   StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
   StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
-  ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2
+  ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2, LeftIcon
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
@@ -13,7 +13,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import {CredentialsContext} from '../components/Context/CredentialsContext';
-
+import {Octicons, Ionicons} from '@expo/vector-icons'
 const SignUp = ({navigation}) => {
 
    // using a state variable to store the message 
@@ -97,7 +97,7 @@ const SignUp = ({navigation}) => {
               onChangeText={handleChange('name')}
               onBlur={handleBlur('name')}
               value={values.name}
-
+              icon="person"
             />
 
             <MyTextInput
@@ -107,6 +107,7 @@ const SignUp = ({navigation}) => {
               onBlur={handleBlur('email')}
               value={values.email}
               keyboardType="email-address"
+              icon="mail"
             />
 
             <MyTextInput
@@ -116,6 +117,7 @@ const SignUp = ({navigation}) => {
               onBlur={handleBlur('password')}
               value={values.password}
               secureTextEntry={true}
+              icon="lock"
             />
 
             <MyTextInput
@@ -125,6 +127,7 @@ const SignUp = ({navigation}) => {
               onBlur={handleBlur('confirmPassword')}
               value={values.confirmPassword}
               secureTextEntry={true}
+              icon="lock"
             />
              <MessageBox type={messageType}>{message}</MessageBox>
              {!isSubmitting && 
@@ -153,9 +156,12 @@ const SignUp = ({navigation}) => {
   );
 }
 
-const MyTextInput = ({ label, ...props }) => {
+const MyTextInput = ({ label, icon,...props }) => {
   return (
     <View>
+      <LeftIcon>
+      <Octicons name={icon} size={30}/>
+      </LeftIcon>
       <StyledInputLabel>{label}</StyledInputLabel>
       <StyledTextInput {...props} />
 
