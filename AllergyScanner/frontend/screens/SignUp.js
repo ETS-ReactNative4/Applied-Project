@@ -2,7 +2,7 @@ import React,{useState, useContext} from 'react';
 import {
   StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
   StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
-  ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2, LeftIcon
+  ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2, LeftIcon, RightIcon
 } from '../components/Styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
@@ -22,6 +22,7 @@ const SignUp = ({navigation}) => {
    const[messageType, setMessageType] = useState();
     // context
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+    const [hidePassword, setHidePassword] = useState(true);
 
    // method to handle login
    const handleSignup = (credentials, setSubmitting) => {
@@ -116,8 +117,11 @@ const SignUp = ({navigation}) => {
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
-              secureTextEntry={true}
+              secureTextEntry={hidePassword}
               icon="lock"
+              isPassword={true}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}
             />
 
             <MyTextInput
@@ -126,8 +130,11 @@ const SignUp = ({navigation}) => {
               onChangeText={handleChange('confirmPassword')}
               onBlur={handleBlur('confirmPassword')}
               value={values.confirmPassword}
-              secureTextEntry={true}
+              secureTextEntry={hidePassword}
               icon="lock"
+              isPassword={true}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}
             />
              <MessageBox type={messageType}>{message}</MessageBox>
              {!isSubmitting && 
@@ -156,18 +163,30 @@ const SignUp = ({navigation}) => {
   );
 }
 
-const MyTextInput = ({ label, icon,...props }) => {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
   return (
     <View>
       <LeftIcon>
-      <Octicons name={icon} size={30}/>
+        <Octicons name={icon} size={30}  />
       </LeftIcon>
       <StyledInputLabel>{label}</StyledInputLabel>
-      <StyledTextInput {...props} />
 
+      
+          <StyledTextInput {...props} />
+       
+
+      {isPassword && (
+        <RightIcon
+          onPress={() => {
+            setHidePassword(!hidePassword);
+          }}
+        >
+          <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30}  />
+        </RightIcon>
+      )}
     </View>
-  )
-}
+  );
+};
 
 export default SignUp;
 
