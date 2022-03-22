@@ -4,9 +4,9 @@ import {
   StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
   ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2, LeftIcon, RightIcon
 } from '../components/Styles';
-import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
-import { View, ActivityIndicator } from 'react-native'
+import Constants from 'expo-constants'
+import { View, ActivityIndicator, StyleSheet, Text } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
 import axios from 'axios';
 // async-storage
@@ -14,6 +14,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import {Octicons, Ionicons} from '@expo/vector-icons'
+const StatusBarHeight = Constants.statusBarHeight;
+
 const SignUp = ({navigation}) => {
 
    // using a state variable to store the message 
@@ -67,13 +69,21 @@ const SignUp = ({navigation}) => {
 
   return (
     <KeyboardWrapper>
-    <StyledContainer>
-      <StatusBar style="dark" />
-      <InnerContainer>
-     
-        <PageTitle>Allergy Scanner</PageTitle>
-        <PageLogo2 resizeMode="cover" source={require('../../assets/scan.png')} />
-        <SubTitle>{"\n"}Account Signup</SubTitle>
+    
+    <View style={styles.container}>
+        
+        <View style={styles.header}>
+       
+        <Text style={styles.text_header}>Register now!</Text>
+       
+        </View>
+
+        <View 
+            style={[styles.footer, {
+               
+            }]}
+            
+        >
         <Formik
           // Provide email and password values
           initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
@@ -157,8 +167,8 @@ const SignUp = ({navigation}) => {
             </ExtraView>
           </StyledFormArea>)}
         </Formik>
-      </InnerContainer>
-    </StyledContainer>
+     </View>
+    </View>
     </KeyboardWrapper>
   );
 }
@@ -189,5 +199,44 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
 };
 
 export default SignUp;
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    backgroundColor: '#344955',
+    paddingTop: StatusBarHeight + 110
+  },
+  header: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      paddingHorizontal: 20,
+      paddingBottom: 50
+  },
+  footer: {
+      flex: 3,
+      backgroundColor: '#fff',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      paddingHorizontal: 20,
+      paddingVertical: 30
+  },
+  text_header: {
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: 30
+  },
+  text_footer: {
+      color: '#05375a',
+      fontSize: 18
+  },
+  
+});
+
+
+
+
+
 
 
