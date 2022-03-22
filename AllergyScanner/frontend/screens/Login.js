@@ -4,10 +4,8 @@ import {
     StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
     ExtraText, ExtraView, TextLinkContent, TextLink, PageLogo2,LeftIcon, RightIcon
 } from '../components/Styles';
-import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik'
-import { View, ActivityIndicator } from 'react-native'
-import KeyboardWrapper from '../components/KeyboardWrapper';
+import { View, ActivityIndicator,StyleSheet,Text } from 'react-native'
 import axios from "axios";
 import {Octicons, Ionicons} from '@expo/vector-icons'
 // async-storage
@@ -66,14 +64,18 @@ const Login = ({navigation}) => {
     }
     return (
        
-        <KeyboardWrapper>
-        <StyledContainer>
-            <StatusBar style="dark" />
-            <InnerContainer>
-                <PageLogo resizeMode="cover" source={require('../../assets/allergens.jpg')} />
-                <PageTitle>Allergy Scanner </PageTitle>
-                
-                <SubTitle>Account Login</SubTitle>
+        <View style={styles.container}>
+        
+                <View style={styles.header}>
+                    <Text style={styles.text_header}>Sign into your account now!</Text>
+               </View>
+               <View 
+            style={[styles.footer, {
+               
+            }]}
+            
+        >
+        
                 <Formik
                     // Provide email and password values
                     initialValues={{ email: '', password: '' }}
@@ -133,9 +135,8 @@ const Login = ({navigation}) => {
                         </ExtraView>
                     </StyledFormArea>)}
                 </Formik>
-            </InnerContainer>
-        </StyledContainer>
-        </KeyboardWrapper>
+                </View>
+        </View>
        
     );
 }
@@ -163,6 +164,41 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,..
 
 
 export default Login;
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1, 
+      backgroundColor: '#344955'
+    },
+    header: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20,
+        paddingBottom: 50
+    },
+    footer: {
+        flex: 3,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingHorizontal: 20,
+        paddingVertical: 30
+    },
+    text_header: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 30
+    },
+    text_footer: {
+        color: '#05375a',
+        fontSize: 18
+    },
+    
+  });
+
+
+
+
 
 
 

@@ -125,7 +125,7 @@ export const RightIcon = styled.TouchableOpacity`
 `;
 
 export const StyledButton = styled.TouchableOpacity`
-backgroundColor: #0782F9;
+backgroundColor: #344955;
 width: 100%;
 padding: 15px;
 borderRadius: 10px;
@@ -170,7 +170,8 @@ align-items: center;
 
 export const TextLinkContent = styled.Text`
 font-size: 15px;
-color: #2B65EC;
+color: #344955;
+font-weight: bold;
 `
 
 
