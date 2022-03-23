@@ -6,7 +6,7 @@ import {
 import HistoryHeader from '../components/Headers/HistoryHeader'
 import Axios from 'axios';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
-import ListFavouriteItems from '../components/ListFavouriteItems'
+import ListHistory from '../components/ListHistory'
 import { useProducts } from '../components/Context/ProductContext';
 
 const History = () => {
@@ -45,7 +45,7 @@ const History = () => {
          <Container>
              <HistoryHeader/>
          <FlatList data={products}
-         renderItem={({item, index}) => <ListFavouriteItems item={item} key={index} onClickRemove={onClickRemove}></ListFavouriteItems>}
+         renderItem={({item, index}) => <ListHistory item={item} key={index} onClickRemove={onClickRemove}></ListHistory>}
          keyExtractor={(item,index) => index.toString()}
          
          ></FlatList>

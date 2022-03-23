@@ -103,6 +103,7 @@ const BottomTab = () => {
             <Tab.Screen  name="History1"
             options={{
               tabBarLabel: 'History',
+              unmountOnBlur: true,
               tabBarIcon: () => <Icon name="history" type="material" />
             }} component={StackNavigator}/>
              <Tab.Screen name="Dashboard" 
