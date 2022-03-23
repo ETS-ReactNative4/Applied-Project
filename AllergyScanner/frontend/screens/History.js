@@ -40,6 +40,8 @@ const History = () => {
 
     return (
         <>
+         
+      
          {products.length == 0 &&   <Container><HistoryHeader/><Text>You have no Scanned Items</Text></Container>}
          {products.length != 0 && (
          <Container>

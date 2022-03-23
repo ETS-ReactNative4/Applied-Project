@@ -31,6 +31,7 @@ const Dashboard = () => {
            
     }
     return (
+      
         <StyledContainer>
             <InnerContainer>
                 <DashboardContainer>
@@ -89,11 +90,7 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
 
     },
-    hello: {
-        alignItems: 'center',
-        fontSize: 18,
-        fontWeight: 'bold'
-    }
+    
 
 })
 

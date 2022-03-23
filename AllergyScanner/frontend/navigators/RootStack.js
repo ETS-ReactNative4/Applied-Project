@@ -1,14 +1,14 @@
-import { NavigationContainer, TabActions } from '@react-navigation/native';
+import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
-
+//import Practice from './Practice'
 
 //screens
 import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
 import Splash from '../screens/Splash'
-import BottomTab from './TabNavigator'
+import TabNavigator from './TabNavigator'
 
 
 const Stack = createNativeStackNavigator();
@@ -25,7 +25,7 @@ const RootStack = () => {
                         
                         
                     },
-                    
+                    headerShown: false,
                     headerTintColor: '#1F2937',
                     headerTransparent: true,
                     headerTitle: '',
@@ -36,7 +36,7 @@ const RootStack = () => {
                     initialRouteName="Splash">
                {storedCredentials ? (
                   <>
-                  <Stack.Screen name="App" component={BottomTab}/>
+                  <Stack.Screen name="App" component={TabNavigator}/>
                   
                 </>
                      ) : ( 
