@@ -34,6 +34,16 @@ router.post("/addProducts", (req, res) => {
 
 });
 
+router.post("/removeProducts", (req, res) => {
+
+    Product.findOneAndDelete({ productId: req.body.productId, userFrom: req.body.userFrom })
+        .exec((err, doc) => {
+            if (err) return res.status(400).json({ success: false, err })
+            res.status(200).json({ success: true, doc })
+        })
+
+});
+
 router.post("/getScannedProducts", (req, res) => {
 
     Product.find({ 'userFrom': req.body.userFrom })

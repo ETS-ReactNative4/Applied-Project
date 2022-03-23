@@ -25,7 +25,7 @@ const RootStack = () => {
                         
                         
                     },
-                    headerShown: false,
+                    
                     headerTintColor: '#1F2937',
                     headerTransparent: true,
                     headerTitle: '',

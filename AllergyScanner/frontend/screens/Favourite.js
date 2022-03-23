@@ -7,7 +7,6 @@ import {
 } from '../components/Styles';
 import { useFavourites } from '../components/Context/FavouriteContext';
 import ListFavouriteItems from '../components/ListFavouriteItems'
-
   import FavouriteHeader from '../components/Headers/FavouriteHeader'
 
 const Favourite = () => {
@@ -45,7 +44,7 @@ const Favourite = () => {
     return(
         <>
         
-        {FavouritedProducts.length == 0 && <Container><FavouriteHeader><Text>You have no Favourites</Text></FavouriteHeader></Container>}
+        {FavouritedProducts.length == 0 && <Container><FavouriteHeader/><Text>You have no Favourites</Text></Container>}
         {FavouritedProducts.length != 0 && (
         <Container>
            <FavouriteHeader/>

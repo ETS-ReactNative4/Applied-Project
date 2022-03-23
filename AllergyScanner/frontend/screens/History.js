@@ -11,19 +11,41 @@ import { useProducts } from '../components/Context/ProductContext';
 
 const History = () => {
     const { products, fetchProducts } = useProducts();
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
 
     useEffect(() => {
             fetchProducts();
     }, [])
+    
+
+    const onClickRemove = (productId) => {
+        
+        const variable = {
+            productId: productId,
+            userFrom:  storedCredentials
+        }
+
+        Axios.post('http://192.168.0.30:5000/products/removeProducts', variable)
+        .then(response=> {
+            if(response.data.success) {
+               console.log("Removed product")
+                
+               fetchProducts()
+            } else {
+                alert(' Failed to remove from products')
+            }
+        })
+    
+    }
 
     return (
         <>
-         {products.length == 0 &&   <Container><HistoryHeader><Text>You have no Scanned Items</Text></HistoryHeader></Container>}
+         {products.length == 0 &&   <Container><HistoryHeader/><Text>You have no Scanned Items</Text></Container>}
          {products.length != 0 && (
          <Container>
              <HistoryHeader/>
          <FlatList data={products}
-         renderItem={({item, index}) => <ListFavouriteItems item={item} key={index}></ListFavouriteItems>}
+         renderItem={({item, index}) => <ListFavouriteItems item={item} key={index} onClickRemove={onClickRemove}></ListFavouriteItems>}
          keyExtractor={(item,index) => index.toString()}
          
          ></FlatList>
