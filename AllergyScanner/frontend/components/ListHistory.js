@@ -22,9 +22,9 @@ const ListHistory = ({item, onClickRemove}) => {
             <Text style={styles.listItemText}>{item.productName}</Text>
             </TouchableOpacity>
            
-            <TouchableOpacity onPress={() => onClickRemove(item.productId)}>
-       <Icon name="delete" type="material" />
-           </TouchableOpacity>
+            <View style={styles.iconDelete2}>
+       <Icon name="delete" type="material" onPress={() => onClickRemove(item.productId)}/>
+       </View>
             
            
               
@@ -45,9 +45,9 @@ const ListHistory = ({item, onClickRemove}) => {
        <Text style={styles.listItemText}>{item.productName}{'\n'}</Text>
        </TouchableOpacity>
 
-       <TouchableOpacity styles={styles.iconDelete}onPress={() => onClickRemove(item.productId)}>
-       <Icon name="delete" type="material" />
-           </TouchableOpacity>
+       <View style={styles.iconDelete}>
+       <Icon name="delete" type="material" onPress={() => onClickRemove(item.productId)}/>
+       </View>
        
       
        
@@ -105,7 +105,11 @@ iconCheck: {
     textAlign: 'center'
 },
 iconDelete: {
-  left: "30%",
+  right: "90%"
+  
+},
+iconDelete2: {
+  left: "40%"
   
 }
 
