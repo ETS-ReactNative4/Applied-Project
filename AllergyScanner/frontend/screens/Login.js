@@ -1,4 +1,4 @@
-import React,{useState, useContext} from 'react';
+import React,{useState, useContext,useEffect} from 'react';
 import {
     StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFormArea,
     StyledTextInput, StyledInputLabel, StyledButton, ButtonText, MessageBox,
@@ -12,6 +12,7 @@ import {Octicons, Ionicons} from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import {CredentialsContext} from '../components/Context/CredentialsContext';
+import * as Animatable from 'react-native-animatable';
 
 const Login = ({navigation}) => {
     // using a state variable to store the message 
@@ -21,7 +22,7 @@ const Login = ({navigation}) => {
     // context
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
     const [hidePassword, setHidePassword] = useState(true);
-
+    
     // method to handle login
     const handleLogin = (credentials, setSubmitting) => {
         handleMessage(null);
@@ -69,11 +70,12 @@ const Login = ({navigation}) => {
                 <View style={styles.header}>
                     <Text style={styles.text_header}>Sign into your account now!</Text>
                </View>
-               <View 
+               <Animatable.View 
+               
             style={[styles.footer, {
                
             }]}
-            
+            animation="fadeInUpBig"
         >
         
                 <Formik
@@ -135,7 +137,7 @@ const Login = ({navigation}) => {
                         </ExtraView>
                     </StyledFormArea>)}
                 </Formik>
-                </View>
+                </Animatable.View>
         </View>
        
     );

@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import {Octicons, Ionicons} from '@expo/vector-icons'
+import * as Animatable from 'react-native-animatable';
 const StatusBarHeight = Constants.statusBarHeight;
 
 const SignUp = ({navigation}) => {
@@ -78,11 +79,11 @@ const SignUp = ({navigation}) => {
        
         </View>
 
-        <View 
+        <Animatable.View 
             style={[styles.footer, {
-               
+               // backgroundColor: colors.background
             }]}
-            
+            animation="fadeInUpBig"
         >
         <Formik
           // Provide email and password values
@@ -159,7 +160,7 @@ const SignUp = ({navigation}) => {
               <ExtraText>
                 Already Have an account?...
                           </ExtraText>
-              <TextLink onPress={() =>  navigation.navigate("Login")}>
+              <TextLink onPress={() =>  navigation.goBack()}>
                 <TextLinkContent>
                   Sign In
                               </TextLinkContent>
@@ -167,7 +168,7 @@ const SignUp = ({navigation}) => {
             </ExtraView>
           </StyledFormArea>)}
         </Formik>
-     </View>
+     </Animatable.View>
     </View>
     </KeyboardWrapper>
   );
