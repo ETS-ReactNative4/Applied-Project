@@ -84,6 +84,7 @@ const Results = ({ route }) => {
                    console.log("Product saved to database")
                    fetchProducts();
                 } else {
+                    console.log(response.data)
                     alert(' Failed to save product')
                 }
             }).catch(error=>{

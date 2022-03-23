@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {LinearGradient} from 'expo-linear-gradient';
+import * as Animatable from 'react-native-animatable';
 
 const Splash = ({navigation}) => {
     
@@ -17,15 +18,20 @@ const Splash = ({navigation}) => {
       <View style={styles.container}>
           <StatusBar backgroundColor='#009387' barStyle="light-content"/>
         <View style={styles.header}>
-            <Image 
-                
+        <Animatable.Image 
+                animation="bounceIn"
+                duraton="1500"
             source={require('../../assets/Food.jpg')}
             style={styles.logo}
             resizeMode="stretch"
             />
         </View>
-        <View 
-            style={styles.footer}>
+        <Animatable.View 
+            style={[styles.footer, {
+               // backgroundColor: colors.background
+            }]}
+            animation="fadeInUpBig"
+        >
             <Text style={[styles.title, {
             }]}>Allergy Scanner</Text>
             <Text style={styles.text}>Find out if your food is safe to eat.</Text>
@@ -44,7 +50,7 @@ const Splash = ({navigation}) => {
                </LinearGradient>
             </TouchableOpacity>
             </View>
-        </View>
+            </Animatable.View>
       </View>
     );
 };
