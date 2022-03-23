@@ -11,6 +11,7 @@ import Scan from '../screens/Scan'
 import Favourite from '../screens/Favourite'
 import History from '../screens/History'
 import Results from '../screens/Results'
+import Details from '../screens/Details'
 
 
 const Stack = createNativeStackNavigator();
@@ -36,6 +37,31 @@ const MainStackNavigator = () => {
       initialRouteName="Scan">
       <Stack.Screen name="Scan" component={Scan} />
       <Stack.Screen name="Results" component={Results}  options={{headerBackVisible:false }}/>
+    </Stack.Navigator>
+   
+  );
+}
+
+const StackNavigator = () => {
+  return (
+    
+    <Stack.Navigator
+    screenOptions={{headerStyle:
+      {
+          backgroundColor: 'transparent',
+          
+      },
+      headerTintColor: '#1F2937',
+      headerTransparent: true,
+      headerTitle: '',
+      headerLeftContainerStyle: {
+          paddingLeft: 20,
+          
+      }
+      }}
+      initialRouteName="History">
+      <Stack.Screen name="History" component={History} />
+      <Stack.Screen name="Details" component={Details}  options={{headerBackVisible:false }}/>
     </Stack.Navigator>
    
   );
@@ -74,17 +100,18 @@ const BottomTab = () => {
             }} component={MainStackNavigator}  
             
               />
-            <Tab.Screen  name="History"
+            <Tab.Screen  name="History1"
             options={{
               tabBarLabel: 'History',
               tabBarIcon: () => <Icon name="history" type="material" />
-            }} component={History}/>
+            }} component={StackNavigator}/>
              <Tab.Screen name="Dashboard" 
             options={{
                 
               tabBarLabel: 'Dashboard',
               tabBarIcon: () => <Icon name="account-circle" type="material" />
             }}  component={Dashboard} />
+            
              
         </Tab.Navigator>
         </View>
