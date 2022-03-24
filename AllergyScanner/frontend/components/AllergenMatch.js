@@ -10,23 +10,28 @@ export function MatchAllergens(allergenData, allergenString) {
   
   function AllergensString(allergenString) {
       let allergens = [];
-     allergens.push(allergenString);
-      return allergens;
+    allergens = allergenString.replace('(en)', '')
+    
+    const allergenArray = [...new Set(allergens.split(", "))]
+      return allergenArray;
       
   }
 
   function findAllergenMatches(allergenData, array) {
     let matches = [];
-    
+     //console.log(` ${array}`)
     for (const allergen in allergenData) {
         if(allergenData[allergen] !== 0) {
+            
             for (var i = 0; i < array.length; i++) {
               {allergenData.map(({ title,key }) => (
                 <p key={title}></p>
                 ))
-                if (array[i].includes(allergenData[allergen].title.toLowerCase())) {
+                
+                if (array[i].includes(allergenData[allergen].title)) {
+                  
                     let match = allergenData[allergen].title;
-                    match.replace(/^\w/, (c) => c)
+                    match.replace(/["]+/g, (c) => c)
                     matches.push(match);
                      
                     }
@@ -36,5 +41,11 @@ export function MatchAllergens(allergenData, allergenString) {
     }
     return matches;
   }
+
   
+
+
   
+ 
+
+ 

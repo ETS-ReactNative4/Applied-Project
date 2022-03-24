@@ -1,4 +1,3 @@
-import Header from '../components/Headers/Header'
 import React, {useState,useContext,useEffect} from 'react';
 import { Container, } from '../components/Styles';
 import ListAllergenItems from '../components/ListAllergenItems'
@@ -7,6 +6,7 @@ import InputModal from "../components/InputModal";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  {useAllergens} from '../components/Context/AllergenContext';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
+import AllergenHeader from '../components/Headers/AllergenHeader'
 const PickAllergens = () => {
      // Modal visibility & input value
   const [modalVisible, setModalVisible] = useState(false);
@@ -71,9 +71,10 @@ const handleClearAllergens = () => {
      
         
            
+        <>
+        <AllergenHeader titleText='Allergens' handleClearAllergens={handleClearAllergens}/>
         <Container>
-        
-        <Header handleClearAllergens={handleClearAllergens}/>
+        {/*<Header handleClearAllergens={handleClearAllergens}/>*/}
         <ListAllergenItems allergens={allergens}
          setAllergens={setAllergens}
          loadAllergens={loadAllergens}
@@ -91,6 +92,7 @@ const handleClearAllergens = () => {
         handleEditAllergen={handleEditAllergen}
         />
         </Container>
+      </>
                
        
             

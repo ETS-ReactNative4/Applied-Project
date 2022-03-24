@@ -32,7 +32,7 @@ const Results = ({ route }) => {
                 </View>         
                                 </View>)}
         else {
-        let allergenMatches = MatchAllergens(global.allergenData, route.params.product.ingredients_text);   
+        let allergenMatches = MatchAllergens(global.allergenData, route.params.product.allergens_from_ingredients);   
         
          if(allergenMatches.length > 0){
         console.log(`Allergens found: ${allergenMatches}`)

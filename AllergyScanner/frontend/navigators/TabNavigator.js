@@ -90,6 +90,7 @@ const TabNavigator = () => {
         <Tab.Screen name="Scan2" options={{
               tabBarLabel: 'Scan',
               headerShown: false,
+              unmountOnBlur: true,
               tabBarActiveTintColor: '#ffff99',
               tabBarInactiveTintColor: '#fff',
               tabBarIcon: () => <Icon name="barcode-scan" type="material-community" color="#C9DFEC" size={30}/>

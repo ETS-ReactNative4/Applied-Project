@@ -205,6 +205,7 @@ export const ListView = styled.TouchableHighlight`
   justify-content: space-around;
   margin-bottom: 15px;
   border-radius: 10px;
+
 `;
 
 export const ListViewHidden = styled.View`
@@ -216,6 +217,7 @@ export const ListViewHidden = styled.View`
   align-items: flex-start;
   margin-bottom: 15px;
   border-radius: 11px;
+  
 `;
 
 export const HiddenButton = styled.TouchableOpacity`
@@ -229,6 +231,7 @@ export const AllergenText = styled.Text`
   letter-spacing: 1px;
   color: ${colors.primary};
   text-align: center;
+  
 `;
 
 
@@ -249,7 +252,7 @@ export const ModalButton = styled.TouchableOpacity`
   align-self: center;
   position: absolute;
   right: 85px;
-  top: 40px;
+  top: -43px;
 `;
 
 export const ModalContainer = styled.View`
