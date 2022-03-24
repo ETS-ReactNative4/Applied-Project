@@ -7,7 +7,8 @@ import {
 } from '../components/Styles';
 import { useFavourites } from '../components/Context/FavouriteContext';
 import ListFavouriteItems from '../components/ListFavouriteItems'
-  import FavouriteHeader from '../components/Headers/FavouriteHeader'
+  import Header from '../components/Headers/Header'
+  
 
 const Favourite = () => {
     const {FavouritedProducts, fetchFavouritedProducts} = useFavourites();
@@ -43,11 +44,12 @@ const Favourite = () => {
 
     return(
         <>
-        
-        {FavouritedProducts.length == 0 && <Container><FavouriteHeader/><Text>You have no Favourites</Text></Container>}
+        <Header titleText='Favourites'/> 
+        {FavouritedProducts.length == 0 && <Container><Text style={{left: 30, fontSize: 16, letterSpacing: 1}}>You have no Favourites</Text></Container>}
         {FavouritedProducts.length != 0 && (
+           
         <Container>
-           <FavouriteHeader/>
+           
         <FlatList data={FavouritedProducts}
         renderItem={({item, index}) => <ListFavouriteItems  item={item}  key={index} onClickRemove={onClickRemove}></ListFavouriteItems>}
         keyExtractor={(item,index) => index.toString()}

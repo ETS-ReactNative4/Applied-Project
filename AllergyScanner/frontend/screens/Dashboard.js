@@ -11,6 +11,7 @@ import { useAllergens } from '../components/Context/AllergenContext';
 import { useFavourites } from '../components/Context/FavouriteContext';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useProducts } from '../components/Context/ProductContext';
+import Header from '../components/Headers/Header'
 
 const Dashboard = () => {
     
@@ -31,7 +32,8 @@ const Dashboard = () => {
            
     }
     return (
-      
+      <>
+       <Header titleText='Profile'/> 
         <StyledContainer>
             <InnerContainer>
                 <DashboardContainer>
@@ -62,7 +64,7 @@ const Dashboard = () => {
                 </DashboardContainer>
             </InnerContainer>
         </StyledContainer>
-
+</>
     )
 }
 

@@ -6,6 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import { useProducts } from '../components/Context/ProductContext';
+import Header from '../components/Headers/Header'
 
 export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -68,6 +69,8 @@ export default function Scanner({navigation}) {
 
   if (isFocused) {
   return (
+    <>
+     <Header titleText='Scan'/> 
     <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : _debouncedHandleBarCodeRead}
@@ -77,6 +80,7 @@ export default function Scanner({navigation}) {
         </BarCodeScanner>
       {/*{scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}*/}
     </View>
+    </>
   );
 } else {
   return <View/>

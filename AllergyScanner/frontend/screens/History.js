@@ -3,11 +3,11 @@ import {View, Text,FlatList} from 'react-native';
 import {
     Container
 } from '../components/Styles';
-import HistoryHeader from '../components/Headers/HistoryHeader'
 import Axios from 'axios';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import ListHistory from '../components/ListHistory'
 import { useProducts } from '../components/Context/ProductContext';
+import Header from '../components/Headers/Header'
 
 const History = () => {
     const { products, fetchProducts } = useProducts();
@@ -41,11 +41,11 @@ const History = () => {
     return (
         <>
          
-      
-         {products.length == 0 &&   <Container><HistoryHeader/><Text>You have no Scanned Items</Text></Container>}
+         <Header titleText='Scanned Items'/> 
+         {products.length == 0 &&   <Container><Text style={{left: 30, fontSize: 16, letterSpacing: 1}}>You have no Scanned Items</Text></Container>}
          {products.length != 0 && (
          <Container>
-             <HistoryHeader/>
+             
          <FlatList data={products}
          renderItem={({item, index}) => <ListHistory item={item} key={index} onClickRemove={onClickRemove}></ListHistory>}
          keyExtractor={(item,index) => index.toString()}
