@@ -90,7 +90,6 @@ const TabNavigator = () => {
         <Tab.Screen name="Scan2" options={{
               tabBarLabel: 'Scan',
               headerShown: false,
-              unmountOnBlur: true,
               tabBarActiveTintColor: '#ffff99',
               tabBarInactiveTintColor: '#fff',
               tabBarIcon: () => <Icon name="barcode-scan" type="material-community" color="#C9DFEC" size={30}/>
@@ -100,7 +99,6 @@ const TabNavigator = () => {
               headerShown: false,
               tabBarActiveTintColor: '#ffff99',
               tabBarInactiveTintColor: '#fff',
-              unmountOnBlur: true,
               tabBarIcon: () => <Icon name="history" type="material" color="#C9DFEC" size={30}/>
             }} component={HistoryStack}></Tab.Screen>
         <Tab.Screen name="Dashboard" options={{

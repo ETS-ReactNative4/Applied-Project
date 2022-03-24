@@ -70,7 +70,7 @@ export default function Scanner({navigation}) {
   if (isFocused) {
   return (
     <>
-     <Header titleText='Scan'/> 
+   
     <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : _debouncedHandleBarCodeRead}

@@ -8,29 +8,32 @@ import {Icon} from 'react-native-elements';
 import Favourite from '../components/Favourite';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import { useProducts } from '../components/Context/ProductContext';
-
+import DetailsHeader from '../components/Headers/DetailsHeader'
 
 const Results = ({ route }) => {
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
-    const productId = route.params.product._id
-    const productName = route.params.product.product_name
     const { fetchProducts } = useProducts();
     const [items, setItems] = useState(false)
     if (route.params.product === undefined) {
         return (
            
-            <NotFound />
+            <>
+            <DetailsHeader titleText='Results'/>
+        <NotFound /></>
           )
        } 
+       const productId = route.params.product._id
+    const productName = route.params.product.product_name
         if (route.params.product.ingredients_text === undefined) {
             return(
-                
+                <>
+                <DetailsHeader titleText='Results'/>
             <View style={{flex: 1,backgroundColor: '#ffa31a'}}>
                 <Icon name="question" type="antdesign"  size={200} color="#fff"/>
                 <View style={styles.container}>
                 <Text style={styles.text}>Sorry, no ingredients found for {route.params.product.product_name} </Text>
                 </View>         
-                                </View>)}
+                                </View></>)}
         else {
         let allergenMatches = MatchAllergens(global.allergenData, route.params.product.allergens_from_ingredients);   
         
@@ -51,6 +54,8 @@ const Results = ({ route }) => {
                 console.log(error);
             });
         return(
+            <>
+                <DetailsHeader titleText='Results'/>
             <View style={{flex: 1,backgroundColor: '#ff3300'}}>
                 <View style={styles.icon}>
                             <Icon name="warning" type="entypo"  size={220} color="#fff"/>
@@ -71,7 +76,7 @@ const Results = ({ route }) => {
                 <Favourite userFrom={storedCredentials} productId={productId} productName={productName} allergenMatches={allergenMatches}/>
             </View>
             
-            </View>
+            </View></>
         )
 
         }  else {
@@ -92,6 +97,8 @@ const Results = ({ route }) => {
             });
             console.log(`No allergens found`)
             return(
+                <>
+                <DetailsHeader titleText='Results'/>
                 <View style={{flex: 1,backgroundColor: '#008000'}}>
                     <View >
                             <Icon name="check" type="entypo"  size={200} color="#fff"/>
@@ -105,7 +112,7 @@ const Results = ({ route }) => {
                                 <Favourite userFrom={storedCredentials} productId={productId} productName={productName} allergenMatches={allergenMatches}/>
                                 
                             </View>
-                            </View>
+                            </View></>
             )}
 }
       
