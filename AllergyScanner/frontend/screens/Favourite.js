@@ -7,7 +7,7 @@ import {
 } from '../components/Styles';
 import { useFavourites } from '../components/Context/FavouriteContext';
 import ListFavouriteItems from '../components/ListFavouriteItems'
-  import Header from '../components/Headers/Header'
+  import FavouriteHeader from '../components/Headers/FavouriteHeader'
   
 
 const Favourite = () => {
@@ -44,7 +44,7 @@ const Favourite = () => {
 
     return(
         <>
-        <Header titleText='Favourites'/> 
+        <FavouriteHeader titleText='Favourites'/> 
         {FavouritedProducts.length == 0 && <Container><Text style={{left: 30, fontSize: 16, letterSpacing: 1}}>You have no Favourites</Text></Container>}
         {FavouritedProducts.length != 0 && (
            

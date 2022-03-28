@@ -11,7 +11,7 @@ import { useAllergens } from '../components/Context/AllergenContext';
 import { useFavourites } from '../components/Context/FavouriteContext';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useProducts } from '../components/Context/ProductContext';
-import Header from '../components/Headers/Header'
+import HistoryHeader from '../components/Headers/HistoryHeader'
 
 const Dashboard = () => {
     
@@ -33,7 +33,7 @@ const Dashboard = () => {
     }
     return (
       <>
-       <Header titleText='Profile'/> 
+       <HistoryHeader titleText='Profile'/> 
         <StyledContainer>
             <InnerContainer>
                 <DashboardContainer>

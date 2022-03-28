@@ -6,7 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import { useProducts } from '../components/Context/ProductContext';
-import Header from '../components/Headers/Header'
+//import Header from '../components/Headers/Header'
 
 export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -27,20 +27,7 @@ export default function Scanner({navigation}) {
   const _debouncedHandleBarCodeRead = _.debounce((data) =>{ handleBarCodeScanned(data) }, 3000, 
   {leading: true, trailing: false});
 
-  /*const saveProducts = (userFrom, productName, productId) => {
-      axios.
-      post('http://192.168.0.30:5000/products/addProducts', userFrom, productName, productId )
-      .then(response=> {
-          if(response.data.success) {
-             console.log("Product saved to database")
-             fetchProducts();
-          } else {
-              alert(' Failed to save product')
-          }
-      }).catch(error=>{
-          console.log(error);
-      });
-    }*/
+  
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);

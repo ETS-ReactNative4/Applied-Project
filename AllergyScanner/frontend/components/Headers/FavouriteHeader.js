@@ -4,7 +4,7 @@ import { Appbar, Title } from 'react-native-paper'
 import { Entypo } from '@expo/vector-icons'
 import { HeaderButton } from '../Styles'
 
-const Header = ({ titleText, removeAll }) => {
+const HistoryHeader = ({ titleText, removeAll }) => {
   return (
     <Appbar.Header style={styles.headerContainer}>
       <View style={styles.container}>
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Header
+export default HistoryHeader

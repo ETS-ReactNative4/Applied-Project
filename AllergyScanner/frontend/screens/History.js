@@ -5,7 +5,7 @@ import Axios from 'axios'
 import { CredentialsContext } from '../components/Context/CredentialsContext'
 import ListHistory from '../components/ListHistory'
 import { useProducts } from '../components/Context/ProductContext'
-import Header from '../components/Headers/Header'
+import HistoryHeader from '../components/Headers/HistoryHeader'
 
 const History = () => {
   const { products, fetchProducts, setProducts } = useProducts()
@@ -57,7 +57,7 @@ const History = () => {
 
   return (
     <>
-      <Header titleText="Scanned Items" removeAll={removeAll} />
+      <HistoryHeader titleText="Scanned Items" removeAll={removeAll} />
       {products.length == 0 && (
         <Container>
           <Text style={{ left: 30, fontSize: 16, letterSpacing: 1 }}>
