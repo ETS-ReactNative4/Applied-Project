@@ -54,4 +54,14 @@ router.post("/getScannedProducts", (req, res) => {
 
 });
 
+router.post("/delete", (req, res) => {
+
+    Product.deleteMany({ 'userFrom': req.body.userFrom })
+        .exec((err, products) => {
+            if (err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, products })
+        })
+
+});
+
 module.exports = router;
