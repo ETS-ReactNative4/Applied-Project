@@ -10,7 +10,7 @@ export function MatchAllergens(allergenData, allergenString) {
   
   function AllergensString(allergenString) {
       let allergens = [];
-    allergens = allergenString.replace('(en)', '')
+    allergens = allergenString.replace('en:', '')
     
     const allergenArray = [...new Set(allergens.split(", "))]
       return allergenArray;
@@ -28,12 +28,13 @@ export function MatchAllergens(allergenData, allergenString) {
                 <p key={title}></p>
                 ))
                 
-                if (array[i].includes(allergenData[allergen].title)) {
-                  
+                if (array[i].toLowerCase().includes(allergenData[allergen].title.toLowerCase())) {
+                    
                     let match = allergenData[allergen].title;
+                    
                     match.replace(/["]+/g, (c) => c)
                     matches.push(match);
-                     
+                    
                     }
             } }
             
@@ -43,9 +44,3 @@ export function MatchAllergens(allergenData, allergenString) {
   }
 
   
-
-
-  
- 
-
- 
