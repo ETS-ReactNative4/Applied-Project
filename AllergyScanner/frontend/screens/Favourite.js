@@ -11,7 +11,7 @@ import ListFavouriteItems from '../components/ListFavouriteItems'
   
 
 const Favourite = () => {
-    const {FavouritedProducts, fetchFavouritedProducts} = useFavourites();
+    const {FavouritedProducts, fetchFavouritedProducts, setFavouritedProducts} = useFavourites();
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
 
     useEffect(() => {
@@ -19,6 +19,23 @@ const Favourite = () => {
         fetchFavouritedProducts();
 
     }, [])
+
+    const removeAll = () => {
+
+        Axios.post('http://192.168.0.30:5000/favourite/deleteAll', {userFrom: storedCredentials})
+            .then(response => {
+                if (response.data.success) {
+                  setFavouritedProducts([])
+                  console.log("Removed all items from favourites")
+                } else {
+                    alert('Failed to remove favourited items')
+                }
+            }).catch(error=>{
+                console.log(error);
+                fetchFavouritedProducts();
+            });
+        
+        }
 
     const onClickRemove = (productId) => {
         
@@ -44,7 +61,7 @@ const Favourite = () => {
 
     return(
         <>
-        <FavouriteHeader titleText='Favourites'/> 
+        <FavouriteHeader titleText='Favourites' removeAll={removeAll}/> 
         {FavouritedProducts.length == 0 && <Container><Text style={{left: 30, fontSize: 16, letterSpacing: 1}}>You have no Favourites</Text></Container>}
         {FavouritedProducts.length != 0 && (
            

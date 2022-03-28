@@ -59,6 +59,16 @@ router.post("/getFavouritedProduct", (req, res) => {
 
 });
 
+router.post("/deleteAll", (req, res) => {
+
+    Favourite.deleteMany({ 'userFrom': req.body.userFrom })
+        .exec((err, favourites) => {
+            if (err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, favourites })
+        })
+
+});
+
 
 
 
