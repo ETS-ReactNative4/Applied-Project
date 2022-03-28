@@ -68,6 +68,14 @@ const Details = ({ route }) => {
               {ingredients || 'No ingredients for this product.'}
             </Text>
             <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
+              May contain traces 
+            </Text>
+            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
+              {tracesOfAllergens.length == 0 &&
+                'No traces found for this product.'}
+              {allergenTraces}
+            </Text>
+            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
               Allergen Matches
             </Text>
             <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
@@ -78,14 +86,6 @@ const Details = ({ route }) => {
             </Text>
             <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
               {traceMatches.join(',') || 'No traces matched.'}
-            </Text>
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              Traces
-            </Text>
-            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
-              {tracesOfAllergens.length == 0 &&
-                'No traces found for this product.'}
-              {allergenTraces}
             </Text>
             </ScrollView>
         </View>
