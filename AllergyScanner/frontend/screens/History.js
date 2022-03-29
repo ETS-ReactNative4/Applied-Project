@@ -1,17 +1,33 @@
-import React, { useEffect, useContext } from 'react'
-import { Text, FlatList } from 'react-native'
-import { Container } from '../components/Styles'
+import React, { useEffect, useContext, useState } from 'react'
+import {
+  Text,
+  StatusBar,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native'
+import { SwipeListView } from 'react-native-swipe-list-view'
+import {
+  AllergenText,
+  HiddenButton,
+  ListViewHidden2,
+} from '../components/Styles'
 import Axios from 'axios'
+import { Entypo } from '@expo/vector-icons'
 import { CredentialsContext } from '../components/Context/CredentialsContext'
-import ListHistory from '../components/ListHistory'
 import { useProducts } from '../components/Context/ProductContext'
 import HistoryHeader from '../components/Headers/HistoryHeader'
+import { Icon } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native'
 
 const History = () => {
   const { products, fetchProducts, setProducts } = useProducts()
+  const navigation = useNavigation()
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
+  const SPACING = 20
+  const [swipedRow, setSwipedRow] = useState(null)
 
   useEffect(() => {
     fetchProducts()
@@ -40,6 +56,7 @@ const History = () => {
       productId: productId,
       userFrom: storedCredentials,
     }
+   
 
     Axios.post(
       'http://192.168.0.30:5000/products/removeProducts',
@@ -47,7 +64,6 @@ const History = () => {
     ).then((response) => {
       if (response.data.success) {
         console.log('Removed product')
-
         fetchProducts()
       } else {
         alert(' Failed to remove from products')
@@ -58,30 +74,156 @@ const History = () => {
   return (
     <>
       <HistoryHeader titleText="Scanned Items" removeAll={removeAll} />
-      {products.length == 0 && (
-        <Container>
-          <Text style={{ left: 30, fontSize: 16, letterSpacing: 1 }}>
-            You have no Scanned Items
-          </Text>
-        </Container>
-      )}
-      {products.length != 0 && (
-        <Container>
-          <FlatList
+      <View style={{ backgroundColor: '#C9DFEC', flex: 1 }}>
+        {products.length == 0 && (
+          <AllergenText>You have not scanned any items.</AllergenText>
+        )}
+        {products.length != 0 && (
+          <SwipeListView
             data={products}
-            renderItem={({ item, index }) => (
-              <ListHistory
-                item={item}
-                key={index}
-                onClickRemove={onClickRemove}
-              ></ListHistory>
-            )}
             keyExtractor={(item, index) => index.toString()}
-          ></FlatList>
-        </Container>
-      )}
+            contentContainerStyle={{
+              padding: SPACING,
+              paddingTop: StatusBar.currentHeight || 42,
+            }}
+            renderItem={({ item, index }) => {
+              if (item.allergenMatches.length > 0) {
+                return (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      padding: SPACING,
+                      marginBottom: SPACING,
+                      backgroundColor: '#fff',
+                      borderRadius: 12,
+                      shadowColor: '#000',
+                      shadowRadius: 20,
+                    }}
+                  >
+                    <Icon
+                      name="warning"
+                      type="material"
+                      color="#ff3300"
+                      size={33}
+                      style={styles.iconWarning}
+                    />
+                    <View style={styles.container}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('Details', { product: item })
+                        }
+                      >
+                        <Text style={{ fontSize: 18, fontWeight: '700' }}>
+                          {item.productName}
+                        </Text>
+                        <Text style={{ fontSize: 13, opacity: 0.7 }}>
+                          {item.productId}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                )
+              } else {
+                return (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      padding: SPACING,
+                      marginBottom: SPACING,
+                      backgroundColor: '#fff',
+                      borderRadius: 12,
+                      shadowColor: '#000',
+                      shadowRadius: 20,
+                    }}
+                  >
+                    <Icon
+                      name="check"
+                      type="entypo"
+                      color="#008000"
+                      size={33}
+                      style={styles.iconCheck}
+                    />
+                    <View style={styles.container}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('Details', { product: item })
+                        }
+                      >
+                        <Text style={{ fontSize: 18, fontWeight: '700' }}>
+                          {item.productName}
+                        </Text>
+                        <Text style={{ fontSize: 13, opacity: 0.7 }}>
+                          {item.productId}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                )
+              }
+            }}
+            renderHiddenItem={(data, rowMap) => {
+              return (
+                <ListViewHidden2>
+                  <HiddenButton
+                    onPress={() => onClickRemove(data.item.productId, rowMap)}
+                  >
+                    <Entypo name="trash" size={25} color="white" />
+                  </HiddenButton>
+                </ListViewHidden2>
+              )
+            }}
+            leftOpenValue={80}
+            showsVerticalScrollIndicator={false}
+            previewRowKey={'0'}
+            previewOpenValue={80}
+            disableLeftSwipe={true}
+            previewOpenDelay={3000}
+            closeOnRowOpen={true}
+            // Handling swiped allergen row
+            onRowOpen={(productId) => {
+              setSwipedRow(productId)
+            }}
+            onRowClose={() => {
+              setSwipedRow(null)
+            }}
+          />
+        )}
+
+        <StatusBar hidden />
+      </View>
     </>
   )
 }
 
 export default History
+
+const styles = StyleSheet.create({
+  iconCheck: {
+    right: '10%',
+    top: 15,
+    color: 'green',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  iconWarning: {
+    //right: "10%",
+    top: 5,
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  container: {
+    width: 0,
+    flexGrow: 1,
+    flex: 1,
+    left: 5,
+    height: 50,
+  },
+  deleteBox: {
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 80,
+  },
+})

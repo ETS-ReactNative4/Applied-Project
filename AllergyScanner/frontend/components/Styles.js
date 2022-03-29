@@ -220,6 +220,19 @@ export const ListViewHidden = styled.View`
   
 `;
 
+export const ListViewHidden2 = styled.View`
+  background-color: #FF0000;
+  min-height: 82px;
+  width: 80%;
+  padding: 15px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  border-radius: 11px;
+  top:4px
+  
+`;
+
 export const HiddenButton = styled.TouchableOpacity`
   width: 55px;
   align-items: center;
