@@ -177,9 +177,6 @@ const History = () => {
             previewRowKey={'0'}
             previewOpenValue={80}
             disableLeftSwipe={true}
-            previewOpenDelay={3000}
-            closeOnRowOpen={true}
-            // Handling swiped allergen row
             onRowOpen={(productId) => {
               setSwipedRow(productId)
             }}
@@ -227,3 +224,8 @@ const styles = StyleSheet.create({
     height: 80,
   },
 })
+
+
+
+
+
