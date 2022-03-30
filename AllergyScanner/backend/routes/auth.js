@@ -219,7 +219,7 @@ router.put('/update/:id', (req, res) => {
             .save()
             .then((result) => {
             res.json({
-                status: "Success",
+                status: "SUCCESS",
                 message: "Updated user successfully",
                 data: result
             })})

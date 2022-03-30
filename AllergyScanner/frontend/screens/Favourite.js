@@ -31,9 +31,7 @@ const Favourite = () => {
 
   useEffect(() => {
     fetchFavouritedProducts()
-    setTimeout(() => {
-      
-      }, 3000);
+    
   }, [])
 
   const removeAll = () => {
