@@ -147,4 +147,73 @@ router.post('/signin', (req, res) => {
 
 })
 
+router.get("/", (req,res) => {
+    User.find()
+    .then(user => res.json(user))
+    .catch(err => res.status(400).res.json(`Error: ${err}`))
+})
+
+router.get("/:id", (req,res) => {
+    User.findById(req.params.id)
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json(`Error: ${err}`))
+})
+
+
+router.put('/update/:id', (req, res) => {
+    let { name, email,password } = req.body;
+
+    // removes whitespace
+    name = name.trim();
+    email = email.trim();
+    password = password.trim();
+
+    // checks to see if variables are empty
+    if (name == "" || email == "" || password == "") {
+        // returns a json object
+        res.json({
+            status: "FAILED",
+            message: "Empty input fields!"
+        });
+        // check the format of name using regular expression
+    } else if (!/^[a-zA-Z]*$/.test(name)) {
+        res.json({
+            status: "FAILED",
+            message: "Invalid name entered"
+        });
+        // check the format of email using regular expression
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        res.json({
+            status: "FAILED",
+            message: "Invalid email entered"
+        });
+        // checks the length of password 
+    } else if (password.length < 7) {
+        res.json({
+            status: "FAILED",
+            message: "Password is too short!"
+        });
+    } 
+    else {
+        User.findById(req.params.id)
+        .then(user => {
+           user.name = req.body.name;
+           user.email = req.body.email;
+           user.password = req.body.password
+          // user.password = req.body.password
+          console.log(user)
+          const saltRounds = 10;
+          bcrypt.hash(user.password, saltRounds).then(hashedPassword => {
+            user.password = hashedPassword
+       
+          user.save()
+           .then(() => res.json("User updated successfully"))
+           .catch(err => res.status(400).json(`Error: ${err}`))
+        });
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+
+  })
+
 module.exports = router;
