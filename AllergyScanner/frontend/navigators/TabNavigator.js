@@ -125,7 +125,7 @@ const TabNavigator = () => {
             }} component={HistoryStack}></Tab.Screen>
         <Tab.Screen name="Dashboard1" options={{
                 
-                tabBarLabel: 'Dashboard1',
+                tabBarLabel: 'Dashboard',
                 tabBarActiveTintColor: '#ffff99',
                 tabBarInactiveTintColor: '#fff',
                 tabBarIcon: () => <Icon name="account-circle" type="material" color="#C9DFEC" size={30}/>

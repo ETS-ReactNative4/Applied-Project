@@ -7,9 +7,10 @@ const AllergenProvider = ({ children }) => {
 
     const [allergens, setAllergens] = useState(initialAllergens);
     
-    const getAllergens = async (key) =>{
+   const getAllergens = async (key) =>{
       try {
           const value = await AsyncStorage.getItem(key)
+          
           return value != null ? JSON.parse(value) : null
         } catch(e) {
           console.log(`Error: ${e}`);
@@ -25,7 +26,7 @@ const AllergenProvider = ({ children }) => {
                     global.allergenData = data;
                     console.log(`${JSON.stringify(data)}`);
                     }).then()
-          } else {
+          } else{
             setAllergens(data);
             global.allergenData = data;
             console.log(`${JSON.stringify(data)}`);
@@ -33,7 +34,7 @@ const AllergenProvider = ({ children }) => {
           
         })
   }
-
+  
   useEffect(() => {
    loadAllergens();
   }, []);

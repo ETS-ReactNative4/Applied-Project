@@ -30,6 +30,8 @@ export default function App() {
     }).catch(error => console.log(error))
   }
 
+  
+
   if(!appReady){
     return(
       <AppLoading

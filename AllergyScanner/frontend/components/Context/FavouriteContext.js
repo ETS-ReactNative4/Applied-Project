@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect} from 'react';
 import Axios from 'axios';
 import {CredentialsContext} from './CredentialsContext';
 
@@ -20,6 +20,8 @@ const FavouriteProvider = ({ children }) => {
                 console.log(error);
             });
         }
+
+      
 
   return (
     <FavouriteContext.Provider value={{ FavouritedProducts, setFavouritedProducts, fetchFavouritedProducts}}>

@@ -20,9 +20,11 @@ const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit,loadAller
     const allergenIndex = allergens.findIndex((allergen) => allergen.key === rowKey);
     newAllergens.splice(allergenIndex, 1);
 
-    AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
+      AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
       .then(() => {
+        
         setAllergens(newAllergens);
+       
       })
       .catch((error) => console.log(error));
       loadAllergens();

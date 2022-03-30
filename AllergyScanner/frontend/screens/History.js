@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState, } from 'react'
 import {
   Text,
   StatusBar,
@@ -87,7 +87,7 @@ const History = () => {
               paddingTop: StatusBar.currentHeight || 42,
             }}
             renderItem={({ item, index }) => {
-              if (item.allergenMatches.length > 0) {
+              if (item.allergenMatches.length || item.traceMatches.length > 0) {
                 return (
                   <View
                     style={{

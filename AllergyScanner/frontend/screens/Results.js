@@ -19,7 +19,7 @@ import { CredentialsContext } from '../components/Context/CredentialsContext'
 import { useProducts } from '../components/Context/ProductContext'
 import DetailsHeader from '../components/Headers/DetailsHeader'
 import { useAllergens } from '../components/Context/AllergenContext'
-
+import ScanModal from '../components/ScanModal'
 
 
 const Results = ({ route }) => {
@@ -31,7 +31,9 @@ const Results = ({ route }) => {
   const { fetchProducts } = useProducts()
   const [items, setItems] = useState(false)
   const { allergens } = useAllergens()
-  
+  const [visible, setVisible] = React.useState(false);
+
+
   if (product === undefined) {
     return (
       <>
@@ -173,6 +175,7 @@ const Results = ({ route }) => {
         <>
           <DetailsHeader titleText="Results" />
           <View style={{ flex: 1, backgroundColor: '#008000' }}>
+            <ScanModal visible={visible}></ScanModal>
             <View>
               <Icon name="check" type="entypo" size={200} color="#fff" />
             </View>
