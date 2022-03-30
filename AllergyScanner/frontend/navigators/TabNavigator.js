@@ -10,6 +10,7 @@ import Favourite from '../screens/Favourite'
 import History from '../screens/History'
 //import Results from '../screens/Results'
 import Details from '../screens/Details'
+import EditProfile from '../screens/EditProfile'
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,27 @@ const HistoryStack = () => {
         <Stack.Screen
           name="Details"
           component={Details}
+          options={({route}) => ({
+            title: route.params?.title,
+            headerStyle: {backgroundColor: '#344955' },
+            headerShown: false
+          })}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const ProfileStack = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Edit"
+          component={EditProfile}
           options={({route}) => ({
             title: route.params?.title,
             headerStyle: {backgroundColor: '#344955' },
@@ -101,13 +123,13 @@ const TabNavigator = () => {
               tabBarInactiveTintColor: '#fff',
               tabBarIcon: () => <Icon name="history" type="material" color="#C9DFEC" size={30}/>
             }} component={HistoryStack}></Tab.Screen>
-        <Tab.Screen name="Dashboard" options={{
+        <Tab.Screen name="Dashboard1" options={{
                 
-                tabBarLabel: 'Dashboard',
+                tabBarLabel: 'Dashboard1',
                 tabBarActiveTintColor: '#ffff99',
                 tabBarInactiveTintColor: '#fff',
                 tabBarIcon: () => <Icon name="account-circle" type="material" color="#C9DFEC" size={30}/>
-              }}  component={Dashboard}></Tab.Screen>
+              }}  component={ProfileStack}></Tab.Screen>
     </Tab.Navigator>
   );
 };
