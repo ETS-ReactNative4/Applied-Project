@@ -21,7 +21,7 @@ import {
 } from '../components/Styles'
 import { Formik } from 'formik'
 import Constants from 'expo-constants'
-import { View, ActivityIndicator, StyleSheet, Text } from 'react-native'
+import { View, ActivityIndicator, StyleSheet, Text, Image } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper'
 import axios from 'axios'
 // credentials context
@@ -76,10 +76,18 @@ const SignUp = ({ navigation }) => {
   return (
     <KeyboardWrapper>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.text_header}>Edit Details</Text>
-        </View>
-
+      <View style={styles.header}>
+      <View style={{ alignSelf: "center" }}>
+                   
+                    <Image style={styles.userImg} source={require('../../assets/Food.jpg')} />
+                   
+                   
+                    <View style={styles.active}></View>
+                    <View style={styles.add}>
+                        <Ionicons name="ios-add" size={48} color="#344955" style={{ marginTop: 6, marginLeft: 2 }}></Ionicons>
+                    </View>
+                </View>
+                </View>
         <Animatable.View style={[styles.footer, {}]} animation="fadeInUpBig">
           <Formik
             // Provide email and password values
@@ -174,7 +182,7 @@ const SignUp = ({ navigation }) => {
             )}
           </Formik>
         </Animatable.View>
-      </View>
+        </View>
     </KeyboardWrapper>
   )
 }
@@ -215,7 +223,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#344955',
-    paddingTop: StatusBarHeight + 110,
+    paddingTop: StatusBarHeight + 50,
   },
   header: {
     flex: 1,
@@ -230,6 +238,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    
   },
   text_header: {
     color: '#fff',
@@ -240,4 +249,34 @@ const styles = StyleSheet.create({
     color: '#05375a',
     fontSize: 18,
   },
+  image: {
+    flex: 1,
+    height: undefined,
+    width: undefined
+},
+
+profileImage: {
+  width: 200,
+  height: 200,
+  borderRadius: 100,
+  overflow: "hidden"
+},
+userImg: {
+  height: 200,
+  width: 200,
+  borderRadius: 75,
+  alignSelf: "center"
+  
+},
+add: {
+  backgroundColor: "#fff",
+  position: "absolute",
+  bottom: 0,
+  right: 0,
+  width: 60,
+  height: 60,
+  borderRadius: 30,
+  alignItems: "center",
+  justifyContent: "center"
+},
 })
