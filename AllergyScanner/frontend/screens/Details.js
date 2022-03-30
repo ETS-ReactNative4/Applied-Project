@@ -68,7 +68,7 @@ const Details = ({ route }) => {
               {ingredients || 'No ingredients for this product.'}
             </Text>
             <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              May contain traces 
+              May contain traces
             </Text>
             <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
               {tracesOfAllergens.length == 0 &&

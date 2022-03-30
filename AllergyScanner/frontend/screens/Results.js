@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  Button
 } from 'react-native'
 import axios from 'axios'
 import NotFound from '../components/NotFound'
@@ -19,14 +20,18 @@ import { useProducts } from '../components/Context/ProductContext'
 import DetailsHeader from '../components/Headers/DetailsHeader'
 import { useAllergens } from '../components/Context/AllergenContext'
 
+
+
 const Results = ({ route }) => {
   const product = route.params.product
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
+ 
   const { fetchProducts } = useProducts()
   const [items, setItems] = useState(false)
   const { allergens } = useAllergens()
+  
   if (product === undefined) {
     return (
       <>
@@ -105,7 +110,7 @@ const Results = ({ route }) => {
                 Product Name: {product.product_name}{' '}
               </Text>
 
-              {/*<Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>*/}
+              
 
               <FlatList
                 data={allergenMatches}
@@ -120,7 +125,11 @@ const Results = ({ route }) => {
                   <ListResultsItems item={item} key={index}></ListResultsItems>
                 )}
                 keyExtractor={(item, index) => index.toString()}
-              ></FlatList>
+
+              >
+                               
+             
+              </FlatList>
 
               <Favourite
                 userFrom={storedCredentials}
@@ -129,7 +138,8 @@ const Results = ({ route }) => {
                 allergenMatches={allergenMatches}
               />
             </View>
-          </View>
+                </View>
+                
         </>
       )
     } else {
@@ -181,6 +191,8 @@ const Results = ({ route }) => {
                 productName={productName}
                 allergenMatches={allergenMatches}
               />
+             
+          
             </View>
           </View>
         </>
@@ -206,6 +218,7 @@ const styles = StyleSheet.create({
   icon: {
     marginTop: '10%',
   },
+  
 })
 
 export default Results
