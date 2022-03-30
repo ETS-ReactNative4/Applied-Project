@@ -102,6 +102,49 @@ const Results = ({ route }) => {
         <>
           <DetailsHeader titleText="Results" />
           <View style={{ flex: 1, backgroundColor: '#ff3300' }}>
+          <ScanModal visible={visible}>
+            <View style={{alignItems: 'center'}}>
+            <View style={styles.header}>
+            <TouchableOpacity onPress={() => setVisible(false)}>
+            <Icon name="close" type="material"   size={30} color="#565656" style={{bottom: 5}}/>
+            </TouchableOpacity>
+          </View>
+          <View style={{alignSelf: 'center',height: 150, width: 150, marginVertical: 10}}>
+        <Icon name="warning" type="entypo"   size={150} color="red"/>
+        
+        </View>
+        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
+        {product.product_name}  contains the following allergens:
+        </Text>
+       
+        <ScrollView>
+                {allergenMatches.map((value, index) => (
+                  <View style={styles.products} key={index}>
+                    <Icon
+                      name="dangerous"
+                      type="material"
+                      size={35}
+                      color="red"
+                      style={{ right: 2 }}
+                    />
+                    <Text style={styles.item}>{value}</Text>
+                  </View>
+                ))}
+                {traceMatches.map((value, index) => (
+                  <View style={styles.products} key={index}>
+                    <Icon
+                      name="dangerous"
+                      type="material"
+                      size={35}
+                      color="red"
+                      style={{ right: 5 }}
+                    />
+                    <Text style={styles.item}>{value}</Text>
+                  </View>
+                ))}
+                </ScrollView>
+            </View>
+            </ScanModal>
             <View style={styles.icon}>
               <Icon name="warning" type="entypo" size={220} color="#fff" />
             </View>
@@ -175,7 +218,23 @@ const Results = ({ route }) => {
         <>
           <DetailsHeader titleText="Results" />
           <View style={{ flex: 1, backgroundColor: '#008000' }}>
-            <ScanModal visible={visible}></ScanModal>
+            <ScanModal visible={visible}>
+            <View style={{alignItems: 'center'}}>
+            <View style={styles.header}>
+            <TouchableOpacity onPress={() => setVisible(false)}>
+            <Icon name="close" type="material"   size={30} color="#565656" style={{bottom: 5}}/>
+            </TouchableOpacity>
+          </View>
+          <View style={{alignSelf: 'center',height: 150, width: 150, marginVertical: 10}}>
+        <Icon name="check-circle" type="material"   size={150}color="green"/>
+        
+        </View>
+        <Text style={{marginVertical: 30, fontSize: 30, textAlign: 'center'}}>
+        {product.product_name}
+        </Text>
+        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>No allergens found</Text>
+            </View>
+            </ScanModal>
             <View>
               <Icon name="check" type="entypo" size={200} color="#fff" />
             </View>
@@ -221,7 +280,28 @@ const styles = StyleSheet.create({
   icon: {
     marginTop: '10%',
   },
-  
+  header: {
+    width: '100%',
+    height: 40,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  item: {
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  items: {
+    paddingTop: 10,
+    paddingHorizontal: 20,
+  },
+  products: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    marginVertical: 5,
+    //left: 90,
+  },
 })
 
 export default Results
