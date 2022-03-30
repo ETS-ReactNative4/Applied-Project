@@ -9,23 +9,24 @@ import Constants from 'expo-constants'
 import { View, ActivityIndicator, StyleSheet, Text } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper';
 import axios from 'axios';
-// async-storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // credentials context
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import {Octicons, Ionicons} from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable';
 const StatusBarHeight = Constants.statusBarHeight;
 
-const SignUp = ({navigation}) => {
-
+const Edit = ({navigation}) => {
+  const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext)
+  const { name, email, password, _id} = storedCredentials;
    // using a state variable to store the message 
    const[message, setMessage] = useState();
    // state to monitor type of message 
    const[messageType, setMessageType] = useState();
     // context
-    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+    
     const [hidePassword, setHidePassword] = useState(true);
+
+    
 
    
 
@@ -110,7 +111,7 @@ const SignUp = ({navigation}) => {
             />
              <MessageBox type={messageType}>{message}</MessageBox>
              {!isSubmitting && 
-                      <StyledButton onPress={handleSubmit}>
+                      <StyledButton onPress={() => {}}>
                           <ButtonText>Submit</ButtonText>
                       </StyledButton>}
                       {isSubmitting && 
@@ -151,7 +152,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
   );
 };
 
-export default SignUp;
+export default Edit;
 
 
 
