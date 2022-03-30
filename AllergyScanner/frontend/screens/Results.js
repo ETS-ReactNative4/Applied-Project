@@ -31,7 +31,7 @@ const Results = ({ route }) => {
   const { fetchProducts } = useProducts()
   const [items, setItems] = useState(false)
   const { allergens } = useAllergens()
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(true);
 
 
   if (product === undefined) {
@@ -74,6 +74,7 @@ const Results = ({ route }) => {
     if (allergenMatches.length || traceMatches.length > 0) {
       console.log(`Allergens found: ${allergenMatches}`)
       console.log(`Traces found: ${traceMatches}`)
+      
       if (!items)
         axios
           .post('http://192.168.0.30:5000/products/addProducts', {
@@ -98,8 +99,10 @@ const Results = ({ route }) => {
           .catch((error) => {
             console.log(error)
           })
+         
       return (
         <>
+         
           <DetailsHeader titleText="Results" />
           <View style={{ flex: 1, backgroundColor: '#ff3300' }}>
           <ScanModal visible={visible}>
@@ -214,6 +217,7 @@ const Results = ({ route }) => {
             console.log(error)
           })
       console.log(`No allergens found`)
+      
       return (
         <>
           <DetailsHeader titleText="Results" />

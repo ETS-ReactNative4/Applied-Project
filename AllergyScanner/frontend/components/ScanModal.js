@@ -1,16 +1,43 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { StyleSheet, View, Modal } from 'react-native'
+import { StyleSheet, View, Modal, Animated } from 'react-native'
 
 const ScanModal = ({ visible, children }) => {
-  const [showModal, setShowModal] = React.useState(visible)
-
-  return (
-    <Modal transparent visible={true}>
-      <View style={styles.modalBackGround}>
-        <View style={[styles.modalContainer]}>{children}</View>
-      </View>
-    </Modal>
-  )
+    const [showModal, setShowModal] = React.useState(visible)
+    const scaleValue = React.useRef(new Animated.Value(0)).current
+    React.useEffect(() => {
+      toggleModal()
+    }, [visible])
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true)
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start()
+      } else {
+        setTimeout(() => setShowModal(false), 200)
+        Animated.timing(scaleValue, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start()
+      }
+    }
+    return (
+      <Modal transparent visible={showModal}>
+        <View style={styles.modalBackGround}>
+          <Animated.View
+            style={[
+              styles.modalContainer,
+              { transform: [{ scale: scaleValue }] },
+            ]}
+          >
+            {children}
+          </Animated.View>
+        </View>
+      </Modal>
+    )
 }
 
 const styles = StyleSheet.create({
