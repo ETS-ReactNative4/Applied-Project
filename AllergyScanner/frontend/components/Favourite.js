@@ -12,12 +12,13 @@ const Favourite = (props) => {
         userFrom: props.userFrom,
         productId: props.productId,
         productName: props.productName,
-        allergenMatches: props.allergenMatches,
+       // allergenMatches: props.allergenMatches,
         allergens: props.allergens,
+        newMatches: props.newMatches,
         ingredients: props.ingredients,
         traces: props.traces,
-        traceMatches: props.traceMatches,
-        allergenMatches: props.allergenMatches,
+       // traceMatches: props.traceMatches,
+       // allergenMatches: props.allergenMatches,
         
     }
 

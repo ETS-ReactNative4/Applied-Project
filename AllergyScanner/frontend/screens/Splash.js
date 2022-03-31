@@ -51,7 +51,9 @@ const Splash = ({navigation}) => {
             </TouchableOpacity>
             </View>
             </Animatable.View>
+            <StatusBar hidden />
       </View>
+       
     );
 };
 

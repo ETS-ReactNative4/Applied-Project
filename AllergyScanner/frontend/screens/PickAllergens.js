@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  {useAllergens} from '../components/Context/AllergenContext';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import AllergenHeader from '../components/Headers/AllergenHeader'
+import {StatusBar} from 'react-native'
 const PickAllergens = () => {
      // Modal visibility & input value
   const [modalVisible, setModalVisible] = useState(false);
@@ -91,6 +92,7 @@ const handleClearAllergens = () => {
         setAllergenToBeEdited={setAllergenToBeEdited}
         handleEditAllergen={handleEditAllergen}
         />
+        <StatusBar hidden />
         </Container>
       </>
                

@@ -12,13 +12,10 @@ const favouriteSchema = mongoose.Schema({
     productName : {
         type: String
     },
-    allergenMatches : [{
+   
+    newMatches: [{
         type: String
     }],
-    traceMatches: [{
-        type: String
-    }],
-
     ingredients : {
         type: [String]
     },

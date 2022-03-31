@@ -20,14 +20,11 @@ const ScanResults = (props) => {
   const navigation = useNavigation()
   const productId = props.productId
   const productName = props.productName
-  const newAllergen = props.newAllergens
   const brands = props.brands
-  const newTraces = props.newTraces
   const ingredients = props.ingredients
   const image = props.image
   const traces = props.traces
-  const allergenMatches = props.allergenMatches
-  const traceMatches = props.traceMatches
+  const newMatches = props.newMatches;
   const mappingAllergens = (
     <Text>
       {allergens.map((value, index) => (
@@ -35,14 +32,13 @@ const ScanResults = (props) => {
       ))}
     </Text>
   )
-
+  
   const mappingTraces = (
     <Text>{traces.replaceAll('(en)', '').replaceAll('en:', '')}</Text>
   )
 
-  const array = allergenMatches.filter((element, index) => {
-    return allergenMatches.indexOf(element) === index
-  })
+  
+  
   return (
     <>
       <Container>
@@ -55,15 +51,13 @@ const ScanResults = (props) => {
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                   <AntDesign name="arrowleft" size={24} color="#FFF" />
                   </TouchableOpacity>
-                  <Words style={{ marginLeft: 10 }}>Scan</Words>
                 </Back>
 
                 <Favourite
                   userFrom={storedCredentials}
                   productId={productId}
                   productName={productName}
-                  allergenMatches={allergenMatches}
-                  traceMatches={traceMatches}
+                  newMatches={newMatches}
                 />
               </MenuBar>
               <MainInfo>
@@ -94,19 +88,15 @@ const ScanResults = (props) => {
             May contain traces of
           </Words>
           <Words dark small>
-            {mappingTraces} {'\n'}
+            {traces.length == 0  &&
+                'No traces found for this product.'}
+              {mappingTraces}{'\n'}
           </Words>
           <Words dark heavy large>
             Allergen Matches
           </Words>
           <Words dark small>
-            {array.join(',') || 'No allergen matches.'} {'\n'}
-          </Words>
-          <Words dark heavy large>
-            Trace Matches
-          </Words>
-          <Words dark small>
-          {traceMatches.join(',') || 'No traces matched.'}  {'\n'}
+            {newMatches.join(',') || 'No allergen matches.'} {'\n'}
           </Words>
           <Words dark heavy large>
             Allergens Selected

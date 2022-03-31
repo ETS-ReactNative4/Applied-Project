@@ -52,11 +52,15 @@ const History = () => {
       })
   }
 
+  
+
   const onClickRemove = (productId) => {
     const variable = {
       productId: productId,
       userFrom: storedCredentials,
     }
+
+    
    
 
     Axios.post(
@@ -88,7 +92,8 @@ const History = () => {
               paddingTop: StatusBar.currentHeight || 42,
             }}
             renderItem={({ item, index }) => {
-              if (item.allergenMatches.length || item.traceMatches.length > 0) {
+              if (item.newMatches.length > 0) {
+                
                 return (
                   <View
                     style={{
@@ -120,6 +125,7 @@ const History = () => {
                         <Text style={{ fontSize: 13, opacity: 0.7 }}>
                           {item.productId}
                         </Text>
+                        
                       </TouchableOpacity>
                     </View>
                   </View>

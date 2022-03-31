@@ -46,7 +46,7 @@ const Results = ({ route }) => {
   const productId = product._id
   const productName = product.product_name
   const ingredients = product.ingredients_text
-  const traces = product.traces_from_user
+  const traces = route.params.product.traces;
  const image = product.image_front_url;
   const brands = product.brands;
   
@@ -74,13 +74,18 @@ const Results = ({ route }) => {
       product.traces,
     )
 
-    if (allergenMatches.length || traceMatches.length > 0) {
+    let allMatches = [...allergenMatches, ...traceMatches]
+    console.log(`All matches : ${allMatches}`)
+    
+
+    var newMatches = [...new Set(allMatches)];
+    console.log(`All matches (no duplicates): ${newMatches}`)
+  
+    if (newMatches.length > 0) {
+
       console.log(`Allergens found: ${allergenMatches}`)
       console.log(`Traces found: ${traceMatches}`)
-      
-      var newAllergen = [...new Set(allergenMatches)]
-      var newTraces = [...new Set(traceMatches)]
-
+        
       if (!items)
         axios
           .post('http://192.168.0.30:5000/products/addProducts', {
@@ -90,8 +95,8 @@ const Results = ({ route }) => {
             traces,
             productId,
             productName,
-            traceMatches: traceMatches,
-            allergenMatches: allergenMatches,
+            newMatches:newMatches
+           
           })
           .then((response) => {
             if (response.data.success) {
@@ -127,7 +132,7 @@ const Results = ({ route }) => {
         </Text>
        
         <ScrollView>
-                {newAllergen.map((value, index) => (
+                {newMatches.map((value, index) => (
                   <View style={styles.products} key={index}>
                     <Icon
                       name="dangerous"
@@ -140,18 +145,7 @@ const Results = ({ route }) => {
                   </View>
                 ))}
                 
-                {newTraces.map((value, index) => (
-                  <View style={styles.products} key={index}>
-                    <Icon
-                      name="dangerous"
-                      type="material"
-                      size={35}
-                      color="red"
-                      style={{ right: 5 }}
-                    />
-                    <Text style={styles.item}>{value.toLowerCase()}</Text>
-                  </View>
-                ))}
+             
                 </ScrollView>
             </View>
             </ScanModal>
@@ -165,10 +159,9 @@ const Results = ({ route }) => {
                 image={image}
                 traces={traces}
                 ingredients={ingredients}
-                newAllergen={newAllergen}
-                allergenMatches={allergenMatches}
-                newTraces={newTraces}
-                traceMatches={traceMatches}/>
+                newMatches={newMatches}
+              
+                />
               
               </View>
                 
@@ -184,8 +177,8 @@ const Results = ({ route }) => {
             traces,
             productId,
             productName,
-            traceMatches: traceMatches,
-            allergenMatches: allergenMatches,
+            newMatches:newMatches
+          
           })
           .then((response) => {
             if (response.data.success) {
@@ -231,10 +224,9 @@ const Results = ({ route }) => {
                 image={image}
                 traces={traces}
                 ingredients={ingredients}
-                newAllergen={newAllergen}
-                allergenMatches={allergenMatches}
-                newTraces={newTraces}
-                traceMatches={traceMatches}/>
+                newMatches={newMatches}
+              
+                />
             </View>
           
         </>

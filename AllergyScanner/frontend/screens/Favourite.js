@@ -29,7 +29,7 @@ const Favourite = () => {
   const navigation = useNavigation()
   const SPACING = 20
   const [swipedRow, setSwipedRow] = useState(null)
-console.log(FavouritedProducts)
+
   useEffect(() => {
     fetchFavouritedProducts()
     
@@ -92,7 +92,8 @@ console.log(FavouritedProducts)
               paddingTop: StatusBar.currentHeight || 42,
             }}
             renderItem={({ item, index }) => {
-              if (item.allergenMatches.length || item.traceMatches.length > 0) {
+           
+              if (item.newMatches.length > 0) {
                 return (
                   <View
                     style={{

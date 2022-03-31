@@ -1,166 +1,3 @@
-/*import React from 'react'
-import { Text, StyleSheet, ScrollView, View } from 'react-native'
-
-
-const Details = ({ route }) => {
-  const product = route.params.product
-  const productId = product.productId
-  const yourAllergensSelected = product.allergens
-  const tracesOfAllergens = product.traces
-  const allergenMatches = product.allergenMatches
-  const ingredients = product.ingredients
-  const productName = product.productName
-  const traceMatches = product.traceMatches
-  
-
-  const selectedAllergens = (
-    <Text>
-      {yourAllergensSelected.map((value, index) => (
-        <Text key={value.key}>{(index ? ', ' : '') + value.title}</Text>
-      ))}
-    </Text>
-  )
-
-  const allergenTraces = (
-    <Text>
-      {tracesOfAllergens.map((value, index) => (
-        <Text key={value}>
-          {(index ? ', ' : '') +
-            value.replace('(en)', '').replaceAll('en:', '')}
-        </Text>
-      ))}
-    </Text>
-  )
-
-  const array = allergenMatches.filter((element, index) => {
-    return allergenMatches.indexOf(element) === index
-  })
-
-  return (
-    <>
-      <View style={styles.container}>
-     
-        <View style={styles.header}>
-          <View style={styles.title}>
-            <Text style={styles.itemTitle}>{productName}</Text>
-            <View style={styles.view}>
-              <Text style={styles.id}>{productId}</Text>
-            </View>
-          </View>
-        </View>
-       
-        <View style={styles.footer}>
-        <ScrollView showsVerticalScrollIndicator={false} 
-           style={{marginBottom: 30}}
-          >
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              Allergens selected
-            </Text>
-            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
-              {yourAllergensSelected.length == 0 &&
-                'You selected no allergens.'}
-              {selectedAllergens}
-            </Text>
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              Ingredients
-            </Text>
-            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
-              {ingredients || 'No ingredients for this product.'}
-            </Text>
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              May contain traces
-            </Text>
-            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
-              {tracesOfAllergens.length == 0 &&
-                'No traces found for this product.'}
-              {allergenTraces}
-            </Text>
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              Allergen Matches
-            </Text>
-            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
-              {array.join(',') || 'No allergen matches.'}
-            </Text>
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 25 }}>
-              Trace Matches
-            </Text>
-            <Text style={{ marginTop: 20, lineHeight: 22, fontSize: 17 }}>
-              {traceMatches.join(',') || 'No traces matched.'}
-            </Text>
-            </ScrollView>
-        </View>
-        
-      </View>
-      
-    </>
-  )
-}
-
-export default Details
-
-const styles = StyleSheet.create({
-  bottomCenter: {
-    marginTop: 40,
-    fontSize: 30,
-  },
-
-  text: {
-    fontSize: 20,
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: '#344955',
-  },
-  header: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-    paddingBottom: 50,
-  },
-  footer: {
-    flex: 3,
-    backgroundColor: '#C9DFEC',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: 20,
-    top: 20,
-  },
-  text_header: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 30,
-  },
-  text_footer: {
-    color: '#05375a',
-    fontSize: 18,
-  },
-  backButton: {
-    bottom: 50,
-  },
-  title: {
-    marginBottom: 40,
-    top: 60,
-  },
-  itemTitle: {
-    fontWeight: 'bold',
-    fontSize: 32,
-    color: '#fff',
-  },
-  id: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  view: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-  },
-})
-
-
-*/
-
 import React, { useContext, View } from 'react'
 import {
   Text,
@@ -175,21 +12,21 @@ import { AntDesign } from '@expo/vector-icons'
 import Favourite from '../components/Favourite'
 import { useNavigation } from '@react-navigation/native'
 
-const ScanResults = ({route}) => {
+const Details = ({route}) => {
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
-
+  const navigation = useNavigation()
   const product = route.params.product
   const productId = product.productId
   const yourAllergensSelected = product.allergens
-  const tracesOfAllergens = product.traces
-  const allergenMatches = product.allergenMatches
+  const traces = product.traces
   const ingredients = product.ingredients
   const productName = product.productName
-  const traceMatches = product.traceMatches
   const image = product.image_front_url;
   const brands = product.brands
+  const newMatches = product.newMatches;
+
   const selectedAllergens = (
     <Text>
       {yourAllergensSelected.map((value, index) => (
@@ -198,20 +35,6 @@ const ScanResults = ({route}) => {
     </Text>
   )
 
-  const allergenTraces = (
-    <Text>
-      {tracesOfAllergens.map((value, index) => (
-        <Text key={value}>
-          {(index ? ', ' : '') +
-            value.replace('(en)', '').replaceAll('en:', '')}
-        </Text>
-      ))}
-    </Text>
-  )
-
-  const array = allergenMatches.filter((element, index) => {
-    return allergenMatches.indexOf(element) === index
-  })
   return (
     <>
       <Container>
@@ -231,8 +54,8 @@ const ScanResults = ({route}) => {
                   userFrom={storedCredentials}
                   productId={productId}
                   productName={productName}
-                  allergenMatches={allergenMatches}
-                  traceMatches={traceMatches}
+                  newMatches={newMatches}
+                 
                 />
               </MenuBar>
               <MainInfo>
@@ -263,22 +86,16 @@ const ScanResults = ({route}) => {
             May contain traces of
           </Words>
           <Words dark small>
-          {tracesOfAllergens.length == 0 &&
-                'No traces found for this product.'}
-              {allergenTraces}{'\n'}
+            {traces == "" && 'No traces found for this product.'} 
+            {traces}{'\n'}
           </Words>
           <Words dark heavy large>
             Allergen Matches
           </Words>
           <Words dark small>
-            {array.join(',') || 'No allergen matches.'} {'\n'}
+            {newMatches.join(',') || 'No allergen matches.'} {'\n'}
           </Words>
-          <Words dark heavy large>
-            Trace Matches
-          </Words>
-          <Words dark small>
-          {traceMatches.join(',') || 'No traces matched.'}  {'\n'}
-          </Words>
+        
           <Words dark heavy large>
             Allergens Selected
           </Words>
@@ -296,7 +113,7 @@ const ScanResults = ({route}) => {
   )
 }
 
-export default ScanResults;
+export default Details;
 
 const Container = styled.View`
 flex: 1
@@ -371,7 +188,7 @@ const Info = styled.View`
  
   
 `
-const Details = styled.View`
+const texts = styled.View`
   margin-top: 16px;
 `
 
