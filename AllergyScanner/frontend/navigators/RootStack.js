@@ -9,7 +9,7 @@ import Login from '../screens/Login'
 import SignUp from '../screens/SignUp'
 import Splash from '../screens/Splash'
 import TabNavigator from './TabNavigator'
-import Results from '../screens/Results'
+
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +37,7 @@ const RootStack = () => {
                {storedCredentials ? (
                   <>
                   <Stack.Screen name="App" component={TabNavigator}/>
-                  <Stack.Screen name="Results" component={Results}/>
+                 
                 </>
                      ) : ( 
                          <>

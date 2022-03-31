@@ -8,7 +8,7 @@ import PickAllergens from '../screens/PickAllergens'
 import Scan from '../screens/Scan'
 import Favourite from '../screens/Favourite'
 import History from '../screens/History'
-//import Results from '../screens/Results'
+import Results from '../screens/Results'
 import Details from '../screens/Details'
 import EditProfile from '../screens/EditProfile'
 
@@ -66,7 +66,7 @@ const HistoryStack = () => {
           component={Scan}
           options={{headerShown: false}}
         />
-     {/*}   <Stack.Screen
+        <Stack.Screen
           name="Results"
           component={Results}
           options={({route}) => ({
@@ -74,7 +74,7 @@ const HistoryStack = () => {
             headerStyle: {backgroundColor: '#344955' },
             headerShown: false
           })}
-        />*/}
+        />
       </Stack.Navigator>
     );
   };

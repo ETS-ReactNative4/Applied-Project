@@ -20,6 +20,7 @@ import { useProducts } from '../components/Context/ProductContext'
 import DetailsHeader from '../components/Headers/DetailsHeader'
 import { useAllergens } from '../components/Context/AllergenContext'
 import ScanModal from '../components/ScanModal'
+import ScanResults from './ScanResults'
 
 
 const Results = ({ route }) => {
@@ -27,11 +28,12 @@ const Results = ({ route }) => {
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
- 
   const { fetchProducts } = useProducts()
   const [items, setItems] = useState(false)
   const { allergens } = useAllergens()
-  const [visible, setVisible] = React.useState(true);
+  const [visible, setVisible] = React.useState(false);
+
+  
 
 
   if (product === undefined) {
@@ -46,6 +48,8 @@ const Results = ({ route }) => {
   const productName = product.product_name
   const ingredients = product.ingredients_text
   const traces = product.traces_from_user
+  const image = product.image_front_url;
+  const brands = product.brands;
   //console.log(route.params.product.traces_from_user)
   if (product.ingredients_text === undefined) {
     return (
@@ -55,7 +59,7 @@ const Results = ({ route }) => {
           <Icon name="question" type="antdesign" size={200} color="#fff" />
           <View style={styles.container}>
             <Text style={styles.text}>
-              Sorry, no ingredients found for {product.product_name}{' '}
+              Sorry, no ingredients found for {productName}
             </Text>
           </View>
         </View>
@@ -68,13 +72,16 @@ const Results = ({ route }) => {
     )
     let traceMatches = MatchAllergens(
       global.allergenData,
-      product.traces_from_user,
+      product.traces,
     )
 
     if (allergenMatches.length || traceMatches.length > 0) {
       console.log(`Allergens found: ${allergenMatches}`)
       console.log(`Traces found: ${traceMatches}`)
       
+      var newAllergen = [...new Set(allergenMatches)]
+      var newTraces = [...new Set(traceMatches)]
+
       if (!items)
         axios
           .post('http://192.168.0.30:5000/products/addProducts', {
@@ -103,7 +110,7 @@ const Results = ({ route }) => {
       return (
         <>
          
-          <DetailsHeader titleText="Results" />
+         
           <View style={{ flex: 1, backgroundColor: '#ff3300' }}>
           <ScanModal visible={visible}>
             <View style={{alignItems: 'center'}}>
@@ -117,11 +124,11 @@ const Results = ({ route }) => {
         
         </View>
         <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-        {product.product_name}  contains the following allergens:
+        {productName}  contains the following allergens:
         </Text>
        
         <ScrollView>
-                {allergenMatches.map((value, index) => (
+                {newAllergen.map((value, index) => (
                   <View style={styles.products} key={index}>
                     <Icon
                       name="dangerous"
@@ -133,7 +140,7 @@ const Results = ({ route }) => {
                     <Text style={styles.item}>{value}</Text>
                   </View>
                 ))}
-                {traceMatches.map((value, index) => (
+                {newTraces.map((value, index) => (
                   <View style={styles.products} key={index}>
                     <Icon
                       name="dangerous"
@@ -148,45 +155,26 @@ const Results = ({ route }) => {
                 </ScrollView>
             </View>
             </ScanModal>
-            <View style={styles.icon}>
-              <Icon name="warning" type="entypo" size={220} color="#fff" />
-            </View>
+            
 
-            <View style={styles.container}>
-              <Text style={styles.text}>
-                {' '}
-                Product Name: {product.product_name}{' '}
-              </Text>
-
-              
-
-              <FlatList
-                data={allergenMatches}
-                renderItem={({ item, index }) => (
-                  <ListResultsItems item={item} key={index}></ListResultsItems>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-              ></FlatList>
-              <FlatList
-                data={traceMatches}
-                renderItem={({ item, index }) => (
-                  <ListResultsItems item={item} key={index}></ListResultsItems>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-
-              >
-                               
-             
-              </FlatList>
-
-              <Favourite
-                userFrom={storedCredentials}
+            
+              <ScanResults userFrom={storedCredentials}
                 productId={productId}
                 productName={productName}
-                allergenMatches={allergenMatches}
-              />
-            </View>
-                </View>
+                brands={brands}
+                image={image}
+                traces={traces}
+                ingredients={ingredients}
+                newAllergen={newAllergen}
+                newTraces={newTraces}/>
+              
+              
+              
+                               
+             
+              
+
+              </View>
                 
         </>
       )
@@ -245,7 +233,7 @@ const Results = ({ route }) => {
             <View style={styles.container}>
               <Text style={styles.text}>
                 {' '}
-                Product Name: {product.product_name} {'\n'}{' '}
+                Product Name: {productName} {'\n'}
               </Text>
 
               {/*<Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>*/}

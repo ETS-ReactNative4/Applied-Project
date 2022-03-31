@@ -64,7 +64,7 @@ const Favourite = (props) => {
 
     return (
         <TouchableOpacity onPress={() => handleAddToFavourites()}>
-            <Icon name={Favourited ? "favorite" : "favorite-border"} type="material" size={30} />
+            <Icon name={Favourited ? "favorite" : "favorite-border"} type="material" size={30} color={Favourited ? "red" : "white"}/>
                 </TouchableOpacity>
     )
 }
