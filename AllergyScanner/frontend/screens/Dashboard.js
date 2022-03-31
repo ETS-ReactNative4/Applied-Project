@@ -8,7 +8,7 @@ import React, { useContext, useState, useEffect } from 'react';
  import { View, Image,TouchableOpacity, Text, StyleSheet, TextInput, Alert,ScrollView,
       } from 'react-native';
  import { useProducts } from '../components/Context/ProductContext';
- import HistoryHeader from '../components/Headers/HistoryHeader'
+ import ProfileHeader from '../components/Headers/ProfileHeader'
  import axios from "axios";
  import { SafeAreaView } from 'react-native-safe-area-context';
  
@@ -32,7 +32,7 @@ import React, { useContext, useState, useEffect } from 'react';
     
      return (
         <>
-          <HistoryHeader titleText='Profile'/> 
+          <ProfileHeader titleText='Profile'/> 
         
               <ScrollView
          style={styles.container}

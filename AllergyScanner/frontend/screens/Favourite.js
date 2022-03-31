@@ -9,6 +9,7 @@ import {
   HiddenButton,
   ListViewHidden2,
   HeaderButton,
+  Container
 } from '../components/Styles'
 import { useFavourites } from '../components/Context/FavouriteContext'
 import FavouriteHeader from '../components/Headers/FavouriteHeader'
@@ -28,7 +29,7 @@ const Favourite = () => {
   const navigation = useNavigation()
   const SPACING = 20
   const [swipedRow, setSwipedRow] = useState(null)
-
+console.log(FavouritedProducts)
   useEffect(() => {
     fetchFavouritedProducts()
     
@@ -78,9 +79,9 @@ const Favourite = () => {
 
       <View style={{ backgroundColor: '#C9DFEC', flex: 1 }}>
         {FavouritedProducts.length == 0 && (
-          <AllergenText>
+         <Container><AllergenText>
             You have no products added to your favourites.
-          </AllergenText>
+          </AllergenText></Container>
         )}
         {FavouritedProducts.length != 0 && (
           <SwipeListView
@@ -91,7 +92,7 @@ const Favourite = () => {
               paddingTop: StatusBar.currentHeight || 42,
             }}
             renderItem={({ item, index }) => {
-              if (item.allergenMatches.length > 0) {
+              if (item.allergenMatches.length || item.traceMatches.length > 0) {
                 return (
                   <View
                     style={{

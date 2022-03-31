@@ -12,9 +12,7 @@ import {
 import axios from 'axios'
 import NotFound from '../components/NotFound'
 import { MatchAllergens } from '../components/AllergenMatch'
-import ListResultsItems from '../components/ListResultsItems'
 import { Icon } from 'react-native-elements'
-import Favourite from '../components/Favourite'
 import { CredentialsContext } from '../components/Context/CredentialsContext'
 import { useProducts } from '../components/Context/ProductContext'
 import DetailsHeader from '../components/Headers/DetailsHeader'
@@ -24,6 +22,7 @@ import ScanResults from './ScanResults'
 
 
 const Results = ({ route }) => {
+ 
   const product = route.params.product
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
@@ -31,7 +30,7 @@ const Results = ({ route }) => {
   const { fetchProducts } = useProducts()
   const [items, setItems] = useState(false)
   const { allergens } = useAllergens()
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(true);
 
   
 
@@ -48,9 +47,9 @@ const Results = ({ route }) => {
   const productName = product.product_name
   const ingredients = product.ingredients_text
   const traces = product.traces_from_user
-  const image = product.image_front_url;
+ const image = product.image_front_url;
   const brands = product.brands;
-  //console.log(route.params.product.traces_from_user)
+  
   if (product.ingredients_text === undefined) {
     return (
       <>
@@ -140,6 +139,7 @@ const Results = ({ route }) => {
                     <Text style={styles.item}>{value}</Text>
                   </View>
                 ))}
+                
                 {newTraces.map((value, index) => (
                   <View style={styles.products} key={index}>
                     <Icon
@@ -149,7 +149,7 @@ const Results = ({ route }) => {
                       color="red"
                       style={{ right: 5 }}
                     />
-                    <Text style={styles.item}>{value}</Text>
+                    <Text style={styles.item}>{value.toLowerCase()}</Text>
                   </View>
                 ))}
                 </ScrollView>
@@ -166,14 +166,10 @@ const Results = ({ route }) => {
                 traces={traces}
                 ingredients={ingredients}
                 newAllergen={newAllergen}
-                newTraces={newTraces}/>
+                allergenMatches={allergenMatches}
+                newTraces={newTraces}
+                traceMatches={traceMatches}/>
               
-              
-              
-                               
-             
-              
-
               </View>
                 
         </>
@@ -208,7 +204,7 @@ const Results = ({ route }) => {
       
       return (
         <>
-          <DetailsHeader titleText="Results" />
+         
           <View style={{ flex: 1, backgroundColor: '#008000' }}>
             <ScanModal visible={visible}>
             <View style={{alignItems: 'center'}}>
@@ -227,33 +223,26 @@ const Results = ({ route }) => {
         <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>No allergens found</Text>
             </View>
             </ScanModal>
-            <View>
-              <Icon name="check" type="entypo" size={200} color="#fff" />
-            </View>
-            <View style={styles.container}>
-              <Text style={styles.text}>
-                {' '}
-                Product Name: {productName} {'\n'}
-              </Text>
-
-              {/*<Text style={styles.text}> Ingredients: {route.params.product.ingredients_text} {'\n'} </Text>*/}
-
-              <Text style={styles.text}>No allergens found {'\n'}</Text>
-              <Favourite
-                userFrom={storedCredentials}
+        
+              <ScanResults userFrom={storedCredentials}
                 productId={productId}
                 productName={productName}
+                brands={brands}
+                image={image}
+                traces={traces}
+                ingredients={ingredients}
+                newAllergen={newAllergen}
                 allergenMatches={allergenMatches}
-              />
-             
-          
+                newTraces={newTraces}
+                traceMatches={traceMatches}/>
             </View>
-          </View>
+          
         </>
       )
     }
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

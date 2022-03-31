@@ -41,7 +41,7 @@ const HistoryStack = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="Dashboard"
+          name="Profile"
           component={Dashboard}
           options={{headerShown: false}}
         />
@@ -125,7 +125,7 @@ const TabNavigator = () => {
             }} component={HistoryStack}></Tab.Screen>
         <Tab.Screen name="Dashboard1" options={{
                 
-                tabBarLabel: 'Dashboard',
+                tabBarLabel: 'Profile',
                 tabBarActiveTintColor: '#ffff99',
                 tabBarInactiveTintColor: '#fff',
                 tabBarIcon: () => <Icon name="account-circle" type="material" color="#C9DFEC" size={30}/>

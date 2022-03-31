@@ -19,9 +19,10 @@ import {
   LeftIcon,
   RightIcon,
 } from '../components/Styles'
+import { AntDesign } from '@expo/vector-icons'
 import { Formik } from 'formik'
 import Constants from 'expo-constants'
-import { View, ActivityIndicator, StyleSheet, Text, Image } from 'react-native'
+import { View, ActivityIndicator, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper'
 import axios from 'axios'
 // credentials context
@@ -30,7 +31,7 @@ import { Octicons, Ionicons } from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable'
 const StatusBarHeight = Constants.statusBarHeight
 
-const SignUp = ({ navigation }) => {
+const Edit = ({ navigation }) => {
   // using a state variable to store the message
   const [message, setMessage] = useState()
   // state to monitor type of message
@@ -77,8 +78,11 @@ const SignUp = ({ navigation }) => {
     <KeyboardWrapper>
       <View style={styles.container}>
       <View style={styles.header}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <AntDesign name="arrowleft" size={24} color="#FFF" style={{bottom:30}}/>
+                  </TouchableOpacity>
       <View style={{ alignSelf: "center" }}>
-                   
+     
                     <Image style={styles.userImg} source={require('../../assets/Food.jpg')} />
                    
                    
@@ -217,7 +221,7 @@ const MyTextInput = ({
   )
 }
 
-export default SignUp
+export default Edit
 
 const styles = StyleSheet.create({
   container: {

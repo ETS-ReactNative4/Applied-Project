@@ -3,20 +3,21 @@ import {
   Text,
   StatusBar,
   Image,
-  SafeAreaView, ScrollView
+  SafeAreaView, ScrollView, TouchableOpacity
 } from 'react-native'
 import { useAllergens } from '../components/Context/AllergenContext'
 import { CredentialsContext } from '../components/Context/CredentialsContext'
 import styled from 'styled-components'
 import { AntDesign } from '@expo/vector-icons'
 import Favourite from '../components/Favourite'
+import { useNavigation } from '@react-navigation/native'
 
 const ScanResults = (props) => {
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
   const { allergens } = useAllergens()
-
+  const navigation = useNavigation()
   const productId = props.productId
   const productName = props.productName
   const newAllergen = props.newAllergens
@@ -25,7 +26,8 @@ const ScanResults = (props) => {
   const ingredients = props.ingredients
   const image = props.image
   const traces = props.traces
-
+  const allergenMatches = props.allergenMatches
+  const traceMatches = props.traceMatches
   const mappingAllergens = (
     <Text>
       {allergens.map((value, index) => (
@@ -37,6 +39,10 @@ const ScanResults = (props) => {
   const mappingTraces = (
     <Text>{traces.replaceAll('(en)', '').replaceAll('en:', '')}</Text>
   )
+
+  const array = allergenMatches.filter((element, index) => {
+    return allergenMatches.indexOf(element) === index
+  })
   return (
     <>
       <Container>
@@ -46,16 +52,18 @@ const ScanResults = (props) => {
             <SafeAreaView>
               <MenuBar>
                 <Back>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                   <AntDesign name="arrowleft" size={24} color="#FFF" />
-
-                  <Words style={{ marginLeft: 10 }}>Ingredients</Words>
+                  </TouchableOpacity>
+                  <Words style={{ marginLeft: 10 }}>Scan</Words>
                 </Back>
 
                 <Favourite
                   userFrom={storedCredentials}
                   productId={productId}
                   productName={productName}
-                  allergenMatches={newAllergen}
+                  allergenMatches={allergenMatches}
+                  traceMatches={traceMatches}
                 />
               </MenuBar>
               <MainInfo>
@@ -92,13 +100,13 @@ const ScanResults = (props) => {
             Allergen Matches
           </Words>
           <Words dark small>
-            {newAllergen || 'No allergen matches.'} {'\n'}
+            {array.join(',') || 'No allergen matches.'} {'\n'}
           </Words>
           <Words dark heavy large>
             Trace Matches
           </Words>
           <Words dark small>
-            {newTraces.join(',') || 'No trace matches.'} {'\n'}
+          {traceMatches.join(',') || 'No traces matched.'}  {'\n'}
           </Words>
           <Words dark heavy large>
             Allergens Selected

@@ -12,9 +12,26 @@ const favouriteSchema = mongoose.Schema({
     productName : {
         type: String
     },
-    allergenMatches : {
+    allergenMatches : [{
+        type: String
+    }],
+    traceMatches: [{
+        type: String
+    }],
+
+    ingredients : {
         type: [String]
     },
+    allergens: {
+        type: [{
+            title : String,
+            key : String
+        }],
+        default: undefined
+    },
+    traces: [{
+        type:String
+    }],
     date: {
 		type: Date,
 		default: Date.now,

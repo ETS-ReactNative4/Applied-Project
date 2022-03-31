@@ -11,6 +11,7 @@ import {
   AllergenText,
   HiddenButton,
   ListViewHidden2,
+  Container
 } from '../components/Styles'
 import Axios from 'axios'
 import { Entypo } from '@expo/vector-icons'
@@ -76,7 +77,7 @@ const History = () => {
       <HistoryHeader titleText="Scanned Items" removeAll={removeAll} />
       <View style={{ backgroundColor: '#C9DFEC', flex: 1 }}>
         {products.length == 0 && (
-          <AllergenText>You have not scanned any items.</AllergenText>
+          <Container><AllergenText>You have not scanned any items.</AllergenText></Container>
         )}
         {products.length != 0 && (
           <SwipeListView
