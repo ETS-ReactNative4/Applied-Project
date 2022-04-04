@@ -15,7 +15,6 @@ const ProductProvider = ({ children }) => {
             .then(response => {
                 if (response.data.success) {
                     setProducts(response.data.products)
-                    //console.log(response.data.products)
                 } else {
                     alert('Failed to get favourited items')
                 }

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios'
 import {CredentialsContext} from './CredentialsContext';
@@ -17,7 +16,7 @@ const AllergenProvider = ({ children }) => {
                     setAllergens(response.data.allergens)
                     global.allergenData = response.data.allergens
                     console.log(`${JSON.stringify( response.data.allergens)}`);
-                    //console.log(response.data.allergens)
+                   
                 } else {
                     alert('Failed to get favourited items')
                 }

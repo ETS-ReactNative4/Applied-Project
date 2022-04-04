@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {Text} from 'react-native'
+import React, {useState, useContext} from 'react';
 import { SwipeListView } from "react-native-swipe-list-view";
 import {
     ListView,
@@ -10,24 +9,29 @@ import {
     colors,
   } from "./Styles";
   import { Entypo } from "@expo/vector-icons";
-  // Async Storage
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+  import axios from 'axios'
+import {CredentialsContext} from './Context/CredentialsContext';
 
 const ListAllergenItems = ({allergens, setAllergens, handleTriggerEdit,loadAllergens}) => {
+  const { storedCredentials, setStoredCredentials } = useContext(
+    CredentialsContext,
+  )
   const handleDeleteAllergen = (rowMap, rowKey) => {
     const newAllergens = [...allergens];
-    const allergenIndex = allergens.findIndex((allergen) => allergen.key === rowKey);
+    const allergenIndex = allergens.findIndex((allergen) => allergen._id === rowKey);
     newAllergens.splice(allergenIndex, 1);
 
-      AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
-      .then(() => {
-        
-        setAllergens(newAllergens);
-       
-      })
-      .catch((error) => console.log(error));
-      loadAllergens();
+    const variable = {
+      _id: rowKey,
+      userFrom: storedCredentials
+    }
+
+    axios.post('http://192.168.0.30:5000/allergens/removeAllergen', variable)
+    .then(res => console.log(res.data))
+    setAllergens(newAllergens);
+    loadAllergens();
+    console.log('removed product')
+
   };
   
     // For styling currently swiped allergen row
@@ -58,7 +62,7 @@ return(
 
 renderHiddenItem={(data, rowMap) => (
     <ListViewHidden>
-      <HiddenButton onPress={() => handleDeleteAllergen(rowMap, data.item.key)}
+      <HiddenButton onPress={() => handleDeleteAllergen(rowMap, data.item._id)}
       >
         <Entypo name="trash" size={25} color={colors.secondary} />
       </HiddenButton>

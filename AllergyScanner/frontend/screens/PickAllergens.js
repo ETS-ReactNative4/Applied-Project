@@ -19,7 +19,7 @@ const PickAllergens = () => {
   )
   const { allergens, setAllergens, loadAllergens } = useAllergens();
   
-// edit existing todo item
+// edit existing allergen item
 const [allergenToBeEdited, setAllergenToBeEdited] = useState(null);
 
 useEffect(() => {
@@ -45,14 +45,6 @@ const handleClearAllergens = () => {
       console.log(error);
      
   });
-    // Saving to async storage
-    /*AsyncStorage.setItem("storedAllergens", JSON.stringify([]))
-      .then(() => {
-        setAllergens([]);
-        
-      })
-      .catch((error) => console.log(error));
-      loadAllergens();*/
   };
 
   // function to add new allergen
