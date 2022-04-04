@@ -8,17 +8,6 @@ const AllergenProvider = ({ children }) => {
     const initialAllergens = []
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
     const [allergens, setAllergens] = useState(initialAllergens);
-    
-  /* const getAllergens = async (key) =>{
-      try {
-          const value = await AsyncStorage.getItem(key)
-          
-          return value != null ? JSON.parse(value) : null
-        } catch(e) {
-          console.log(`Error: ${e}`);
-        }
-  }*/
-  
   
   const loadAllergens = async () => {
 
@@ -35,26 +24,7 @@ const AllergenProvider = ({ children }) => {
             }).catch(error=>{
                 console.log(error);
             });
-    /*getAllergens('storedAllergens').then((data) => {
-          if(data === null){
-            getAllergens('storedAllergens').then((data) => {
-                    setAllergens(data);
-                    global.allergenData = data;
-                    console.log(`${JSON.stringify(data)}`);
-                    }).then()
-          } else{
-            setAllergens(data);
-            global.allergenData = data;
-            console.log(`${JSON.stringify(data)}`);
-          }
-          
-        })*/
   }
-  
-
- /* useEffect(() => {
-   loadAllergens();
-  }, []);*/
 
   return (
     <AllergenContext.Provider value={{ allergens, setAllergens, loadAllergens}}>

@@ -8,15 +8,24 @@ import  {useAllergens} from '../components/Context/AllergenContext';
 import {CredentialsContext} from '../components/Context/CredentialsContext';
 import AllergenHeader from '../components/Headers/AllergenHeader'
 import {StatusBar} from 'react-native'
+import axios from 'axios'
+
 const PickAllergens = () => {
      // Modal visibility & input value
   const [modalVisible, setModalVisible] = useState(false);
   const [allergenInputValue, setAllergenInputValue] = useState();
-  
+  const { storedCredentials, setStoredCredentials } = useContext(
+    CredentialsContext,
+  )
   const { allergens, setAllergens, loadAllergens } = useAllergens();
   
 // edit existing todo item
 const [allergenToBeEdited, setAllergenToBeEdited] = useState(null);
+
+useEffect(() => {
+  loadAllergens();
+  
+}, [])
 
 // clear all allergens
 const handleClearAllergens = () => {
@@ -34,15 +43,34 @@ const handleClearAllergens = () => {
   const handleAddAllergen = (allergen) => {
     const newAllergens = [...allergens, allergen];
 
+    const variable = {
+      userFrom: storedCredentials,
+      title: allergen.title,
+      key: allergen.key
+       
+   }
+     
+     axios.post('http://192.168.0.30:5000/allergens/addAllergens', variable )
+     .then((res) => {
+         setAllergens(newAllergens);
+         setModalVisible(false)
+         loadAllergens();
+         console.log(res.data)
+     })
+     .catch(err => {
+         console.log(err)
+     })
+
+
     // Saving to async storage
-    AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
+   /* AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
       .then(() => {
         setAllergens(newAllergens);
         
         setModalVisible(false);
       })
       .catch((error) => console.log(error));
-      loadAllergens();
+      loadAllergens();*/
   };
 
   const handleTriggerEdit = (item) => {

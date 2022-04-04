@@ -12,6 +12,15 @@ router.post("/", (req, res) => {
 
 });
 
+router.post("/addAllergens", (req, res) => {
+
+    const allergen = new Allergens(req.body)
+    console.log(req.body)
+    allergen.save()
+    .then((rese) => res.json(rese))
+    .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
 
 
 module.exports = router;
