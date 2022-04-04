@@ -34,6 +34,15 @@ const AllergenProvider = ({ children }) => {
           
         })
   }
+  /*const loadAllergens = () => {
+    AsyncStorage.getItem("storedAllergens")
+      .then((data) => {
+        if (data !== null) {
+          setAllergens(JSON.parse(data));
+        }
+      })
+      .catch((error) => console.log(error));
+  };*/
   
   useEffect(() => {
    loadAllergens();

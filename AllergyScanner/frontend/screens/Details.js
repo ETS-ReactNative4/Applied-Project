@@ -35,6 +35,16 @@ const Details = ({route}) => {
     </Text>
   )
 
+  const tracesOfAllergens = (
+    <Text>
+      {traces.map((value,index) =>
+        <Text key={value}>
+          { ( index ? ', '  : '' ) + value.replaceAll('en:', '') }
+        </Text>
+      )}
+    </Text>
+  );
+
   return (
     <>
       <Container>
@@ -86,8 +96,8 @@ const Details = ({route}) => {
             May contain traces of
           </Words>
           <Words dark small>
-            {traces == "" && 'No traces found for this product.'} 
-            {traces}{'\n'}
+            {traces.length == 0 || traces == "" && 'No traces found for this product.'} 
+            {tracesOfAllergens}{'\n'}
           </Words>
           <Words dark heavy large>
             Allergen Matches
@@ -100,7 +110,7 @@ const Details = ({route}) => {
             Allergens Selected
           </Words>
           <Words dark small>
-          {yourAllergensSelected.length == 0 &&
+          {yourAllergensSelected.length == 0 || undefined &&
                 'You selected no allergens.'}
               {selectedAllergens}
           </Words>
