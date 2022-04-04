@@ -29,14 +29,30 @@ useEffect(() => {
 
 // clear all allergens
 const handleClearAllergens = () => {
+
+  axios.post('http://192.168.0.30:5000/allergens/removeAll', {
+  userFrom: storedCredentials,
+})
+  .then(response => {
+      if (response.data.success) {
+        setAllergens([])
+        loadAllergens();
+        console.log("Removed all allergens from list")
+      } else {
+          alert('Failed to get allergens')
+      }
+  }).catch(error=>{
+      console.log(error);
+     
+  });
     // Saving to async storage
-    AsyncStorage.setItem("storedAllergens", JSON.stringify([]))
+    /*AsyncStorage.setItem("storedAllergens", JSON.stringify([]))
       .then(() => {
         setAllergens([]);
         
       })
       .catch((error) => console.log(error));
-      loadAllergens();
+      loadAllergens();*/
   };
 
   // function to add new allergen
@@ -60,17 +76,6 @@ const handleClearAllergens = () => {
      .catch(err => {
          console.log(err)
      })
-
-
-    // Saving to async storage
-   /* AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
-      .then(() => {
-        setAllergens(newAllergens);
-        
-        setModalVisible(false);
-      })
-      .catch((error) => console.log(error));
-      loadAllergens();*/
   };
 
   const handleTriggerEdit = (item) => {

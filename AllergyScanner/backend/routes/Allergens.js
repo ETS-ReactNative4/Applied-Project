@@ -21,6 +21,15 @@ router.post("/addAllergens", (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`))
 });
 
+router.post("/removeAll", (req, res) => {
+    Allergens.deleteMany({ 'userFrom': req.body.userFrom })
+        .exec((err, allergens) => {
+            if (err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, allergens })
+        })
+
+});
+
 
 
 module.exports = router;
