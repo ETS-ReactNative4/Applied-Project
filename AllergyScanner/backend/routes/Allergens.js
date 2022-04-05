@@ -41,5 +41,21 @@ router.post("/removeAllergen", (req, res) => {
 });
 
 
+router.put('/editAllergens/:id',(req,res,next)=>{
+
+    console.log(req.params.id);
+    console.log(req.body);
+
+    Allergens.findOneAndUpdate({_id:req.params.id}, {$set:req.body}, {new:true}, (error, data)=>{
+        if(error){
+            return next(error);
+        }else{
+            res.json(data);
+        }
+    })
+
+})
+
+
 
 module.exports = router;

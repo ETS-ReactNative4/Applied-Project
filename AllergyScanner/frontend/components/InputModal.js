@@ -45,6 +45,7 @@ allergens}) => {
               handleEditAllergen({
                 title: allergenInputValue,
                 key: allergenToBeEdited.key,
+                _id: allergenToBeEdited._id,
               });
             }
         

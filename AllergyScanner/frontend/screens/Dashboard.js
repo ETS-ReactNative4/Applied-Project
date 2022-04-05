@@ -16,10 +16,16 @@ import React, { useContext, useState, useEffect } from 'react';
      
      // context
      const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
-     const { allergens } = useAllergens();
-     const { FavouritedProducts } = useFavourites();
-     const { products } = useProducts();
+     const { allergens, loadAllergens } = useAllergens();
+     const { FavouritedProducts,  fetchFavouritedProducts } = useFavourites();
+     const { products, fetchProducts } = useProducts();
      const { name, email, password, _id} = storedCredentials;
+
+     useEffect(() => {
+      loadAllergens();
+      fetchProducts();
+      fetchFavouritedProducts();
+    }, [])
  
      const clearLogin = () => {
          AsyncStorage.removeItem('credentials')

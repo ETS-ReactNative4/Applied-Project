@@ -78,18 +78,27 @@ const handleClearAllergens = () => {
 
   const handleEditAllergen = (editedAllergen) => {
     const newAllergens = [...allergens];
-    const allergenIndex = allergens.findIndex((allergen) => allergen.key === editedAllergen.key);
+    const allergenIndex = allergens.findIndex((allergen) => allergen._id === editedAllergen._id);
     newAllergens.splice(allergenIndex, 1, editedAllergen);
 
-    // Saving to async storage
-    AsyncStorage.setItem("storedAllergens", JSON.stringify(newAllergens))
-      .then(() => {
+
+    const variable = {
+      userFrom: storedCredentials,
+      title: editedAllergen.title,
+      key: editedAllergen.key
+       
+   }
+
+    axios.put(`http://192.168.0.30:5000/allergens/editAllergens/${editedAllergen._id}` , variable)
+    .then((res) => {
         setAllergens(newAllergens);
-        setAllergenToBeEdited(null);
+         setAllergenToBeEdited(null);
         setModalVisible(false);
-      })
-      .catch((error) => console.log(error));
-      loadAllergens();
+     loadAllergens();
+      console.log(res.data)})
+    .catch(err => {
+      console.log(err);
+    })
   };
 
     return (   
