@@ -20,10 +20,60 @@ Allergy Scanner is a mobile application that can scan a barcode of a product whe
 - Allow users to favourite a scanned product.
 - Allow users to view a list of their previous scans and access each scan individually.
 
+### Future Implementations
+As this project was built using an api, further developments are needed for products that are not available. Implementing an option to scan the text of the ingredients would be a massive improvement to the application, if there are allergens present in the ingredients, they will be highlighted with a green box.
+
 ## Environment
 - Expo (v4.13.0+)
-- NPM (v6.14.4+)
+- Npm (v6.14.4+)
 - Node (v12.18.0+)
 - MongDB (v4.4+)
 
-## Technologies Used
+## Built With 
+- react-native
+- react-navigation
+- react-native-animatable
+- react-native-async-storage
+- react-native-elements
+- react-native-swipe-list-view
+- expo
+- expo-app-loading
+- expo-constants
+- expo-barcode-scanner
+- axios
+- bcryptjs
+- cors
+- mongoose
+- express
+- mongoDB
+- open food facts api
+
+## Installation 
+1. Clone Repository
+```sh
+   git clone https://github.com/GarethOLeary/Applied-Project
+```
+2. Navigate into the AllergyScanner folder
+```sh
+  Run npm install
+``` 
+3. To start the client side 
+```sh
+  Run npm start or expo start
+``` 
+4.  Download the expo app from the app store 
+```sh
+  Scan the QR code or run the project from the expo app
+``` 
+5. Navigate into the Backend folder 
+```sh
+  Run npm install
+``` 
+6. Navigate into .env file
+```sh
+ Enter mongo key
+```
+7. To start the server 
+```sh
+  Run npm start
+``` 
