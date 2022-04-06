@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Favourite model
 const favouriteSchema = mongoose.Schema({
     userFrom: {
         type: Schema.Types.ObjectId,

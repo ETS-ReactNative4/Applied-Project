@@ -1,20 +1,21 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { View, Text, FlatList, StatusBar, StyleSheet } from 'react-native'
+// axios
 import Axios from 'axios'
+// user context
 import { CredentialsContext } from '../components/Context/CredentialsContext'
 import { SwipeListView } from 'react-native-swipe-list-view'
+// styled components
 import {
-  SwipedAllergenText,
   AllergenText,
   HiddenButton,
   ListViewHidden2,
-  HeaderButton,
-  Container
+  Container,
 } from '../components/Styles'
+// favourites context
 import { useFavourites } from '../components/Context/FavouriteContext'
 import FavouriteHeader from '../components/Headers/FavouriteHeader'
 import { Icon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native'
 import { Entypo } from '@expo/vector-icons'
 
 const Favourite = () => {
@@ -23,24 +24,28 @@ const Favourite = () => {
     fetchFavouritedProducts,
     setFavouritedProducts,
   } = useFavourites()
+  // user credentials
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
-  const navigation = useNavigation()
+
   const SPACING = 20
   const [swipedRow, setSwipedRow] = useState(null)
 
+  // loads the products on the page
   useEffect(() => {
     fetchFavouritedProducts()
-    
   }, [])
 
+  // method to remove all favourites
   const removeAll = () => {
+    // post request to remove all favourites
     Axios.post('http://192.168.0.30:5000/favourite/deleteAll', {
       userFrom: storedCredentials,
     })
       .then((response) => {
         if (response.data.success) {
+          // set favouritedProducts state to empty array
           setFavouritedProducts([])
           console.log('Removed all items from favourites')
         } else {
@@ -54,11 +59,12 @@ const Favourite = () => {
   }
 
   const onClickRemove = (productId) => {
+    // store the productId and current user
     const variable = {
       productId: productId,
       userFrom: storedCredentials,
     }
-
+    // delete a favourited product by id and user credentials
     Axios.post(
       'http://192.168.0.30:5000/favourite/removeFavourites',
       variable,
@@ -73,15 +79,18 @@ const Favourite = () => {
     })
   }
 
+  // if the favouritedProducts exist render them in a list
   return (
     <>
       <FavouriteHeader titleText="Favourites" removeAll={removeAll} />
 
       <View style={{ backgroundColor: '#C9DFEC', flex: 1 }}>
         {FavouritedProducts.length == 0 && (
-         <Container><AllergenText>
-            You have no products added to your favourites.
-          </AllergenText></Container>
+          <Container>
+            <AllergenText>
+              You have no products added to your favourites.
+            </AllergenText>
+          </Container>
         )}
         {FavouritedProducts.length != 0 && (
           <SwipeListView
@@ -92,7 +101,6 @@ const Favourite = () => {
               paddingTop: StatusBar.currentHeight || 42,
             }}
             renderItem={({ item, index }) => {
-           
               if (item.newMatches.length > 0) {
                 return (
                   <View

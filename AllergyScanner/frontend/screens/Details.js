@@ -3,30 +3,38 @@ import {
   Text,
   StatusBar,
   Image,
-  SafeAreaView, ScrollView, TouchableOpacity
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native'
-import { useAllergens } from '../components/Context/AllergenContext'
+// user context
 import { CredentialsContext } from '../components/Context/CredentialsContext'
 import styled from 'styled-components'
 import { AntDesign } from '@expo/vector-icons'
+// favourite component
 import Favourite from '../components/Favourite'
+// naviagtion
 import { useNavigation } from '@react-navigation/native'
 
-const Details = ({route}) => {
+const Details = ({ route }) => {
+  // user credentials
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
+  // navigation
   const navigation = useNavigation()
+  // product details
   const product = route.params.product
   const productId = product.productId
   const yourAllergensSelected = product.allergens
   const traces = product.traces
   const ingredients = product.ingredients
   const productName = product.productName
-  const image = product.image_front_url;
+  //const image = product.image_front_url
   const brands = product.brands
-  const newMatches = product.newMatches;
-
+  const newMatches = product.newMatches
+  //console.log(global.data)
+  // function to map the allergens
   const selectedAllergens = (
     <Text>
       {yourAllergensSelected.map((value, index) => (
@@ -34,30 +42,29 @@ const Details = ({route}) => {
       ))}
     </Text>
   )
-
+  // function to map the traces of allergens
   const tracesOfAllergens = (
     <Text>
-      {traces.map((value,index) =>
+      {traces.map((value, index) => (
         <Text key={value}>
-          { ( index ? ', '  : '' ) + value.replaceAll('en:', '') }
+          {(index ? ', ' : '') + value.replaceAll('en:', '')}
         </Text>
-      )}
+      ))}
     </Text>
-  );
+  )
 
   return (
     <>
       <Container>
         <StatusBar barStyle="light-content" />
-        <Picture source={image ? { uri: image } : null}>
+        <Picture source={global.data ? { uri: global.data } : null}>
           <DarkenImg>
             <SafeAreaView>
               <MenuBar>
                 <Back>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <AntDesign name="arrowleft" size={24} color="#FFF" />
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <AntDesign name="arrowleft" size={24} color="#FFF" />
                   </TouchableOpacity>
-                 
                 </Back>
 
                 <Favourite
@@ -65,7 +72,6 @@ const Details = ({route}) => {
                   productId={productId}
                   productName={productName}
                   newMatches={newMatches}
-                 
                 />
               </MenuBar>
               <MainInfo>
@@ -79,51 +85,50 @@ const Details = ({route}) => {
             </SafeAreaView>
           </DarkenImg>
         </Picture>
-        
+
         <Info>
-       
-        <ScrollView showsVerticalScrollIndicator={false} 
-          style={{marginBottom: -30, marginVertical: -10  ,height: -20}}
-         
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ marginBottom: -30, marginVertical: -10, height: -20 }}
           >
-          <Words dark heavy large>
-            Ingredients
-          </Words>
-          <Words dark small>
-            {ingredients || 'No ingredients for this product.'} {'\n'}
-          </Words>
-          <Words dark heavy large>
-            May contain traces of
-          </Words>
-          <Words dark small>
-            {traces.length == 0 || traces == "" && 'No traces found for this product.'} 
-            {tracesOfAllergens}{'\n'}
-          </Words>
-          <Words dark heavy large>
-            Allergen Matches
-          </Words>
-          <Words dark small>
-            {newMatches.join(',') || 'No allergen matches.'} {'\n'}
-          </Words>
-        
-          <Words dark heavy large>
-            Allergens Selected
-          </Words>
-          <Words dark small>
-          {yourAllergensSelected.length == 0 || undefined &&
-                'You selected no allergens.'}
+            <Words dark heavy large>
+              Ingredients
+            </Words>
+            <Words dark small>
+              {ingredients || 'No ingredients for this product.'} {'\n'}
+            </Words>
+            <Words dark heavy large>
+              May contain traces of
+            </Words>
+            <Words dark small>
+              {traces.length == 0 ||
+                (traces == '' && 'No traces found for this product.')}
+              {tracesOfAllergens}
+              {'\n'}
+            </Words>
+            <Words dark heavy large>
+              Allergen Matches
+            </Words>
+            <Words dark small>
+              {newMatches.join(',') || 'No allergen matches.'} {'\n'}
+            </Words>
+
+            <Words dark heavy large>
+              Allergens Selected
+            </Words>
+            <Words dark small>
+              {yourAllergensSelected.length == 0 ||
+                (undefined && 'You selected no allergens.')}
               {selectedAllergens}
-          </Words>
+            </Words>
           </ScrollView>
-         
         </Info>
-      
       </Container>
     </>
   )
 }
 
-export default Details;
+export default Details
 
 const Container = styled.View`
 flex: 1
@@ -195,10 +200,7 @@ const Info = styled.View`
   background-color: #fff;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
- 
-  
 `
 const texts = styled.View`
   margin-top: 16px;
 `
-

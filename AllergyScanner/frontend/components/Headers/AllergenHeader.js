@@ -1,12 +1,15 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Appbar, Title } from 'react-native-paper'
+// Icons
 import { Entypo } from "@expo/vector-icons";
+// styled components
 import {   
     HeaderButton,
   } from "../Styles";
   
-
+// Header for allergens page
+// takes in a function to delete all allergens
 const AllergenHeader = ({ titleText, handleClearAllergens }) =>{
     return (
         <Appbar.Header style={styles.headerContainer}>
@@ -15,6 +18,7 @@ const AllergenHeader = ({ titleText, handleClearAllergens }) =>{
                 <Title style={styles.title}>{titleText}</Title>
                
             </View>
+            
             <HeaderButton onPress={handleClearAllergens}>
             <Entypo name="trash" size={29}  style={styles.bin}/>
             </HeaderButton>

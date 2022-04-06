@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Product model
 const productSchema = mongoose.Schema({
     userFrom: {
         type: Schema.Types.ObjectId,
@@ -29,6 +30,10 @@ const productSchema = mongoose.Schema({
     traces: [{
         type:String
     }],
+    
+    brands: {
+        type: String
+    },
     date: {
 		type: Date,
 		default: Date.now,

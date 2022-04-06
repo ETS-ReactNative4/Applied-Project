@@ -4,37 +4,41 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
   ScrollView,
-  Button
 } from 'react-native'
 import axios from 'axios'
 import NotFound from '../components/NotFound'
+// function to match allergens
 import { MatchAllergens } from '../components/AllergenMatch'
 import { Icon } from 'react-native-elements'
+// user context
 import { CredentialsContext } from '../components/Context/CredentialsContext'
+// products context
 import { useProducts } from '../components/Context/ProductContext'
 import DetailsHeader from '../components/Headers/DetailsHeader'
+// allergens context
 import { useAllergens } from '../components/Context/AllergenContext'
+// modal that shows result of scan
 import ScanModal from '../components/ScanModal'
+// results page
 import ScanResults from './ScanResults'
 
-
 const Results = ({ route }) => {
- 
+  // getting route.params from scan result
   const product = route.params.product
+  // user credentials
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
   const { fetchProducts } = useProducts()
   const [items, setItems] = useState(false)
+  // allergens
   const { allergens } = useAllergens()
-  const [visible, setVisible] = React.useState(true);
+  // modal visibilty
+  const [visible, setVisible] = React.useState(true)
 
-  
-
-
+  // return not found page if barcode doesn't exist
   if (product === undefined) {
     return (
       <>
@@ -43,13 +47,15 @@ const Results = ({ route }) => {
       </>
     )
   }
+  // variables for product information
   const productId = product._id
   const productName = product.product_name
   const ingredients = product.ingredients_text
-  const traces = route.params.product.traces;
- const image = product.image_front_url;
-  const brands = product.brands;
-  
+  const traces = route.params.product.traces
+  const image = product.image_front_url
+  const brands = product.brands
+
+  // if there is no ingredients, display message
   if (product.ingredients_text === undefined) {
     return (
       <>
@@ -64,28 +70,30 @@ const Results = ({ route }) => {
         </View>
       </>
     )
-  } else {
+  }
+  // if ingredients exist
+  else {
+    // match allergens allergens_from_ingredients
     let allergenMatches = MatchAllergens(
       global.allergenData,
       product.allergens_from_ingredients,
     )
-    let traceMatches = MatchAllergens(
-      global.allergenData,
-      product.traces,
-    )
+    // match allergens with traces
+    let traceMatches = MatchAllergens(global.allergenData, product.traces)
 
+    // combine both allergen matches and trace matches into allMatches
     let allMatches = [...allergenMatches, ...traceMatches]
-    console.log(`All matches : ${allMatches}`)
-    
 
-    var newMatches = [...new Set(allMatches)];
-    console.log(`All matches (no duplicates): ${newMatches}`)
-  
+    // get rid of duplicates
+    var newMatches = [...new Set(allMatches)]
+    console.log(`All matches: ${newMatches}`)
+
+    // if the matches is greater than 0
     if (newMatches.length > 0) {
-
       console.log(`Allergens found: ${allergenMatches}`)
       console.log(`Traces found: ${traceMatches}`)
-        
+
+      // post request to add a scanned product
       if (!items)
         axios
           .post('http://192.168.0.30:5000/products/addProducts', {
@@ -93,10 +101,10 @@ const Results = ({ route }) => {
             allergens,
             ingredients,
             traces,
+            brands,
             productId,
             productName,
-            newMatches:newMatches
-           
+            newMatches: newMatches,
           })
           .then((response) => {
             if (response.data.success) {
@@ -110,61 +118,71 @@ const Results = ({ route }) => {
           .catch((error) => {
             console.log(error)
           })
-         
+
       return (
         <>
-         
-         
           <View style={{ flex: 1, backgroundColor: '#ff3300' }}>
-          <ScanModal visible={visible}>
-            <View style={{alignItems: 'center'}}>
-            <View style={styles.header}>
-            <TouchableOpacity onPress={() => setVisible(false)}>
-            <Icon name="close" type="material"   size={30} color="#565656" style={{bottom: 5}}/>
-            </TouchableOpacity>
-          </View>
-          <View style={{alignSelf: 'center',height: 150, width: 150, marginVertical: 10}}>
-        <Icon name="warning" type="entypo"   size={150} color="red"/>
-        
-        </View>
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-        {productName}  contains the following allergens:
-        </Text>
-       
-        <ScrollView>
-                {newMatches.map((value, index) => (
-                  <View style={styles.products} key={index}>
+            <ScanModal visible={visible}>
+              <View style={{ alignItems: 'center' }}>
+                <View style={styles.header}>
+                  <TouchableOpacity onPress={() => setVisible(false)}>
                     <Icon
-                      name="dangerous"
+                      name="close"
                       type="material"
-                      size={35}
-                      color="red"
-                      style={{ right: 2 }}
+                      size={30}
+                      color="#565656"
+                      style={{ bottom: 5 }}
                     />
-                    <Text style={styles.item}>{value}</Text>
-                  </View>
-                ))}
-                
-             
-                </ScrollView>
-            </View>
-            </ScanModal>
-            
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    height: 150,
+                    width: 150,
+                    marginVertical: 10,
+                  }}
+                >
+                  <Icon name="warning" type="entypo" size={150} color="red" />
+                </View>
+                <Text
+                  style={{
+                    marginVertical: 30,
+                    fontSize: 20,
+                    textAlign: 'center',
+                  }}
+                >
+                  {productName} contains the following allergens:
+                </Text>
 
-            
-              <ScanResults userFrom={storedCredentials}
-                productId={productId}
-                productName={productName}
-                brands={brands}
-                image={image}
-                traces={traces}
-                ingredients={ingredients}
-                newMatches={newMatches}
-              
-                />
-              
+                <ScrollView>
+                  {newMatches.map((value, index) => (
+                    <View style={styles.products} key={index}>
+                      <Icon
+                        name="dangerous"
+                        type="material"
+                        size={35}
+                        color="red"
+                        style={{ right: 2 }}
+                      />
+                      <Text style={styles.item}>{value}</Text>
+                    </View>
+                  ))}
+                </ScrollView>
               </View>
-                
+            </ScanModal>
+
+            <ScanResults
+              userFrom={storedCredentials}
+              productId={productId}
+              productName={productName}
+              brands={brands}
+              image={image}
+              traces={traces}
+              ingredients={ingredients}
+              newMatches={newMatches}
+            />
+          </View>
         </>
       )
     } else {
@@ -175,10 +193,10 @@ const Results = ({ route }) => {
             allergens,
             ingredients,
             traces,
+            brands,
             productId,
             productName,
-            newMatches:newMatches
-          
+            newMatches: newMatches,
           })
           .then((response) => {
             if (response.data.success) {
@@ -194,47 +212,75 @@ const Results = ({ route }) => {
             console.log(error)
           })
       console.log(`No allergens found`)
-      
+
       return (
         <>
-         
           <View style={{ flex: 1, backgroundColor: '#008000' }}>
             <ScanModal visible={visible}>
-            <View style={{alignItems: 'center'}}>
-            <View style={styles.header}>
-            <TouchableOpacity onPress={() => setVisible(false)}>
-            <Icon name="close" type="material"   size={30} color="#565656" style={{bottom: 5}}/>
-            </TouchableOpacity>
-          </View>
-          <View style={{alignSelf: 'center',height: 150, width: 150, marginVertical: 10}}>
-        <Icon name="check-circle" type="material"   size={150}color="green"/>
-        
-        </View>
-        <Text style={{marginVertical: 30, fontSize: 30, textAlign: 'center'}}>
-        {product.product_name}
-        </Text>
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>No allergens found</Text>
-            </View>
+              <View style={{ alignItems: 'center' }}>
+                <View style={styles.header}>
+                  <TouchableOpacity onPress={() => setVisible(false)}>
+                    <Icon
+                      name="close"
+                      type="material"
+                      size={30}
+                      color="#565656"
+                      style={{ bottom: 5 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    height: 150,
+                    width: 150,
+                    marginVertical: 10,
+                  }}
+                >
+                  <Icon
+                    name="check-circle"
+                    type="material"
+                    size={150}
+                    color="green"
+                  />
+                </View>
+                <Text
+                  style={{
+                    marginVertical: 30,
+                    fontSize: 30,
+                    textAlign: 'center',
+                  }}
+                >
+                  {product.product_name}
+                </Text>
+                <Text
+                  style={{
+                    marginVertical: 30,
+                    fontSize: 20,
+                    textAlign: 'center',
+                  }}
+                >
+                  No allergens found
+                </Text>
+              </View>
             </ScanModal>
-        
-              <ScanResults userFrom={storedCredentials}
-                productId={productId}
-                productName={productName}
-                brands={brands}
-                image={image}
-                traces={traces}
-                ingredients={ingredients}
-                newMatches={newMatches}
-              
-                />
-            </View>
-          
+
+            <ScanResults
+              userFrom={storedCredentials}
+              productId={productId}
+              productName={productName}
+              brands={brands}
+              image={image}
+              traces={traces}
+              ingredients={ingredients}
+              newMatches={newMatches}
+            />
+          </View>
         </>
       )
     }
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -273,7 +319,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     marginVertical: 5,
-    //left: 90,
+    
   },
 })
 

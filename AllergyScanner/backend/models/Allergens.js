@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Allergens model
 const allergenSchema = mongoose.Schema({
 
     userFrom: {

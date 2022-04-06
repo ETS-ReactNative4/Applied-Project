@@ -4,6 +4,8 @@ import { Appbar, Title } from 'react-native-paper'
 import { Entypo } from '@expo/vector-icons'
 import { HeaderButton } from '../Styles'
 
+// Header for scanned items page
+// takes in a function to delete all scanned items
 const HistoryHeader = ({ titleText, removeAll }) => {
   return (
     <Appbar.Header style={styles.headerContainer}>

@@ -6,7 +6,6 @@ import {
     Dimensions,
     StyleSheet,
     StatusBar,
-    Image,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -28,7 +27,7 @@ const Splash = ({navigation}) => {
         </View>
         <Animatable.View 
             style={[styles.footer, {
-               // backgroundColor: colors.background
+               
             }]}
             animation="fadeInUpBig"
         >

@@ -1,15 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, View, Modal, Animated } from 'react-native'
 
+// modal that takes in two props 
 const ScanModal = ({ visible, children }) => {
+  // show modal state set to visible
     const [showModal, setShowModal] = React.useState(visible)
     const scaleValue = React.useRef(new Animated.Value(0)).current
     React.useEffect(() => {
       toggleModal()
     }, [visible])
+    // method to toggle modal
     const toggleModal = () => {
       if (visible) {
         setShowModal(true)
+        // animation when modal shows 
         Animated.spring(scaleValue, {
           toValue: 1,
           duration: 300,

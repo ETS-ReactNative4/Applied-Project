@@ -4,7 +4,9 @@ import { Appbar, Title } from 'react-native-paper'
 import { Entypo } from '@expo/vector-icons'
 import { HeaderButton } from '../Styles'
 
-const HistoryHeader = ({ titleText, removeAll }) => {
+// Header for favourites page
+// takes in a function to delete all favourites
+const FavouriteHeader = ({ titleText, removeAll }) => {
   return (
     <Appbar.Header style={styles.headerContainer}>
       <View style={styles.container}>
@@ -41,4 +43,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default HistoryHeader
+export default FavouriteHeader

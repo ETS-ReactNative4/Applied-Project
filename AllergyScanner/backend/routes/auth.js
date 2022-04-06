@@ -170,6 +170,7 @@ router.get('/:id', (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`))
 })
 
+// updating users details
 router.put('/update/:id', (req, res) => {
   let { name, email, password } = req.body
 

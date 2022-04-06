@@ -1,6 +1,7 @@
 import React from 'react';
 import {KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard,Platform} from 'react-native'
 
+// method to stop keyboard from blocking text box
 const KeyboardWrapper = ({children}) => {
     return(
         <KeyboardAvoidingView style={{flex: 1}}  behavior={Platform.OS === "ios" ? "padding" : "height"}>

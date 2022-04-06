@@ -1,32 +1,29 @@
 import React, { useState, useContext } from 'react'
 import {
-  StyledContainer,
-  InnerContainer,
-  PageLogo,
-  PageTitle,
-  SubTitle,
   StyledFormArea,
   StyledTextInput,
   StyledInputLabel,
   StyledButton,
   ButtonText,
   MessageBox,
-  ExtraText,
-  ExtraView,
-  TextLinkContent,
-  TextLink,
-  PageLogo2,
   LeftIcon,
   RightIcon,
 } from '../components/Styles'
 import { AntDesign } from '@expo/vector-icons'
 import { Formik } from 'formik'
 import Constants from 'expo-constants'
-import { View, ActivityIndicator, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
+import {
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native'
 import KeyboardWrapper from '../components/KeyboardWrapper'
 import axios from 'axios'
 // credentials context
 import { CredentialsContext } from '../components/Context/CredentialsContext'
+// icons
 import { Octicons, Ionicons } from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable'
 const StatusBarHeight = Constants.statusBarHeight
@@ -36,7 +33,7 @@ const Edit = ({ navigation }) => {
   const [message, setMessage] = useState()
   // state to monitor type of message
   const [messageType, setMessageType] = useState()
-  // context
+  // user context
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
@@ -52,14 +49,18 @@ const Edit = ({ navigation }) => {
       .put(url, credentials)
       .then((response) => {
         const result = response.data
+        //
         const { message, status, data } = result
 
+        // if not equal to success then handle the message
         if (status != 'SUCCESS') {
           handleMessage(message, status)
         } else {
+          // navigate to previous page while updating the details
           navigation.goBack({ ...data })
         }
         setSubmitting(false)
+        // set the credentials to the updated credentials
         setStoredCredentials(credentials)
       })
       .catch((error) => {
@@ -69,6 +70,7 @@ const Edit = ({ navigation }) => {
       })
   }
 
+  // function to handle messages
   const handleMessage = (message, type = 'FAILED') => {
     setMessage(message)
     setMessageType(type)
@@ -77,21 +79,32 @@ const Edit = ({ navigation }) => {
   return (
     <KeyboardWrapper>
       <View style={styles.container}>
-      <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <AntDesign name="arrowleft" size={24} color="#FFF" style={{bottom:30}}/>
-                  </TouchableOpacity>
-      <View style={{ alignSelf: "center" }}>
-     
-                    <Image style={styles.userImg} source={require('../../assets/Food.jpg')} />
-                   
-                   
-                    <View style={styles.active}></View>
-                    <View style={styles.add}>
-                        <Ionicons name="ios-add" size={48} color="#344955" style={{ marginTop: 6, marginLeft: 2 }}></Ionicons>
-                    </View>
-                </View>
-                </View>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="#FFF"
+              style={{ bottom: 30 }}
+            />
+          </TouchableOpacity>
+          <View style={{ alignSelf: 'center' }}>
+            <Image
+              style={styles.userImg}
+              source={require('../../assets/Food.jpg')}
+            />
+
+            <View style={styles.active}></View>
+            <View style={styles.add}>
+              <Ionicons
+                name="ios-add"
+                size={48}
+                color="#344955"
+                style={{ marginTop: 6, marginLeft: 2 }}
+              ></Ionicons>
+            </View>
+          </View>
+        </View>
         <Animatable.View style={[styles.footer, {}]} animation="fadeInUpBig">
           <Formik
             // Provide email and password values
@@ -186,7 +199,7 @@ const Edit = ({ navigation }) => {
             )}
           </Formik>
         </Animatable.View>
-        </View>
+      </View>
     </KeyboardWrapper>
   )
 }
@@ -242,7 +255,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
-    
   },
   text_header: {
     color: '#fff',
@@ -256,31 +268,30 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     height: undefined,
-    width: undefined
-},
+    width: undefined,
+  },
 
-profileImage: {
-  width: 200,
-  height: 200,
-  borderRadius: 100,
-  overflow: "hidden"
-},
-userImg: {
-  height: 200,
-  width: 200,
-  borderRadius: 75,
-  alignSelf: "center"
-  
-},
-add: {
-  backgroundColor: "#fff",
-  position: "absolute",
-  bottom: 0,
-  right: 0,
-  width: 60,
-  height: 60,
-  borderRadius: 30,
-  alignItems: "center",
-  justifyContent: "center"
-},
+  profileImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    overflow: 'hidden',
+  },
+  userImg: {
+    height: 200,
+    width: 200,
+    borderRadius: 75,
+    alignSelf: 'center',
+  },
+  add: {
+    backgroundColor: '#fff',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
