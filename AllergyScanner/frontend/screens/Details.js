@@ -1,4 +1,4 @@
-import React, { useContext, View } from 'react'
+import React, { useContext, View, useEffect } from 'react'
 import {
   Text,
   StatusBar,
@@ -68,10 +68,15 @@ const Details = ({ route }) => {
                 </Back>
 
                 <Favourite
-                  userFrom={storedCredentials}
-                  productId={productId}
-                  productName={productName}
-                  newMatches={newMatches}
+                   userFrom={storedCredentials}
+                   productId={productId}
+                   productName={productName}
+                   brands={brands}
+                   image={image}
+                   traces={traces}
+                   ingredients={ingredients}
+                   newMatches={newMatches}
+                   allergens={yourAllergensSelected}
                 />
               </MenuBar>
               <MainInfo>

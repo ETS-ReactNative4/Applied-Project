@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { View, Text, FlatList, StatusBar, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StatusBar, StyleSheet, TouchableOpacity } from 'react-native'
 // axios
 import Axios from 'axios'
 // user context
@@ -17,6 +17,7 @@ import { useFavourites } from '../components/Context/FavouriteContext'
 import FavouriteHeader from '../components/Headers/FavouriteHeader'
 import { Icon } from 'react-native-elements'
 import { Entypo } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 const Favourite = () => {
   const {
@@ -28,7 +29,7 @@ const Favourite = () => {
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
-
+  const navigation = useNavigation()
   const SPACING = 20
   const [swipedRow, setSwipedRow] = useState(null)
 
@@ -122,12 +123,18 @@ const Favourite = () => {
                       style={styles.iconWarning}
                     />
                     <View style={styles.container}>
+                    <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('Details1', {product: item} )
+                        }
+                      >
                       <Text style={{ fontSize: 18, fontWeight: '700' }}>
                         {item.productName}
                       </Text>
                       <Text style={{ fontSize: 13, opacity: 0.7 }}>
                         {item.productId}
                       </Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 )
@@ -152,12 +159,18 @@ const Favourite = () => {
                       style={styles.iconCheck}
                     />
                     <View style={styles.container}>
+                    <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('Details1', {product: item} )
+                        }
+                      >
                       <Text style={{ fontSize: 18, fontWeight: '700' }}>
                         {item.productName}
                       </Text>
                       <Text style={{ fontSize: 13, opacity: 0.7 }}>
                         {item.productId}
                       </Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 )

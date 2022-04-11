@@ -13,7 +13,7 @@ const favouriteSchema = mongoose.Schema({
     productName : {
         type: String
     },
-   
+    
     newMatches: [{
         type: String
     }],
@@ -30,6 +30,12 @@ const favouriteSchema = mongoose.Schema({
     traces: [{
         type:String
     }],
+    image: {
+        type: String
+      },
+    brands: {
+        type: String
+    },
     date: {
 		type: Date,
 		default: Date.now,

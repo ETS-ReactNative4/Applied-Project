@@ -1,44 +1,59 @@
-import React, { useContext, View } from 'react'
+import React, { useContext, View, useEffect } from 'react'
 import {
   Text,
   StatusBar,
   Image,
-  SafeAreaView, ScrollView, TouchableOpacity
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native'
-import { useAllergens } from '../components/Context/AllergenContext'
+// user context
 import { CredentialsContext } from '../components/Context/CredentialsContext'
 import styled from 'styled-components'
 import { AntDesign } from '@expo/vector-icons'
+// favourite component
 import Favourite from '../components/Favourite'
+// naviagtion
 import { useNavigation } from '@react-navigation/native'
 
-const ScanResults = (props) => {
+const Details2 = ({ route }) => {
+  // user credentials
   const { storedCredentials, setStoredCredentials } = useContext(
     CredentialsContext,
   )
-  const { allergens } = useAllergens()
+  // navigation
   const navigation = useNavigation()
-  const productId = props.productId
-  const productName = props.productName
-  const brands = props.brands
-  const ingredients = props.ingredients
-  const image = props.image
-  const traces = props.traces
-  const newMatches = props.newMatches;
-  const mappingAllergens = (
+  // product details
+  const product = route.params.product
+  const productId = product.productId
+  const yourAllergensSelected = product.allergens
+  const traces = product.traces
+  const ingredients = product.ingredients
+  const productName = product.productName
+  const image = product.image
+  const brands = product.brands
+  const newMatches = product.newMatches
+  
+  
+  // function to map the allergens
+  const selectedAllergens = (
     <Text>
-      {allergens.map((value, index) => (
+      {yourAllergensSelected.map((value, index) => (
         <Text key={value.key}>{(index ? ', ' : '') + value.title}</Text>
       ))}
     </Text>
   )
-  
-  const mappingTraces = (
-    <Text>{traces.replaceAll('(en)', '').replaceAll('en:', '')}</Text>
+  // function to map the traces of allergens
+  const tracesOfAllergens = (
+    <Text>
+      {traces.map((value, index) => (
+        <Text key={value}>
+          {(index ? ', ' : '') + value.replaceAll('en:', '')}
+        </Text>
+      ))}
+    </Text>
   )
 
-  
-  
   return (
     <>
       <Container>
@@ -48,8 +63,8 @@ const ScanResults = (props) => {
             <SafeAreaView>
               <MenuBar>
                 <Back>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <AntDesign name="arrowleft" size={24} color="#FFF" />
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <AntDesign name="arrowleft" size={24} color="#FFF" />
                   </TouchableOpacity>
                 </Back>
 
@@ -62,7 +77,7 @@ const ScanResults = (props) => {
                    traces={traces}
                    ingredients={ingredients}
                    newMatches={newMatches}
-                   allergens={allergens}
+                   allergens={yourAllergensSelected}
                 />
               </MenuBar>
               <MainInfo>
@@ -76,50 +91,49 @@ const ScanResults = (props) => {
             </SafeAreaView>
           </DarkenImg>
         </Picture>
-        
+
         <Info>
-       
-        <ScrollView showsVerticalScrollIndicator={false} 
-          style={{marginBottom: -30, marginVertical: -10  ,height: -20}}
-         
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ marginBottom: -30, marginVertical: -10, height: -20 }}
           >
-          <Words dark heavy large>
-            Ingredients
-          </Words>
-          <Words dark small>
-            {ingredients || 'No ingredients for this product.'} {'\n'}
-          </Words>
-          <Words dark heavy large>
-            May contain traces of
-          </Words>
-          <Words dark small>
-            {traces.length == 0  &&
-                'No traces found for this product.'}
-              {mappingTraces}{'\n'}
-          </Words>
-          <Words dark heavy large>
-            Allergen Matches
-          </Words>
-          <Words dark small>
-            {newMatches.join(',') || 'No allergen matches.'} {'\n'}
-          </Words>
-          <Words dark heavy large>
-            Allergens Selected
-          </Words>
-          <Words dark small>
-            {allergens.length == 0 && 'You selected no allergens.'}
-            {mappingAllergens} {'\n'}
-          </Words>
+            <Words dark heavy large>
+              Ingredients
+            </Words>
+            <Words dark small>
+              {ingredients || 'No ingredients for this product.'} {'\n'}
+            </Words>
+            <Words dark heavy large>
+              May contain traces of
+            </Words>
+            <Words dark small>
+              {traces.length == 0 ||
+                (traces == '' && 'No traces found for this product.')}
+              {tracesOfAllergens}
+              {'\n'}
+            </Words>
+            <Words dark heavy large>
+              Allergen Matches
+            </Words>
+            <Words dark small>
+              {newMatches.join(',') || 'No allergen matches.'} {'\n'}
+            </Words>
+
+            <Words dark heavy large>
+              Allergens Selected
+            </Words>
+            <Words dark small>
+            {yourAllergensSelected.length == 0 && 'You selected no allergens.'}
+            {selectedAllergens} {'\n'}
+            </Words>
           </ScrollView>
-         
         </Info>
-      
       </Container>
     </>
   )
 }
 
-export default ScanResults;
+export default Details2
 
 const Container = styled.View`
 flex: 1
@@ -191,9 +205,7 @@ const Info = styled.View`
   background-color: #fff;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
- 
-  
 `
-const Details = styled.View`
+const texts = styled.View`
   margin-top: 16px;
 `

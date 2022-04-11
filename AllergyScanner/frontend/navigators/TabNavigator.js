@@ -11,6 +11,7 @@ import History from '../screens/History'
 import Results from '../screens/Results'
 import Details from '../screens/Details'
 import EditProfile from '../screens/EditProfile'
+import Details2 from '../screens/Details2'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -26,6 +27,27 @@ const HistoryStack = () => {
       <Stack.Screen
         name="Details"
         component={Details}
+        options={({ route }) => ({
+          title: route.params?.title,
+          headerStyle: { backgroundColor: '#344955' },
+          headerShown: false,
+        })}
+      />
+    </Stack.Navigator>
+  )
+}
+
+const FavouriteStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Favourite"
+        component={Favourite}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Details1"
+        component={Details2}
         options={({ route }) => ({
           title: route.params?.title,
           headerStyle: { backgroundColor: '#344955' },
@@ -106,7 +128,7 @@ const TabNavigator = () => {
         component={PickAllergens}
       ></Tab.Screen>
       <Tab.Screen
-        name="Favourite"
+        name="Favourite2"
         options={{
           tabBarLabel: 'Favourite',
           tabBarActiveTintColor: '#ffff99',
@@ -115,7 +137,7 @@ const TabNavigator = () => {
             <Icon name="favorite" type="material" color="#C9DFEC" size={30} />
           ),
         }}
-        component={Favourite}
+        component={FavouriteStack}
       ></Tab.Screen>
       <Tab.Screen
         name="Scan2"

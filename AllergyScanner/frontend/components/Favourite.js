@@ -20,6 +20,8 @@ const Favourite = (props) => {
     newMatches: props.newMatches,
     ingredients: props.ingredients,
     traces: props.traces,
+    brands: props.brands,
+    image: props.image
   }
 
   // loads the favourited items
