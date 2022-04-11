@@ -30,10 +30,10 @@ const Details = ({ route }) => {
   const traces = product.traces
   const ingredients = product.ingredients
   const productName = product.productName
-  //const image = product.image_front_url
+  const image = product.image
   const brands = product.brands
   const newMatches = product.newMatches
-  //console.log(global.data)
+  
   // function to map the allergens
   const selectedAllergens = (
     <Text>
@@ -57,7 +57,7 @@ const Details = ({ route }) => {
     <>
       <Container>
         <StatusBar barStyle="light-content" />
-        <Picture source={global.data ? { uri: global.data } : null}>
+        <Picture source={image ? { uri: image } : null}>
           <DarkenImg>
             <SafeAreaView>
               <MenuBar>
@@ -117,9 +117,8 @@ const Details = ({ route }) => {
               Allergens Selected
             </Words>
             <Words dark small>
-              {yourAllergensSelected.length == 0 ||
-                (undefined && 'You selected no allergens.')}
-              {selectedAllergens}
+            {yourAllergensSelected.length == 0 && 'You selected no allergens.'}
+            {selectedAllergens} {'\n'}
             </Words>
           </ScrollView>
         </Info>
