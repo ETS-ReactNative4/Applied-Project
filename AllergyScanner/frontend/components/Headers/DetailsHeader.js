@@ -4,6 +4,7 @@ import { Appbar, Title } from 'react-native-paper'
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 
+
 // Details page header
 const Header = ({ titleText }) => {
   const navigation = useNavigation()

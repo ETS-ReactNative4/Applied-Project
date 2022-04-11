@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Dimensions} from 'react-native'
 import { Appbar, Title } from 'react-native-paper'
 
+const {height} = Dimensions.get("screen");
+const {width} = Dimensions.get("screen");
 // profile header
 const Header = ({ titleText }) => {
   return (
@@ -16,6 +18,7 @@ const Header = ({ titleText }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#344955',
+    height: height * 0.06,
   },
   container: {
     flex: 1,
@@ -25,14 +28,13 @@ const styles = StyleSheet.create({
 
   title: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: width * 0.08,
     fontWeight: 'bold',
-
+    lineHeight: width * 0.08,
     letterSpacing: 2,
     fontStyle: 'italic',
   },
   backButton: {
-    // right: 150,
     right: 360,
     bottom: 2,
   },

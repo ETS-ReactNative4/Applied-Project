@@ -39,7 +39,7 @@ const Details2 = ({ route }) => {
   const selectedAllergens = (
     <Text>
       {yourAllergensSelected.map((value, index) => (
-        <Text key={value.key}>{(index ? ', ' : '') + value.title}</Text>
+        <Text key={value.key}>{(index ? ',' : '') + value.title}</Text>
       ))}
     </Text>
   )

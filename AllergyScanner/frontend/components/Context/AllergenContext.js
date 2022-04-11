@@ -28,7 +28,7 @@ const AllergenProvider = ({ children }) => {
           setAllergens(response.data.allergens)
           // set the result to global.allergenData so its accessible from anywhere
           global.allergenData = response.data.allergens
-          console.log(`${JSON.stringify(response.data.allergens)}`)
+          //console.log(`${JSON.stringify(response.data.allergens)}`)
         } else {
           alert('Failed to get favourited items')
         }

@@ -95,14 +95,7 @@ const Edit = ({ navigation }) => {
             />
 
             <View style={styles.active}></View>
-            <View style={styles.add}>
-              <Ionicons
-                name="ios-add"
-                size={48}
-                color="#344955"
-                style={{ marginTop: 6, marginLeft: 2 }}
-              ></Ionicons>
-            </View>
+            
           </View>
         </View>
         <Animatable.View style={[styles.footer, {}]} animation="fadeInUpBig">
@@ -255,6 +248,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    
   },
   text_header: {
     color: '#fff',

@@ -18,6 +18,7 @@ export default function Scanner({ navigation }) {
     })()
   }, [])
 
+
   // to stop scanning multiple times
   const _debouncedHandleBarCodeRead = _.debounce(
     (data) => {
@@ -48,10 +49,18 @@ export default function Scanner({ navigation }) {
   }
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>
+    return (
+      <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+    <Text>Requesting for camera permission</Text>
+    </View>
+    )
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>
+    return (
+      <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+    <Text>No access to camera</Text>
+    </View>
+    )
   }
 
   if (isFocused) {
@@ -64,7 +73,6 @@ export default function Scanner({ navigation }) {
           >
             <View style={styles.focus} />
           </BarCodeScanner>
-          {/*{scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}*/}
         </View>
       </>
     )

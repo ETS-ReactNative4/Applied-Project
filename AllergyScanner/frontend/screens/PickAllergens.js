@@ -134,6 +134,7 @@ const PickAllergens = () => {
       <AllergenHeader
         titleText="Allergens"
         handleClearAllergens={handleClearAllergens}
+        setModalVisible={setModalVisible}
       />
       <Container>
         <ListAllergenItems

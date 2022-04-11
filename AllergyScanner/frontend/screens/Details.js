@@ -38,7 +38,7 @@ const Details = ({ route }) => {
   const selectedAllergens = (
     <Text>
       {yourAllergensSelected.map((value, index) => (
-        <Text key={value.key}>{(index ? ', ' : '') + value.title}</Text>
+        <Text key={value.key}>{(index ? ',' : '') + value.title}</Text>
       ))}
     </Text>
   )
@@ -141,32 +141,24 @@ background-color: #fff
 
 const Words = styled.Text`
 color: ${(props) => (props.dark ? '#000' : '#FFF')}
-
-
 ${({ title, large, small }) => {
   switch (true) {
     case title:
       return `font-size: 32px`
-
     case large:
       return `font-size: 20px`
-
     case small:
       return `font-size: 13px`
   }
 }}
-
 ${({ bold, heavy }) => {
   switch (true) {
     case bold:
       return `font-weight: 600`
-
     case heavy:
       return `font-weight: 700`
   }
 }}
-
-
 `
 
 const Picture = styled.ImageBackground`

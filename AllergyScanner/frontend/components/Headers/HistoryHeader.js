@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { Appbar, Title } from 'react-native-paper'
 import { Entypo } from '@expo/vector-icons'
 import { HeaderButton } from '../Styles'
 
+const {height} = Dimensions.get("screen");
+const {width} = Dimensions.get("screen");
 // Header for scanned items page
 // takes in a function to delete all scanned items
 const HistoryHeader = ({ titleText, removeAll }) => {
@@ -22,6 +24,7 @@ const HistoryHeader = ({ titleText, removeAll }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#344955',
+    height: height * 0.06,
   },
   container: {
     flex: 1,
@@ -34,9 +37,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: width * 0.08,
+    lineHeight: width * 0.08,
     fontWeight: 'bold',
-    right: 50,
+    right: height * 0.05,
 
     letterSpacing: 2,
     fontStyle: 'italic',

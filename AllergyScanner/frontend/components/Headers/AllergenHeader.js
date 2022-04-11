@@ -1,17 +1,22 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { Appbar, Title } from 'react-native-paper'
 // Icons
 import { Entypo } from "@expo/vector-icons";
 // styled components
 import {   
     HeaderButton,
+   
   } from "../Styles";
+  
+  const {height} = Dimensions.get("screen");
+  const {width} = Dimensions.get("screen");
   
 // Header for allergens page
 // takes in a function to delete all allergens
-const AllergenHeader = ({ titleText, handleClearAllergens }) =>{
+const AllergenHeader = ({ titleText, handleClearAllergens, setModalVisible, }) =>{
     return (
+       
         <Appbar.Header style={styles.headerContainer}>
             <View style={styles.container}>
             
@@ -23,18 +28,22 @@ const AllergenHeader = ({ titleText, handleClearAllergens }) =>{
             <Entypo name="trash" size={29}  style={styles.bin}/>
             </HeaderButton>
         </Appbar.Header>
+       
     )
 }
 
 
 const styles = StyleSheet.create({
     headerContainer: {
-        backgroundColor: '#344955'
+        backgroundColor: '#344955',
+        height: height * 0.06,
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+       
+        
     },
     bin: {
         right: 20,
@@ -42,9 +51,11 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#fff',
-        fontSize: 30,
-  fontWeight: 'bold',
-  right: 80,
+        fontSize: width * 0.08,
+        fontWeight: 'bold',
+        lineHeight: width * 0.08,
+        right: height * 0.09,
+     
   
   letterSpacing: 2,
   fontStyle: 'italic'

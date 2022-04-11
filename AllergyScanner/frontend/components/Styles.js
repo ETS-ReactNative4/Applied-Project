@@ -188,7 +188,7 @@ export const HeaderView = styled.View`
 export const HeaderTitle = styled.Text`
   font-size: 35px;
   font-weight: bold;
-  
+  color: #fff
   letter-spacing: 2px;
   font-style: italic;
 `;
@@ -254,16 +254,17 @@ export const SwipedAllergenText = styled(AllergenText)`
 `;
 
 export const ModalButton = styled.TouchableOpacity`
-  width: 30px;
-  height: 30px;
-  background-color: ${colors.tertiary};
+  width: 70px;
+  height: 70px;
+  background-color: #344955;
   border-radius: 50px;
   justify-content: center;
   align-items: center;
   align-self: center;
   position: absolute;
-  right: 85px;
-  top: -43px;
+  bottom: 10px;
+ 
+  
 `;
 
 export const ModalContainer = styled.View`
@@ -307,7 +308,7 @@ export const ModalAction = styled.TouchableOpacity`
 `;
 
 export const ModalView = styled.View`
-  background-color: ${colors.alternative};
+  background-color: #344955;
   border-radius: 20px;
   padding: 35px;
   bottom: 60px;

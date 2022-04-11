@@ -97,7 +97,7 @@ const ListAllergenItems = ({
           previewOpenDelay={3000}
           disableLeftSwipe={true}
           showsVerticalScrollIndicator={false}
-          style={{ flex: 1, paddingBottom: 30, marginBottom: 40 }}
+          style={{ flex: 1}}
           // Handling swiped allergen row
           onRowOpen={(rowKey) => {
             setSwipedRow(rowKey)

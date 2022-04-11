@@ -89,7 +89,6 @@ const History = () => {
             keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={{
               padding: SPACING,
-              paddingTop: StatusBar.currentHeight || 42,
             }}
             renderItem={({ item, index }) => {
               if (item.newMatches.length > 0) {

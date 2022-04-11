@@ -11,7 +11,6 @@ import {
   HeaderTitle,
   colors,
 } from './Styles'
-
 import { AntDesign } from '@expo/vector-icons'
 
 // takes a number of properties
@@ -69,7 +68,7 @@ const InputModal = ({
   return (
     <>
       <ModalButton onPress={() => setModalVisible(true)}>
-        <AntDesign name="plus" size={30} color={colors.secondary} />
+        <AntDesign name="plus" size={30} color={colors.tertiary} />
       </ModalButton>
       <Modal
         animationType="slide"
@@ -92,8 +91,8 @@ const InputModal = ({
               onSubmitEditing={handleSubmit}
             />
             <ModalActionGroup>
-              <ModalAction onPress={handleCloseModal} color={colors.primary}>
-                <AntDesign name="close" size={28} color={colors.tertiary} />
+              <ModalAction onPress={handleCloseModal} color={colors.tertiary}>
+                <AntDesign name="close" size={28} color={colors.secondary} />
               </ModalAction>
               <ModalAction onPress={handleSubmit} color={colors.tertiary}>
                 <AntDesign name="check" size={28} color={colors.secondary} />

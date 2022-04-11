@@ -128,7 +128,7 @@ background-color: #fff
 
 const Words = styled.Text`
 color: ${(props) => (props.dark ? '#000' : '#FFF')}
-font-family: "AvenirNext-Regular";
+
 
 ${({ title, large, small }) => {
   switch (true) {
