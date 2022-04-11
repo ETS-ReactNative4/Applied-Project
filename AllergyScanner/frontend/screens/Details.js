@@ -46,8 +46,8 @@ const Details = ({ route }) => {
   const tracesOfAllergens = (
     <Text>
       {traces.map((value, index) => (
-        <Text key={value}>
-          {(index ? ', ' : '') + value.replaceAll('en:', '')}
+        <Text key={index}>
+          {(index ? ', ' : '') + value.replace(/en:/g, '')}
         </Text>
       ))}
     </Text>
@@ -141,7 +141,7 @@ background-color: #fff
 
 const Words = styled.Text`
 color: ${(props) => (props.dark ? '#000' : '#FFF')}
-font-family: "AvenirNext-Regular";
+
 
 ${({ title, large, small }) => {
   switch (true) {

@@ -34,7 +34,7 @@ const ScanResults = (props) => {
   )
   
   const mappingTraces = (
-    <Text>{traces.replaceAll('(en)', '').replaceAll('en:', '')}</Text>
+    <Text>{traces.replace(/en:/g, '')}</Text>
   )
 
   

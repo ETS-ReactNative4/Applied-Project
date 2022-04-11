@@ -90,7 +90,7 @@ const Dashboard = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.userInfoItem}>
-          <TouchableOpacity  onPress={() => navigation.navigate('Favourite')}>
+          <TouchableOpacity  onPress={() => navigation.navigate('Favourite2',{ screen: 'Favourite'})}>
             <Text style={styles.userInfoTitle}>
               {FavouritedProducts.length}
             </Text>
@@ -98,7 +98,7 @@ const Dashboard = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.userInfoItem}>
-          <TouchableOpacity  onPress={() => navigation.navigate('History')}>
+          <TouchableOpacity  onPress={() => navigation.navigate('History2', {screen: 'History'})}>
             <Text style={styles.userInfoTitle}>{products.length}</Text>
             <Text style={styles.userInfoSubTitle}>Scanned Items</Text>
             </TouchableOpacity>

@@ -48,7 +48,7 @@ const Details2 = ({ route }) => {
     <Text>
       {traces.map((value, index) => (
         <Text key={value}>
-          {(index ? ', ' : '') + value.replaceAll('en:', '')}
+          {(index ? ', ' : '') + value.replace(/en:/g, '')}
         </Text>
       ))}
     </Text>
@@ -142,7 +142,7 @@ background-color: #fff
 
 const Words = styled.Text`
 color: ${(props) => (props.dark ? '#000' : '#FFF')}
-font-family: "AvenirNext-Regular";
+
 
 ${({ title, large, small }) => {
   switch (true) {

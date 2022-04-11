@@ -55,6 +55,7 @@ const Results = ({ route }) => {
   const image = product.image_front_url
   const brands = product.brands
 
+
   // if there is no ingredients, display message
   if (product.ingredients_text === undefined) {
     return (
